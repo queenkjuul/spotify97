@@ -1,0 +1,12 @@
+{
+  "entry": "./src/app.ts",
+  "out": "./dist/win/SpotifyClient97Server.exe",
+  "icon": "../client/SpotifyClient97/Images/SpotifyClient97.ico",
+  "version": "{package:version}",
+  "properties": {
+    "FileDescription": "{package:description}",
+    "ProductName": "Spotify Client 97 Relay Server",
+    "LegalCopyright": "(C) {package:author}",
+    "OriginalFilename": "{package:name}"
+  }
+}
