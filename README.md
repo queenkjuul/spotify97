@@ -1,6 +1,6 @@
 # Spotify(R) Client 97
 
-A Spotify Connect remote-control frontend for Windows 95 and up.
+A Spotify Connect remote-control frontend for Windows 95 and up. Requires Spotify Premium. Does not stream audio, only remote-controls other spotify devices.
 
 ![Spotify Connect logo](client/SpotifyClient97/Images/SpotifySplash.png)
 
@@ -168,7 +168,7 @@ To run the server locally in dev mode:
 
 1. [Install Node](https://nodejs.org/en/download/prebuilt-installer/current). Check this repo's `.nvmrc` for my exact version, but latest is probably fine
 2. Clone this repo, or download and extract the .zip file
-3. Open a terminal in thGe `spotifyclient97/server` directory
+3. Open a terminal in the `spotifyclient97/server` directory
 4. run `cp .env.example .env`
 5. Edit `.env` to suit
 6. run `npm i`

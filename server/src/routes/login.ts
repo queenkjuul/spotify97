@@ -1,3 +1,5 @@
+import ipAddresses from "../util/ipAddress"
+
 export default function loginRoutes(app, client) {
   // LOGIN ENDPOINTS - Accessed via browser, not via client
   let state: Optional<string> // must be returned in auth server response for login only
@@ -22,6 +24,7 @@ export default function loginRoutes(app, client) {
     const code = req.query?.code
     const reqstate = req.query?.state
     const error = req.query?.error
+    const addresses = ipAddresses()
 
     // state mismatch - probably called without hitting /login first
     if (reqstate !== state || !reqstate || !state) {
@@ -41,7 +44,24 @@ export default function loginRoutes(app, client) {
     else if (code) {
       try {
         await client.acquireToken(code.toString())
-        res.send("Auth Success! You can close this window.")
+
+        const text = `${
+          addresses
+            ? `Enter the server URL and port in your client. If you are unsure, it is probably:\n ${addresses.map(
+                (addr) => `http://${addr}:${process.env.PORT} \n`
+              )}`
+            : ""
+        }`
+
+        if (addresses) {
+          console.log()
+          console.log(text)
+        }
+
+        res.send(`<html><h1>Auth Success!</h1><br /> 
+        Double check your terminal to confirm it says logged in.<br /> 
+        ${text}<br />
+        You can close this window.</html>`)
         console.log("Login success!")
       } catch (e) {
         console.error(e)
