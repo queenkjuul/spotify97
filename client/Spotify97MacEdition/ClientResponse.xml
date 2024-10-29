@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482105575">
+ <ObjName>ClientResponse</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="731" top="300" width="689" height="363"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="731" top="300" width="689" height="363"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>ClientResponse</ObjName>
+ <ObjSize>36</ObjSize>
+ <IsInterface>0</IsInterface>
+ <Property Flags="33">_message as string</Property>
+ <Property Flags="33">_data as object</Property>
+ <Property Flags="33">_error as string</Property>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>message as string, data as object, optional error as string = ""</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>14</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>14</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(message as string, data as object, optional error as string = "")</SourceLine>
+   <SourceLine>_message = message</SourceLine>
+   <SourceLine>_data = data</SourceLine>
+   <SourceLine>_error = error</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Message</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>15</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>15</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Message() As string</SourceLine>
+   <SourceLine>return _message</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Data</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>object</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>12</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>12</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Data() As object</SourceLine>
+   <SourceLine>return _data</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Error</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>13</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>13</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Error() As string</SourceLine>
+   <SourceLine>return _error</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>isError</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>boolean</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function isError() As boolean</SourceLine>
+   <SourceLine>if Error() = "" then</SourceLine>
+   <SourceLine>return False</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return True</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

@@ -16,3 +16,5 @@ Thumbs.db*
 *.pfx
 node_modules/
 .vscode/
+._*
+.DS_Store

@@ -1,10 +1,13 @@
+import { Express } from "express"
+import { Stream } from "stream"
+import SpotifyClient from "../client/SpotifyClient"
 import { Device } from "../models/Device"
 import { PlaybackState } from "../models/PlaybackState"
 import { Track } from "../models/Track"
 import errorResponse from "../util/errorResponse"
 import response from "../util/response"
 
-export default function statusRoutes(app, client) {
+export default function statusRoutes(app: Express, client: SpotifyClient) {
   app.get("/connect", async (req, res) => {
     if (client.readyForCalls) {
       res.send(response("Connected."))
@@ -95,6 +98,28 @@ export default function statusRoutes(app, client) {
       const data = await client.getAlbumArt(url?.toString())
       console.log("200 - /albumArt      - Retrieved album art")
       res.send(response(undefined, data))
+    } catch (e) {
+      console.error(e)
+      res.send(errorResponse(e))
+    }
+  })
+
+  app.get("/albumArtFile", async (req, res) => {
+    const url = req.query.url
+    const width = req.query.width
+    const height = req.query.height
+    try {
+      const data = await client.getAlbumArtFile(
+        url?.toString(),
+        width?.toString(),
+        height?.toString()
+      )
+      console.log("200 - /albumArtFile  - Sent album art jpeg")
+      const readStream = new Stream.PassThrough()
+      readStream.end(data)
+      res.set("Content-disposition", "attachment; filename=albumart.jpg")
+      res.set("Content-Type", "image/jpeg")
+      readStream.pipe(res)
     } catch (e) {
       console.error(e)
       res.send(errorResponse(e))

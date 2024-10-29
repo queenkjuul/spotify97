@@ -1,4 +1,5 @@
 import fs from "fs"
+import { Jimp } from "jimp"
 
 export default class SpotifyClient {
   // environment - asserting non-null, will crash without proper env
@@ -212,6 +213,28 @@ export default class SpotifyClient {
     }
   }
 
+  // 175x175 is size of Mac client album art control
+  async getAlbumArtFile(
+    url,
+    w: string | number = 175,
+    h: string | number = 175
+  ) {
+    try {
+      if (!url) return
+      if (typeof w === "string") {
+        w = parseInt(w)
+      }
+      if (typeof h === "string") {
+        h = parseInt(h)
+      }
+      const image = await Jimp.read(url)
+      image.resize({ w, h })
+      return image.getBuffer("image/jpeg")
+    } catch (e) {
+      this.err(e)
+    }
+  }
+
   async getQueue() {
     try {
       const response = await this.spotifyRequest("/me/player/queue")
@@ -221,8 +244,6 @@ export default class SpotifyClient {
       this.err(e)
     }
   }
-
-  async
 
   async playbackChange(
     path: string,

@@ -1,6 +1,6 @@
-# Spotify(R) Client 97
+# Spotify(R) 97
 
-A Spotify Connect remote-control frontend for Windows 95 and up. Requires Spotify Premium. Does not stream audio, only remote-controls other spotify devices.
+A client-server system to control Spotify Connect devices from retro machines (Windows 95 and up, Mac OS 8.6+ coming soon.) Requires Spotify Premium. Does not stream audio, only remote-controls other Spotify devices.
 
 ![Spotify Connect logo](client/SpotifyClient97/Images/SpotifySplash.png)
 
@@ -12,7 +12,8 @@ We've all been there: you're hard at work on your 98SE rig, your phone is in the
 
 Well, the gentle laborer shall no longer suffer. With only some mildly complicated custom client-server infrastructure, Spotify(R) Client 97 allows you to control your Spotify Connect playback endpoints from the comfort of Windows 98. In theory, with [MattKC's .NET 2.0 port](https://github.com/itsmattkc/dotnet9x) the client will even run on Windows 95, though this has not been tested.
 
-- [Spotify(R) Client 97](#spotifyr-client-97)
+{:.tree-view}
+- [Spotify(R) 97](#spotifyr-97)
   - [Why](#why)
   - [What](#what)
   - [How](#how)
@@ -36,7 +37,6 @@ Well, the gentle laborer shall no longer suffer. With only some mildly complicat
         - [Process](#process)
     - [Client](#client)
 
-
 ## Why
 
 Someone had to do it, obviously.
@@ -45,14 +45,16 @@ Someone had to do it, obviously.
 
 This app DOES NOT stream any audio! This is only a UI you can use to remote control your other Spotify instances and Spotify Connect devices.
 
+However, you could run this alongside [spotifyd](https://github.com/Spotifyd/spotifyd) on a Pi or similar and hook up its line out to your Sound Blaster's Line In and have an all in one retro Spotify solution.
+
 ## How
 
-Spotify(R) Client 97 consists of two components:
+Spotify(R) 97 consists of two components:
 
 1. Relay Server
    - The Relay Server is a node.js app written in TypeScript which must be run on a 'modern' computer; that is to say, one new enough to be able to run a recent version of Node and make HTTPS requests to the Spotify API. Typically this is just the computer running Spotify that you want to remote control.
 2. Client Application
-   - The Client Application is a native Windows Forms application written in VB.NET and utilizing .NET Framework 2.0. The client is a frontend for the Relay Server: you click Play in the Client, it sends a Play message to the Relay Server, the Relay Server calls the Spotify Connect API and tells it to start playing on the specified device.
+   - The Client Application is a frontend for the Relay Server: you click Play in the Client, it sends a Play message to the Relay Server, the Relay Server calls the Spotify Connect API and tells it to start playing on the specified device.
 
 ## How (to)
 
@@ -117,6 +119,8 @@ docker run -it --rm \
 ```
 
 ### Set up the client
+
+*Windows instructions provided. Mac client coming soon*
 
 The client is whatever computer you want to use to control your Spotify stream. This can be any Windows PC running at least Windows 95, and which has an active network connection on the same network / LAN / WiFi as the Relay Server
 

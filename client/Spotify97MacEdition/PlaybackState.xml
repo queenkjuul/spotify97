@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482037664">
+ <ObjName>PlaybackState</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="485" top="59" width="642" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="485" top="59" width="642" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>PlaybackState</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Active</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Active() As Boolean</SourceLine>
+   <SourceLine>return me.Value("active").BooleanValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Repeat</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>42</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>42</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Repeat() As string</SourceLine>
+   <SourceLine>return Me.Value("repeatState").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Shuffle</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>44</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>44</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Shuffle() As Boolean</SourceLine>
+   <SourceLine>return Me.Value("shuffleState").BooleanValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Progress</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Integer</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>40</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>40</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Progress() As Integer</SourceLine>
+   <SourceLine>return Me.Value("progress").IntegerValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Playing</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Boolean</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>28</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>28</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Playing() As Boolean</SourceLine>
+   <SourceLine>if me.hasKey("playing") then</SourceLine>
+   <SourceLine>return Me.Value("playing").BooleanValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return False </SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>NowPlaying</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Track</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function NowPlaying() As Track</SourceLine>
+   <SourceLine>if me.HasKey("nowPlaying") and me.Value("nowPlaying").ObjectValue &lt;&gt; Nil then</SourceLine>
+   <SourceLine>return Track(me.Value("nowPlaying").ObjectValue)</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return Nil</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Context</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>38</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>38</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Context() As string</SourceLine>
+   <SourceLine>return Me.Value("context").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

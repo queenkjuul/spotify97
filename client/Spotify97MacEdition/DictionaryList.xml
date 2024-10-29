@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="208266008">
+ <ObjName>DictionaryList</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="31" top="71" width="991" height="688"/></EditBounds>
+ <EditSplit>330</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="31" top="71" width="991" height="688"/></EditBounds>
+   <EditSplit>330</EditSplit>
+  </BrowserPositionElement>
+  <BrowserPositionElement>
+   <ScreenKey>100001207</ScreenKey>
+   <EditBounds><Rect left="656" top="116" width="991" height="688"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>DictionaryList</ObjName>
+ <ObjSize>448</ObjSize>
+ <Superclass>Listbox</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>set</ItemName>
+  <ItemParams>d as dictionary</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>8</StartSelRow>
+   <StartSelCol>24</StartSelCol>
+   <EndSelRow>8</EndSelRow>
+   <EndSelCol>24</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub set(d as dictionary)</SourceLine>
+   <SourceLine>DeleteAllRows</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim key as string</SourceLine>
+   <SourceLine>dim keys() as string</SourceLine>
+   <SourceLine>redim keys(d.count)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>i = 0</SourceLine>
+   <SourceLine>for i = 0 to d.count - 1</SourceLine>
+   <SourceLine>keys(i) = d.key(i)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>for each key in keys</SourceLine>
+   <SourceLine>if d.Value(key) isa Dictionary or d.Value(key) isa Collection then</SourceLine>
+   <SourceLine>AddFolder key</SourceLine>
+   <SourceLine>CellTag(LastIndex,0) = d.value(key)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>Addrow key</SourceLine>
+   <SourceLine>Cell(LastIndex,1) = d.value(key)</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <HookInstance>
+  <TextEncoding>1280</TextEncoding>
+  <ItemName>ExpandRow</ItemName>
+  <ItemSource>
+   <StartSelRow>14</StartSelRow>
+   <StartSelCol>20</StartSelCol>
+   <EndSelRow>14</EndSelRow>
+   <EndSelCol>20</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub ExpandRow(row As Integer)</SourceLine>
+   <SourceLine>dim tag as Variant = me.celltag(row,0)</SourceLine>
+   <SourceLine>dim d as Dictionary</SourceLine>
+   <SourceLine>dim key as string</SourceLine>
+   <SourceLine>dim c as Collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim keys() as string</SourceLine>
+   <SourceLine>if tag &lt;&gt; nil then</SourceLine>
+   <SourceLine>if tag isa Dictionary then</SourceLine>
+   <SourceLine>d = tag</SourceLine>
+   <SourceLine>redim keys(d.count)</SourceLine>
+   <SourceLine>for i = 1 to d.count</SourceLine>
+   <SourceLine>keys(i) = d.key(i)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>for each key in keys</SourceLine>
+   <SourceLine>if d.Value(key) isa Dictionary or d.Value(key) isa Collection then</SourceLine>
+   <SourceLine>me.AddFolder key</SourceLine>
+   <SourceLine>me.CellTag(me.LastIndex,0) = d.Value(key)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>me.Addrow key</SourceLine>
+   <SourceLine>me.Cell(me.LastIndex,1) = d.value(key)</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>elseif tag isa Collection then</SourceLine>
+   <SourceLine>c = tag</SourceLine>
+   <SourceLine>for i = 1 to c.Count</SourceLine>
+   <SourceLine>if c.item(i) isa Dictionary or c.item(i) isa Collection then</SourceLine>
+   <SourceLine>me.AddFolder str(i-1)</SourceLine>
+   <SourceLine>me.CellTag(me.LastIndex,0) = c.item(i)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>me.Addrow str(i-1)</SourceLine>
+   <SourceLine>me.Cell(me.LastIndex,1) = c.item(i)</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <HookInstance>
+  <TextEncoding>1280</TextEncoding>
+  <ItemName>Open</ItemName>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Open()</SourceLine>
+   <SourceLine>//set columns and headings</SourceLine>
+   <SourceLine>me.ColumnCount = 2</SourceLine>
+   <SourceLine>me.Hierarchical = true</SourceLine>
+   <SourceLine>me.HasHeading = true</SourceLine>
+   <SourceLine>me.Heading(0) = "Key"</SourceLine>
+   <SourceLine>me.Heading(1) = "Value"</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>version</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>1.0</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

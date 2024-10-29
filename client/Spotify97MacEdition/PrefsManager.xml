@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482048617">
+ <ObjName>PrefsManager</ObjName>
+ <ObjContainerID>-482103612</ObjContainerID>
+ <EditBounds><Rect left="82" top="83" width="984" height="405"/></EditBounds>
+ <EditSplit>328</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="82" top="83" width="984" height="405"/></EditBounds>
+   <EditSplit>328</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>0</IsClass>
+ <ObjName>PrefsManager</ObjName>
+ <ObjSize>24</ObjSize>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>loadPrefs</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>9</StartSelRow>
+   <StartSelCol>26</StartSelCol>
+   <EndSelRow>9</EndSelRow>
+   <EndSelCol>26</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub loadPrefs()</SourceLine>
+   <SourceLine>'we need to initialize expected values or things get messy later</SourceLine>
+   <SourceLine>App().settings.Value(serverUrlKey) = ""</SourceLine>
+   <SourceLine>App().settings.Value(currentDeviceIdKey) = ""</SourceLine>
+   <SourceLine>App().settings.Value(currentDeviceNameKey) = ""</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim prefsFolder as FolderItem</SourceLine>
+   <SourceLine>prefsFolder = PreferencesFolder()</SourceLine>
+   <SourceLine>dim prefsFile as FolderItem</SourceLine>
+   <SourceLine>if prefsFolder &lt;&gt; Nil then</SourceLine>
+   <SourceLine>prefsFile = prefsFolder.Child(App().AppId)</SourceLine>
+   <SourceLine>if prefsFile.exists then</SourceLine>
+   <SourceLine>parsePrefsFile(prefsFile)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>savePrefsFile</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>26</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>26</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub savePrefsFile()</SourceLine>
+   <SourceLine>dim prefsFolder as FolderItem</SourceLine>
+   <SourceLine>dim prefsFile as FolderItem</SourceLine>
+   <SourceLine>prefsFolder = PreferencesFolder()</SourceLine>
+   <SourceLine>if prefsFolder &lt;&gt; Nil then</SourceLine>
+   <SourceLine>prefsFile = prefsFolder.Child(App().AppId)</SourceLine>
+   <SourceLine>if prefsFile.exists then</SourceLine>
+   <SourceLine>prefsFile.Delete</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine>createPrefsFile()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>createPrefsFile</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>26</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>26</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub createPrefsFile()</SourceLine>
+   <SourceLine>dim prefsFolder As FolderItem</SourceLine>
+   <SourceLine>prefsFolder = PreferencesFolder()</SourceLine>
+   <SourceLine>dim textOutput As TextOutputStream</SourceLine>
+   <SourceLine>if prefsFolder &lt;&gt; Nil then</SourceLine>
+   <SourceLine>textOutput = prefsFolder.child(App().AppId).CreateTextFile</SourceLine>
+   <SourceLine>textOutput.Write(JSON.serialise(App().settings))</SourceLine>
+   <SourceLine>textOutput.Close</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>parsePrefsFile</ItemName>
+  <ItemParams>prefsFile as FolderItem</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>13</StartSelRow>
+   <StartSelCol>27</StartSelCol>
+   <EndSelRow>13</EndSelRow>
+   <EndSelCol>27</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub parsePrefsFile(prefsFile as FolderItem)</SourceLine>
+   <SourceLine>dim textInput as TextInputStream</SourceLine>
+   <SourceLine>dim jsonContent as string</SourceLine>
+   <SourceLine>dim parsedDict as Dictionary</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if prefsFile is nil then</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if prefsFile.exists then</SourceLine>
+   <SourceLine>textInput = prefsFile.OpenAsTextFile</SourceLine>
+   <SourceLine>jsonContent = textInput.ReadAll()</SourceLine>
+   <SourceLine>parsedDict = JSON.parse(jsonContent)</SourceLine>
+   <SourceLine>App().settings = parsedDict</SourceLine>
+   <SourceLine>textInput.Close()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>savePref</ItemName>
+  <ItemParams>key as string, value as string, optional commit as boolean = true</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>9</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>9</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub savePref(key as string, value as string, optional commit as boolean = true)</SourceLine>
+   <SourceLine>if App().settings.hasKey(key) then</SourceLine>
+   <SourceLine>if App().settings.Value(key).StringValue &lt;&gt; value then</SourceLine>
+   <SourceLine>App().settings.Value(key) = value</SourceLine>
+   <SourceLine>msgBox App().settings.value(key).StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if commit then</SourceLine>
+   <SourceLine>savePrefsFile()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>serverUrlKey</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>serverUrl</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>currentDeviceIdKey</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>currentDeviceId</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>currentDeviceNameKey</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>currentDeviceName</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

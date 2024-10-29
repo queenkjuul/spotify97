@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482035787">
+ <ObjName>Track</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="490" top="487" width="1226" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="490" top="487" width="1226" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Track</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Title</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>36</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>36</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Title() As string</SourceLine>
+   <SourceLine>return me.Value("title").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Artist</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>37</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>37</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Artist() As string</SourceLine>
+   <SourceLine>return Me.Value("artist").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Album</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>36</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>36</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Album() As string</SourceLine>
+   <SourceLine>return me.value("album").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Duration</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>integer</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>40</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>40</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Duration() As integer</SourceLine>
+   <SourceLine>return Me.Value("duration").IntegerValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>AlbumArtHref</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>39</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>39</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AlbumArtHref() As string</SourceLine>
+   <SourceLine>return me.Value("albumArt").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>AlbumId</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>38</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>38</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AlbumId() As string</SourceLine>
+   <SourceLine>return Me.Value("albumId").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>ID</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>33</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>33</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ID() As string</SourceLine>
+   <SourceLine>return Me.Value("id").StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>title as string, artist as string, album as string, albumart as string, albumId as string, id as string, duration as integer</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(title as string, artist as string, album as string, albumart as string, albumId as string, id as string, duration as integer)</SourceLine>
+   <SourceLine>me.value("title") = title</SourceLine>
+   <SourceLine>me.value("artist") = artist</SourceLine>
+   <SourceLine>me.value("album") = album</SourceLine>
+   <SourceLine>me.value("albumArt") = albumart</SourceLine>
+   <SourceLine>me.value("albumId") = albumId</SourceLine>
+   <SourceLine>me.value("id") = id</SourceLine>
+   <SourceLine>me.value("duration") = duration</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482481228">
+ <ObjName>App</ObjName>
+ <ObjContainerID>0</ObjContainerID>
+ <EditBounds><Rect left="734" top="360" width="971" height="437"/></EditBounds>
+ <EditSplit>-1000</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="734" top="360" width="971" height="437"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+  <BrowserPositionElement>
+   <ScreenKey>100001207</ScreenKey>
+   <EditBounds><Rect left="1166" top="427" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>App</ObjName>
+ <ObjSize>68</ObjSize>
+ <Superclass>Application</Superclass>
+ <IsInterface>0</IsInterface>
+ <Property>client as SpotifyClient</Property>
+ <Property>settings as Dictionary</Property>
+ <Property>deviceList As Collection</Property>
+ <Property>state As PlaybackState</Property>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>MainWindow</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>MainWindow</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>11</StartSelRow>
+   <StartSelCol>4</StartSelCol>
+   <EndSelRow>11</EndSelRow>
+   <EndSelCol>4</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function MainWindow() As MainWindow</SourceLine>
+   <SourceLine>Dim i,wc as Integer</SourceLine>
+   <SourceLine>' Compute the total number of windows for iteration.</SourceLine>
+   <SourceLine>wc = WindowCount - 1</SourceLine>
+   <SourceLine>' Go through the window list.</SourceLine>
+   <SourceLine>For i = 0 to wc</SourceLine>
+   <SourceLine>' Is this a visible document window?</SourceLine>
+   <SourceLine>If (Window(i) isA MainWindow) then</SourceLine>
+   <SourceLine>' This is the fist visible document window.</SourceLine>
+   <SourceLine>return MainWindow(Window(i))</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>Next</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setCurrentDevice</ItemName>
+  <ItemParams>name as string, id as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>18</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>26</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setCurrentDevice(name as string, id as string)</SourceLine>
+   <SourceLine>settings.value(PrefsManager.currentDeviceNameKey) = name</SourceLine>
+   <SourceLine>settings.value(PrefsManager.currentDeviceIdKey) = id</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim currentDeviceName as string</SourceLine>
+   <SourceLine>dim currentDeviceId as string</SourceLine>
+   <SourceLine>currentDeviceName = settings.value(PrefsManager.currentDeviceNameKey)</SourceLine>
+   <SourceLine>currentDeviceId = settings.Value(PrefsManager.currentDeviceIdKey)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>PrefsManager.savePref(PrefsManager.currentDeviceNameKey, currentDeviceName, False)</SourceLine>
+   <SourceLine>PrefsManager.savePref(PrefsManager.currentDeviceIdKey, currentDeviceId)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>MainWindow().currentDeviceLabel.Text = currentDeviceName</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setDeviceList</ItemName>
+  <ItemParams>newDeviceList As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>19</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>19</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setDeviceList(newDeviceList As Collection)</SourceLine>
+   <SourceLine>if newDeviceList isa Collection then</SourceLine>
+   <SourceLine>deviceList = newDeviceList</SourceLine>
+   <SourceLine>refreshDeviceList()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>refreshState</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>61</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>61</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub refreshState()</SourceLine>
+   <SourceLine>// get remote data</SourceLine>
+   <SourceLine>me.client.connect()</SourceLine>
+   <SourceLine>me.client.getDeviceList()</SourceLine>
+   <SourceLine>me.client.getPlaybackState()</SourceLine>
+   <SourceLine>// state update functions should handle updating their own UI</SourceLine>
+   <SourceLine>// or refresh the entire UI if they think it necessary</SourceLine>
+   <SourceLine>// but if we do it here we end up doing it twice</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setPlaybackState</ItemName>
+  <ItemParams>newState as PlaybackState</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>11</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>11</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setPlaybackState(newState as PlaybackState)</SourceLine>
+   <SourceLine>state = newState</SourceLine>
+   <SourceLine>refreshUI()</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>refreshUI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>19</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>19</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub refreshUI()</SourceLine>
+   <SourceLine>// update UI</SourceLine>
+   <SourceLine>if state &lt;&gt; nil and state.NowPlaying &lt;&gt; nil then</SourceLine>
+   <SourceLine>MainWindow().currentDeviceLabel.Text = settings.Value(PrefsManager.currentDeviceNameKey).StringValue</SourceLine>
+   <SourceLine>refreshNowPlaying()</SourceLine>
+   <SourceLine>refreshPlaybackControls()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getFormattedTime</ItemName>
+  <ItemParams>time as integer, optional negative as boolean = false</ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>8</StartSelRow>
+   <StartSelCol>25</StartSelCol>
+   <EndSelRow>8</EndSelRow>
+   <EndSelCol>25</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function getFormattedTime(time as integer, optional negative as boolean = false) As string</SourceLine>
+   <SourceLine>dim minutes as integer</SourceLine>
+   <SourceLine>dim seconds as integer</SourceLine>
+   <SourceLine>dim formatString as string</SourceLine>
+   <SourceLine>minutes = Floor(time / 60)</SourceLine>
+   <SourceLine>seconds = time Mod 60</SourceLine>
+   <SourceLine>formatString = format(minutes, "00") + ":" + format(seconds, "00")</SourceLine>
+   <SourceLine>if negative then</SourceLine>
+   <SourceLine>return "-" + formatString</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return formatString</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>refreshPlaybackControls</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>12</StartSelRow>
+   <StartSelCol>43</StartSelCol>
+   <EndSelRow>12</EndSelRow>
+   <EndSelCol>43</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub refreshPlaybackControls()</SourceLine>
+   <SourceLine>MainWindow().DurationText.Text = getFormattedTime(state.NowPlaying.Duration)</SourceLine>
+   <SourceLine>MainWindow().ProgressText.Text = getFormattedTime(state.Progress)</SourceLine>
+   <SourceLine>MainWindow().RemainingTimeText.Text = getFormattedTime(state.NowPlaying.Duration - state.Progress, True)</SourceLine>
+   <SourceLine>MainWindow().setProgressBarValue(state.NowPlaying.Duration, state.Progress)</SourceLine>
+   <SourceLine>if state.Playing then</SourceLine>
+   <SourceLine>MainWindow().PlaybackProgressTimer.Mode = 2</SourceLine>
+   <SourceLine>MainWindow().PlayButton.Value = True</SourceLine>
+   <SourceLine>MainWindow().ChasingArrows1.Visible = True</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>MainWindow().PlaybackProgressTimer.Mode = 0</SourceLine>
+   <SourceLine>MainWindow().PlayButton.Value = False</SourceLine>
+   <SourceLine>MainWindow().ChasingArrows1.Visible = False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>refreshNowPlaying</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>56</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>56</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub refreshNowPlaying()</SourceLine>
+   <SourceLine>MainWindow().NowTrackLabel.Text = state.NowPlaying.Title</SourceLine>
+   <SourceLine>MainWindow().NowArtistLabel.Text = state.NowPlaying.Artist</SourceLine>
+   <SourceLine>MainWindow().NowAlbumLabel.Text = state.NowPlaying.Album</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>refreshDeviceList</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>12</StartSelRow>
+   <StartSelCol>4</StartSelCol>
+   <EndSelRow>12</EndSelRow>
+   <EndSelCol>4</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub refreshDeviceList()</SourceLine>
+   <SourceLine>dim presentDevice as Dictionary</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if MainWindow &lt;&gt; Nil then</SourceLine>
+   <SourceLine>MainWindow.DeviceListBox.DeleteAllRows()</SourceLine>
+   <SourceLine>if deviceList.Count &gt; 0 then</SourceLine>
+   <SourceLine>for i = 1 to deviceList.Count</SourceLine>
+   <SourceLine>if deviceList.Item(i) isA Dictionary then</SourceLine>
+   <SourceLine>presentDevice = dictionary(deviceList.Item(i))</SourceLine>
+   <SourceLine>MainWindow().DeviceListBox.AddRow(presentDevice.Value("name").StringValue)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setAlbumArt</ItemName>
+  <ItemParams>imageFile as FolderItem</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>55</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>55</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setAlbumArt(imageFile as FolderItem)</SourceLine>
+   <SourceLine>MainWindow.AlbumArtWell.Image = imageFile.OpenAsPicture</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <HookInstance>
+  <TextEncoding>1536</TextEncoding>
+  <ItemName>NewDocument</ItemName>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub NewDocument()</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <HookInstance>
+  <TextEncoding>1536</TextEncoding>
+  <ItemName>Close</ItemName>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Close()</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <HookInstance>
+  <TextEncoding>1536</TextEncoding>
+  <ItemName>Open</ItemName>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Open()</SourceLine>
+   <SourceLine>me.client = new SpotifyClient</SourceLine>
+   <SourceLine>me.settings = new Dictionary</SourceLine>
+   <SourceLine>me.deviceList = new Collection</SourceLine>
+   <SourceLine>me.state = new PlaybackState</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>PrefsManager.loadPrefs()</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim setWin as SettingsWindow</SourceLine>
+   <SourceLine>if settings.hasKey(PrefsManager.serverUrlKey) then</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>if settings.value(PrefsManager.serverUrlKey) = "" then</SourceLine>
+   <SourceLine>MsgBox "Please provide the address of your Relay Server to proceed"</SourceLine>
+   <SourceLine>setWin = new SettingsWindow</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>// the rest needs to happen after MainWindow.Open</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>AppId</ItemName>
+  <ItemType>0</ItemType>
+  <ItemDef>org.queenkjuul.spotify97</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Interfaces></Interfaces>
+ <IsApplicationObject>1</IsApplicationObject>
+ <PropertyVal Name="MenuBar">-482481227</PropertyVal>
+</block>
+</RBProject>
