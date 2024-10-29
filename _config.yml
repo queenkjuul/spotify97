@@ -1,1 +1,2 @@
 remote_theme: queenkjuul/jekyll-98
+include: README.md
