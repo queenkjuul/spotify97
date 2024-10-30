@@ -6,6 +6,7 @@ import loginRoutes from "./routes/login"
 import { playbackRoutes } from "./routes/playback"
 import searchRoutes from "./routes/search"
 import statusRoutes from "./routes/status"
+import errorResponse from "./util/errorResponse"
 
 dotenv.config()
 
@@ -39,6 +40,10 @@ searchRoutes(app, client)
 statusRoutes(app, client)
 
 playbackRoutes(app, client)
+
+app.use((req, res, next) => {
+  res.status(404).send(errorResponse("Route not found - invalid endpoint"))
+})
 
 // hit it
 app.listen(port, () => {

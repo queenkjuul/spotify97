@@ -31,8 +31,23 @@ export function playbackRoutes(app: Express, client: SpotifyClient) {
     const context = req.query.context
     const offsetUri = req.query.offsetUri
     const position = req.query.position
+    const tracks = req.query.tracks
 
-    if (track && !context) {
+    if (tracks && track) {
+      playbackResponse(
+        res,
+        client.play,
+        id?.toString(),
+        [],
+        JSON.stringify({
+          uris: [...tracks.toString().split(",")],
+          offset: {
+            uri: track.toString(),
+          },
+          position_ms: Number.parseInt(position?.toString() ?? "") * 1000,
+        })
+      )
+    } else if (track && !context) {
       // we have a song to play all on its own
       playbackResponse(
         res,
@@ -74,6 +89,7 @@ export function playbackRoutes(app: Express, client: SpotifyClient) {
           offset: {
             uri: track,
           },
+          position_ms: Number.parseInt(position?.toString() ?? "") * 1000,
         })
       )
     } else {

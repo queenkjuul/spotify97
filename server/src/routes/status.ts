@@ -3,6 +3,8 @@ import { Stream } from "stream"
 import SpotifyClient from "../client/SpotifyClient"
 import { Device } from "../models/Device"
 import { PlaybackState } from "../models/PlaybackState"
+import Playlist from "../models/Playlist"
+import RecentlyPlayed from "../models/RecentlyPlayed"
 import { Track } from "../models/Track"
 import errorResponse from "../util/errorResponse"
 import response from "../util/response"
@@ -75,7 +77,7 @@ export default function statusRoutes(app: Express, client: SpotifyClient) {
         nowPlaying: item
           ? new Track(
               item?.name,
-              item?.artists[0].name,
+              item?.artists[0]?.name,
               item?.album?.name,
               item?.duration_ms ? item.duration_ms / 1000 : 0,
               item?.album?.images[0]?.url,
@@ -134,7 +136,7 @@ export default function statusRoutes(app: Express, client: SpotifyClient) {
         return item
           ? new Track(
               item?.name,
-              item?.artists[0].name,
+              item?.artists[0]?.name,
               item?.album?.name,
               item?.duration_ms ? item.duration_ms / 1000 : 0,
               item?.album?.images[0]?.url,
@@ -144,6 +146,73 @@ export default function statusRoutes(app: Express, client: SpotifyClient) {
           : {}
       })
       res.send(response(undefined, queue))
+    } catch (e) {
+      console.error(e)
+      res.send(errorResponse(e))
+    }
+  })
+
+  app.get("/recent", async (req, res) => {
+    try {
+      const data = await client.getRecents()
+      console.log("200 - /recent        - Retrieved recently played")
+      const recents = data.map((item) => {
+        const track = item?.track
+        return item
+          ? new RecentlyPlayed(
+              new Track(
+                track?.name,
+                track?.artists[0]?.name,
+                track?.album?.name,
+                track?.duration_ms ? track.duration_ms / 1000 : 0,
+                track?.album?.images[0]?.url,
+                track?.album?.id,
+                track?.id
+              ),
+              item?.context?.uri ?? ""
+            )
+          : {}
+      })
+      res.send(response(undefined, recents))
+    } catch (e) {
+      console.error(e)
+      res.send(errorResponse(e))
+    }
+  })
+
+  app.get("/playlists", async (req, res) => {
+    try {
+      const items = await client.getPlaylists()
+      const lists = items.map(
+        (item) => new Playlist(item?.name, item?.owner?.display_name, item?.uri)
+      )
+      console.log("200 - /playlists     - got user playlists")
+      res.send(response(undefined, lists))
+    } catch (e) {
+      console.error(e)
+      res.send(errorResponse(e))
+    }
+  })
+
+  app.get("/saved", async (req, res) => {
+    try {
+      const data = await client.getSavedTracks()
+      console.log("200 - /saved         - Retrieved saved tracks")
+      const saved = data.map((item) => {
+        const track = item?.track
+        return track
+          ? new Track(
+              track?.name,
+              track?.artists[0]?.name,
+              track?.album?.name,
+              track?.duration_ms ? track.duration_ms / 1000 : 0,
+              track?.album?.images[0]?.url,
+              track?.album?.id,
+              track?.id
+            )
+          : {}
+      })
+      res.send(response(undefined, saved))
     } catch (e) {
       console.error(e)
       res.send(errorResponse(e))

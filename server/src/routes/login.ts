@@ -48,7 +48,10 @@ export default function loginRoutes(app, client) {
         const text = `${
           addresses
             ? `Enter the server URL and port in your client. If you are unsure, it is probably:\n ${addresses.map(
-                (addr) => `http://${addr}:${process.env.PORT} \n`
+                (addr, i) =>
+                  `${i !== 0 ? " or " : ""}http://${addr}:${
+                    process.env.PORT
+                  } \n`
               )}`
             : ""
         }`

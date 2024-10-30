@@ -24,7 +24,7 @@ export default class SpotifyClient {
 
   // fixed data
   scope =
-    "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-currently-playing"
+    "user-read-private user-read-email user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played playlist-read-private playlist-read-collaborative user-library-read"
   loginHeaders = {
     "Content-Type": "application/x-www-form-urlencoded",
     Authorization:
@@ -55,7 +55,6 @@ export default class SpotifyClient {
 
   // helper
   private err(e) {
-    console.error(e)
     if (e) throw e
   }
 
@@ -119,7 +118,7 @@ export default class SpotifyClient {
     this.saveState()
   }
 
-  private saveState() {
+  private async saveState() {
     if (!this.readyForCalls) {
       // no point saving non-functional state
       return
@@ -135,10 +134,10 @@ export default class SpotifyClient {
     )
     fs.writeFile("state.json", data, (e) => {
       if (e) throw e
+      fs.chmod("state.json", 0o600, (e) => {
+        if (e) throw e
+      })
       console.log("The file has been saved!")
-    })
-    fs.chmod("state.json", 0o600, (e) => {
-      if (e) throw e
     })
   }
 
@@ -245,6 +244,36 @@ export default class SpotifyClient {
     }
   }
 
+  async getRecents() {
+    try {
+      const response = await this.spotifyRequest("/me/player/recently-played")
+      const body = await response.json()
+      return body.items
+    } catch (e) {
+      this.err(e)
+    }
+  }
+
+  async getPlaylists() {
+    try {
+      const response = await this.spotifyRequest("/me/playlists")
+      const body = await response.json()
+      return body.items
+    } catch (e) {
+      this.err(e)
+    }
+  }
+
+  async getSavedTracks() {
+    try {
+      const response = await this.spotifyRequest("/me/tracks")
+      const body = await response.json()
+      return body.items
+    } catch (e) {
+      this.err(e)
+    }
+  }
+
   async playbackChange(
     path: string,
     method: string,
@@ -298,7 +327,10 @@ export default class SpotifyClient {
     )
   }
 
-  search = async (q: string, type: string[] = ["album", "track"]) => {
+  search = async (
+    q: string,
+    type: string[] = ["album", "track", "playlist"]
+  ) => {
     return await this.spotifyRequest(`/search?q=${q}&type=${type}`)
   }
 

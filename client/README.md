@@ -13,7 +13,7 @@ Planned:
 
 Considered:
 
-2. Spotify for Macintosh: Would love to get a build working on my LC II with its PDS Ethernet card. I think REALbasic 3.5 can build 68k binaries, but I don't know if it has an HTTP client, or if a 68020 can deserialize 2KB of JSON in under 5 seconds, which is probably the minimum threshold for the current architecture. REALbasic 3.5.2 does not have HTTPSocket, but it does have TCPSocket, and I've fonud an example of an HTTP client. The JSON parser also seems to import into 3.5.2 ok, so I should be able to export my model+controller classes as well (well, except for the HTTPsocket part...). The hardest part is going to be finding a comfy OS 9 dev setup.
+2. Spotify for Macintosh: Would love to get a build working on my LC II with its PDS Ethernet card. I think REALbasic 3.5 can build 68k binaries, but I don't know if it has an HTTP client, or if a 68020 can deserialize 2KB of JSON in under 5 seconds, which is probably the minimum threshold for the current architecture. REALbasic 3.5.2 does not have HTTPSocket, but it does have TCPSocket, and I've fonud an example of an HTTP client. The JSON parser also seems to import into 3.5.2 ok, so I should be able to export my model+controller classes as well (well, except for the HTTPsocket part...). The hardest part is going to be finding a comfy OS 9 dev setup. Though given the app crashes unless I allocate it at least 4MB of RAM, we're gonna be pushing it on a 10MB LC II.
 
 Dreamt:
 
