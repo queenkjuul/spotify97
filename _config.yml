@@ -1,0 +1,12 @@
+remote_theme: queenkjuul/jekyll-98
+include:
+  - README.md
+  - server/README.md
+  - client/README.md
+  - client/SpotifyClient97/README.md
+  - client/Spotify97MacEdition/README.md
+defaults:
+  - scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "post"
