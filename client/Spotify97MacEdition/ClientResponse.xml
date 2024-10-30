@@ -3,12 +3,12 @@
 <block type="Module" ID="-482105575">
  <ObjName>ClientResponse</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="731" top="300" width="689" height="363"/></EditBounds>
+ <EditBounds><Rect left="112" top="176" width="689" height="363"/></EditBounds>
  <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="731" top="300" width="689" height="363"/></EditBounds>
+   <EditBounds><Rect left="112" top="176" width="689" height="363"/></EditBounds>
    <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>

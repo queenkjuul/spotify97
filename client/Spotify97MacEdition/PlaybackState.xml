@@ -3,12 +3,12 @@
 <block type="Module" ID="-482037664">
  <ObjName>PlaybackState</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="485" top="59" width="642" height="405"/></EditBounds>
+ <EditBounds><Rect left="847" top="544" width="642" height="405"/></EditBounds>
  <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="485" top="59" width="642" height="405"/></EditBounds>
+   <EditBounds><Rect left="847" top="544" width="642" height="405"/></EditBounds>
    <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
@@ -42,12 +42,16 @@
   <ItemFlags>0</ItemFlags>
   <ItemSource>
    <StartSelRow>1</StartSelRow>
-   <StartSelCol>42</StartSelCol>
+   <StartSelCol>27</StartSelCol>
    <EndSelRow>1</EndSelRow>
-   <EndSelCol>42</EndSelCol>
+   <EndSelCol>27</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function Repeat() As string</SourceLine>
+   <SourceLine>if me.HasKey("repeatState") then</SourceLine>
    <SourceLine>return Me.Value("repeatState").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>
@@ -58,13 +62,19 @@
   <ItemResult>Boolean</ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>1</StartSelRow>
-   <StartSelCol>44</StartSelCol>
-   <EndSelRow>1</EndSelRow>
-   <EndSelCol>44</EndSelCol>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>6</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function Shuffle() As Boolean</SourceLine>
-   <SourceLine>return Me.Value("shuffleState").BooleanValue</SourceLine>
+   <SourceLine>if me.HasKey("shuffleState") then</SourceLine>
+   <SourceLine>if me.value("shuffleState").StringValue = "true" then</SourceLine>
+   <SourceLine>return True</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>

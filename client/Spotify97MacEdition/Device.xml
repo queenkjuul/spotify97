@@ -3,13 +3,13 @@
 <block type="Module" ID="-482024703">
  <ObjName>Device</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="1035" top="473" width="545" height="405"/></EditBounds>
- <EditSplit>-1000</EditSplit>
+ <EditBounds><Rect left="509" top="543" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="1035" top="473" width="545" height="405"/></EditBounds>
-   <EditSplit>-1000</EditSplit>
+   <EditBounds><Rect left="509" top="543" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
  <IsClass>1</IsClass>

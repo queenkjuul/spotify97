@@ -3,13 +3,13 @@
 <block type="Module" ID="-482481228">
  <ObjName>App</ObjName>
  <ObjContainerID>0</ObjContainerID>
- <EditBounds><Rect left="734" top="360" width="971" height="437"/></EditBounds>
- <EditSplit>-1000</EditSplit>
+ <EditBounds><Rect left="31" top="71" width="971" height="437"/></EditBounds>
+ <EditSplit>323</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="734" top="360" width="971" height="437"/></EditBounds>
-   <EditSplit>-1000</EditSplit>
+   <EditBounds><Rect left="31" top="71" width="971" height="437"/></EditBounds>
+   <EditSplit>323</EditSplit>
   </BrowserPositionElement>
   <BrowserPositionElement>
    <ScreenKey>100001207</ScreenKey>
@@ -19,13 +19,21 @@
  </BrowserPositionGroup>
  <IsClass>1</IsClass>
  <ObjName>App</ObjName>
- <ObjSize>68</ObjSize>
+ <ObjSize>100</ObjSize>
  <Superclass>Application</Superclass>
  <IsInterface>0</IsInterface>
  <Property>client as SpotifyClient</Property>
  <Property>settings as Dictionary</Property>
  <Property>deviceList As Collection</Property>
  <Property>state As PlaybackState</Property>
+ <Property>currentAlbumArt As String</Property>
+ <Property>queue as Collection</Property>
+ <Property>recents as Collection</Property>
+ <Property>trackSearchResults as collection</Property>
+ <Property>albumSearchResults As collection</Property>
+ <Property>playlistSearchResults as collection</Property>
+ <Property>myPlaylists As Collection</Property>
+ <Property>savedTracks As Collection</Property>
  <Method>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>MainWindow</ItemName>
@@ -104,20 +112,31 @@
  <Method>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>refreshState</ItemName>
-  <ItemParams></ItemParams>
+  <ItemParams>optional getAlbumArt as Boolean = True, optional getQueue As Boolean = True, optional init As Boolean = False</ItemParams>
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>5</StartSelRow>
-   <StartSelCol>61</StartSelCol>
-   <EndSelRow>5</EndSelRow>
-   <EndSelCol>61</EndSelCol>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>26</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>26</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub refreshState()</SourceLine>
+   <SourceLine>Sub refreshState(optional getAlbumArt as Boolean = True, optional getQueue As Boolean = True, optional init As Boolean = False)</SourceLine>
    <SourceLine>// get remote data</SourceLine>
    <SourceLine>me.client.connect()</SourceLine>
    <SourceLine>me.client.getDeviceList()</SourceLine>
    <SourceLine>me.client.getPlaybackState()</SourceLine>
+   <SourceLine>if init then</SourceLine>
+   <SourceLine>me.client.getPlaylists()</SourceLine>
+   <SourceLine>me.client.getSavedTracks()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if getAlbumArt then</SourceLine>
+   <SourceLine>me.client.getAlbumArt()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if getQueue then</SourceLine>
+   <SourceLine>me.client.getQueue()</SourceLine>
+   <SourceLine>me.client.getRecents()</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>// state update functions should handle updating their own UI</SourceLine>
    <SourceLine>// or refresh the entire UI if they think it necessary</SourceLine>
    <SourceLine>// but if we do it here we end up doing it twice</SourceLine>
@@ -198,10 +217,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>12</StartSelRow>
-   <StartSelCol>43</StartSelCol>
-   <EndSelRow>12</EndSelRow>
-   <EndSelCol>43</EndSelCol>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>42</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>42</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub refreshPlaybackControls()</SourceLine>
    <SourceLine>MainWindow().DurationText.Text = getFormattedTime(state.NowPlaying.Duration)</SourceLine>
@@ -210,12 +229,14 @@
    <SourceLine>MainWindow().setProgressBarValue(state.NowPlaying.Duration, state.Progress)</SourceLine>
    <SourceLine>if state.Playing then</SourceLine>
    <SourceLine>MainWindow().PlaybackProgressTimer.Mode = 2</SourceLine>
+   <SourceLine>if not MainWindow().PlayButton.Value then</SourceLine>
    <SourceLine>MainWindow().PlayButton.Value = True</SourceLine>
-   <SourceLine>MainWindow().ChasingArrows1.Visible = True</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>MainWindow().PlaybackProgressTimer.Mode = 0</SourceLine>
+   <SourceLine>if MainWindow().PlayButton.Value then</SourceLine>
    <SourceLine>MainWindow().PlayButton.Value = False</SourceLine>
-   <SourceLine>MainWindow().ChasingArrows1.Visible = False</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -246,10 +267,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>12</StartSelRow>
-   <StartSelCol>4</StartSelCol>
-   <EndSelRow>12</EndSelRow>
-   <EndSelCol>4</EndSelCol>
+   <StartSelRow>11</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>11</EndSelRow>
+   <EndSelCol>6</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub refreshDeviceList()</SourceLine>
    <SourceLine>dim presentDevice as Dictionary</SourceLine>
@@ -276,13 +297,195 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>1</StartSelRow>
-   <StartSelCol>55</StartSelCol>
-   <EndSelRow>1</EndSelRow>
-   <EndSelCol>55</EndSelCol>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>38</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>38</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub setAlbumArt(imageFile as FolderItem)</SourceLine>
    <SourceLine>MainWindow.AlbumArtWell.Image = imageFile.OpenAsPicture</SourceLine>
+   <SourceLine>currentAlbumArt = App().state.NowPlaying.AlbumId</SourceLine>
+   <SourceLine>'realbasic sucks and os x is weird. Carbon/Cocoa/whateverthefuck does some kind of double-buffering</SourceLine>
+   <SourceLine>'or other somesuch nonsense. REALbasic provides Window.UpdateNow and Window.Refresh but neither works</SourceLine>
+   <SourceLine>'so we have to brute-force it &gt;:[</SourceLine>
+   <SourceLine>MainWindow.AlbumArtWell.Visible = False</SourceLine>
+   <SourceLine>MainWindow.AlbumArtWell.Visible = True</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setLoadingIndicator</ItemName>
+  <ItemParams>state as boolean</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>43</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>43</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setLoadingIndicator(state as boolean)</SourceLine>
+   <SourceLine>MainWindow().ChasingArrows1.Visible = state</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setQueue</ItemName>
+  <ItemParams>data As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>12</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setQueue(data As Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim item as Track</SourceLine>
+   <SourceLine>if data.Count &gt; 0 then</SourceLine>
+   <SourceLine>queue = data</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>item = data.Item(i)</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.AddRow(item.Title)</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.Cell(i - 1, 1) = item.Artist</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.Cell(i - 1, 2) = item.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setRecents</ItemName>
+  <ItemParams>data as Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>26</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>26</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setRecents(data as Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim item as RecentlyPlayed</SourceLine>
+   <SourceLine>if data.Count &gt; 0 then</SourceLine>
+   <SourceLine>recents = data</SourceLine>
+   <SourceLine>MainWindow.RecentListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>item = data.Item(i)</SourceLine>
+   <SourceLine>MainWindow.RecentListBox.AddRow(item.Track.Title)</SourceLine>
+   <SourceLine>MainWindow.RecentListBox.Cell(i - 1, 1) = item.Track.Artist</SourceLine>
+   <SourceLine>MainWindow.RecentlistBox.Cell(i - 1, 2) = item.Track.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setResults</ItemName>
+  <ItemParams>tracks As Collection, albums As Collection, playlists As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>32</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setResults(tracks As Collection, albums As Collection, playlists As Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim track as Track</SourceLine>
+   <SourceLine>dim album as Album</SourceLine>
+   <SourceLine>dim playlist as Playlist</SourceLine>
+   <SourceLine>if tracks &lt;&gt; Nil and tracks.Count &gt; 0 then</SourceLine>
+   <SourceLine>trackSearchResults = tracks</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to tracks.Count</SourceLine>
+   <SourceLine>track = Track(tracks.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.AddRow(track.Title)</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.Cell(i - 1, 1) = track.Artist</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.Cell(i - 1, 2) = track.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if albums &lt;&gt;  Nil and albums.Count &gt; 0 then</SourceLine>
+   <SourceLine>albumSearchResults = albums</SourceLine>
+   <SourceLine>MainWindow.AlbumResultsListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to albums.Count</SourceLine>
+   <SourceLine>album = Album(albums.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.AlbumResultsListBox.AddRow(album.Title)</SourceLine>
+   <SourceLine>MainWindow.AlbumResultsListBox.Cell(i - 1, 1) = album.Artist</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if playlists &lt;&gt; nil and playlists.Count &gt; 0 then</SourceLine>
+   <SourceLine>playlistSearchResults = playlists</SourceLine>
+   <SourceLine>mainWindow.PlaylistResultsListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to playlists.Count</SourceLine>
+   <SourceLine>playlist = Playlist(playlists.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.PlaylistResultsListBox.AddRow(playlist.Name)</SourceLine>
+   <SourceLine>MainWindow.PlaylistResultsListBox.Cell(i -1, 1) = playlist.Owner</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setMyPlaylists</ItemName>
+  <ItemParams>playlists As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>11</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>11</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setMyPlaylists(playlists As Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim playlist as Playlist</SourceLine>
+   <SourceLine>if playlists &lt;&gt; nil and playlists.Count &gt; 0 then</SourceLine>
+   <SourceLine>myPlaylists = playlists</SourceLine>
+   <SourceLine>mainWindow.MyPlaylistsBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to playlists.Count</SourceLine>
+   <SourceLine>playlist = Playlist(playlists.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.MyPlaylistsBox.AddRow(playlist.Name)</SourceLine>
+   <SourceLine>MainWindow.MyPlaylistsBox.Cell(i - 1, 1) = playlist.Owner</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setSavedTracks</ItemName>
+  <ItemParams>data as Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>23</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>23</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setSavedTracks(data as Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim item as Track</SourceLine>
+   <SourceLine>if data.Count &gt; 0 then</SourceLine>
+   <SourceLine>savedTracks = data</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>item = data.Item(i)</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.AddRow(item.Title)</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.Cell(i - 1, 1) = item.Artist</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.Cell(i - 1, 2) = item.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
  </Method>
@@ -318,10 +521,10 @@
   <TextEncoding>1536</TextEncoding>
   <ItemName>Open</ItemName>
   <ItemSource>
-   <StartSelRow>5</StartSelRow>
+   <StartSelRow>12</StartSelRow>
    <StartSelCol>0</StartSelCol>
-   <EndSelRow>5</EndSelRow>
-   <EndSelCol>0</EndSelCol>
+   <EndSelRow>12</EndSelRow>
+   <EndSelCol>6</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Open()</SourceLine>
    <SourceLine>me.client = new SpotifyClient</SourceLine>

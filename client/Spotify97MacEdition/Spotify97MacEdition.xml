@@ -7,10 +7,10 @@
  <MajorVersion>1</MajorVersion>
  <MinorVersion>0</MinorVersion>
  <SubVersion>0</SubVersion>
- <Release>0</Release>
+ <Release>2</Release>
  <NonRelease>0</NonRelease>
  <Region>0</Region>
- <ShortVersion></ShortVersion>
+ <ShortVersion>for Relay Server v1.2</ShortVersion>
  <LongVersion>(C) 2024 Queen K Juul</LongVersion>
  <InfoVersion>Spotify 97 Mac OS Client</InfoVersion>
  <DefaultViewID>-482481226</DefaultViewID>
@@ -18,7 +18,7 @@
  <DefaultLanguage>0</DefaultLanguage>
  <CurrentLanguage>0</CurrentLanguage>
  <DefaultEncoding>134217984</DefaultEncoding>
- <BuildFlags>397</BuildFlags>
+ <BuildFlags>269</BuildFlags>
  <BuildCarbonExecutableFormat>0</BuildCarbonExecutableFormat>
  <Icon>
   <Element>
@@ -104,15 +104,15 @@
  <MacCreator>????</MacCreator>
  <BuildMacName>Spotify 97 Mac Edition Classic</BuildMacName>
  <BuildCarbonName>Spotify 97 Mac Edition</BuildCarbonName>
- <BuildSize>4194304</BuildSize>
- <BuildMinSize>2097152</BuildMinSize>
- <BuildSizeAsString>4096</BuildSizeAsString>
- <BuildMinSizeAsString>2048</BuildMinSizeAsString>
+ <BuildSize>8388608</BuildSize>
+ <BuildMinSize>8388608</BuildMinSize>
+ <BuildSizeAsString>8192</BuildSizeAsString>
+ <BuildMinSizeAsString>8192</BuildMinSizeAsString>
  <WinMDICaption>My Application</WinMDICaption>
  <BuildWinName>My Application.exe</BuildWinName>
  <BuildWinMDI>0</BuildWinMDI>
  <BuildLinuxX86Name>SpotifyClient97</BuildLinuxX86Name>
- <EditBounds><Rect left="1476" top="200" width="194" height="236"/></EditBounds>
+ <EditBounds><Rect left="1626" top="81" width="194" height="537"/></EditBounds>
  <FileType>
   <ItemName>text</ItemName>
   <MacCreator>R*ch</MacCreator>
@@ -194,6 +194,23 @@
   </MenuItem>
   <MenuItem>
    <ItemSpecialMenu>0</ItemSpecialMenu>
+   <ItemName>ReloadButton</ItemName>
+   <ItemText>Reload</ItemText>
+   <ItemIndex>-2147483648</ItemIndex>
+   <ItemShortcut>r</ItemShortcut>
+   <ItemHelp></ItemHelp>
+   <ItemDisabledHelp></ItemDisabledHelp>
+   <ItemStyle>0</ItemStyle>
+   <TextEncoding>134217984</TextEncoding>
+   <ItemFlags>0</ItemFlags>
+   <MenuAutoEnable>1</MenuAutoEnable>
+   <ObjName></ObjName>
+   <ObjSize>76</ObjSize>
+   <Superclass>MenuItem</Superclass>
+   <IsInterface>0</IsInterface>
+  </MenuItem>
+  <MenuItem>
+   <ItemSpecialMenu>0</ItemSpecialMenu>
    <ItemName>FileQuit</ItemName>
    <ItemText>E&amp;xit</ItemText>
    <ItemIndex>-2147483648</ItemIndex>
@@ -220,7 +237,7 @@
    <ItemStyle>0</ItemStyle>
    <TextEncoding>1280</TextEncoding>
    <ItemFlags>0</ItemFlags>
-   <MenuAutoEnable>0</MenuAutoEnable>
+   <MenuAutoEnable>1</MenuAutoEnable>
    <ObjName></ObjName>
    <ObjSize>76</ObjSize>
    <Superclass>MenuItem</Superclass>
@@ -248,13 +265,13 @@
 <block type="Module" ID="-482481228">
  <ObjName>App</ObjName>
  <ObjContainerID>0</ObjContainerID>
- <EditBounds><Rect left="735" top="317" width="971" height="437"/></EditBounds>
- <EditSplit>-1000</EditSplit>
+ <EditBounds><Rect left="31" top="71" width="971" height="437"/></EditBounds>
+ <EditSplit>323</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="735" top="317" width="971" height="437"/></EditBounds>
-   <EditSplit>-1000</EditSplit>
+   <EditBounds><Rect left="31" top="71" width="971" height="437"/></EditBounds>
+   <EditSplit>323</EditSplit>
   </BrowserPositionElement>
   <BrowserPositionElement>
    <ScreenKey>100001207</ScreenKey>
@@ -264,7 +281,7 @@
  </BrowserPositionGroup>
  <IsClass>1</IsClass>
  <ObjName>App</ObjName>
- <ObjSize>72</ObjSize>
+ <ObjSize>100</ObjSize>
  <Superclass>Application</Superclass>
  <IsInterface>0</IsInterface>
  <Property>client as SpotifyClient</Property>
@@ -272,6 +289,13 @@
  <Property>deviceList As Collection</Property>
  <Property>state As PlaybackState</Property>
  <Property>currentAlbumArt As String</Property>
+ <Property>queue as Collection</Property>
+ <Property>recents as Collection</Property>
+ <Property>trackSearchResults as collection</Property>
+ <Property>albumSearchResults As collection</Property>
+ <Property>playlistSearchResults as collection</Property>
+ <Property>myPlaylists As Collection</Property>
+ <Property>savedTracks As Collection</Property>
  <Method>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>MainWindow</ItemName>
@@ -350,22 +374,30 @@
  <Method>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>refreshState</ItemName>
-  <ItemParams>optional getAlbumArt as Boolean = True</ItemParams>
+  <ItemParams>optional getAlbumArt as Boolean = True, optional getQueue As Boolean = True, optional init As Boolean = False</ItemParams>
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
    <StartSelRow>7</StartSelRow>
-   <StartSelCol>6</StartSelCol>
+   <StartSelCol>26</StartSelCol>
    <EndSelRow>7</EndSelRow>
-   <EndSelCol>6</EndSelCol>
+   <EndSelCol>26</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub refreshState(optional getAlbumArt as Boolean = True)</SourceLine>
+   <SourceLine>Sub refreshState(optional getAlbumArt as Boolean = True, optional getQueue As Boolean = True, optional init As Boolean = False)</SourceLine>
    <SourceLine>// get remote data</SourceLine>
    <SourceLine>me.client.connect()</SourceLine>
    <SourceLine>me.client.getDeviceList()</SourceLine>
    <SourceLine>me.client.getPlaybackState()</SourceLine>
+   <SourceLine>if init then</SourceLine>
+   <SourceLine>me.client.getPlaylists()</SourceLine>
+   <SourceLine>me.client.getSavedTracks()</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>if getAlbumArt then</SourceLine>
    <SourceLine>me.client.getAlbumArt()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if getQueue then</SourceLine>
+   <SourceLine>me.client.getQueue()</SourceLine>
+   <SourceLine>me.client.getRecents()</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>// state update functions should handle updating their own UI</SourceLine>
    <SourceLine>// or refresh the entire UI if they think it necessary</SourceLine>
@@ -447,10 +479,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>12</StartSelRow>
-   <StartSelCol>43</StartSelCol>
-   <EndSelRow>12</EndSelRow>
-   <EndSelCol>43</EndSelCol>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>42</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>42</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub refreshPlaybackControls()</SourceLine>
    <SourceLine>MainWindow().DurationText.Text = getFormattedTime(state.NowPlaying.Duration)</SourceLine>
@@ -459,12 +491,14 @@
    <SourceLine>MainWindow().setProgressBarValue(state.NowPlaying.Duration, state.Progress)</SourceLine>
    <SourceLine>if state.Playing then</SourceLine>
    <SourceLine>MainWindow().PlaybackProgressTimer.Mode = 2</SourceLine>
+   <SourceLine>if not MainWindow().PlayButton.Value then</SourceLine>
    <SourceLine>MainWindow().PlayButton.Value = True</SourceLine>
-   <SourceLine>MainWindow().ChasingArrows1.Visible = True</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>MainWindow().PlaybackProgressTimer.Mode = 0</SourceLine>
+   <SourceLine>if MainWindow().PlayButton.Value then</SourceLine>
    <SourceLine>MainWindow().PlayButton.Value = False</SourceLine>
-   <SourceLine>MainWindow().ChasingArrows1.Visible = False</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -525,14 +559,195 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>2</StartSelRow>
-   <StartSelCol>48</StartSelCol>
-   <EndSelRow>2</EndSelRow>
-   <EndSelCol>48</EndSelCol>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>38</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>38</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub setAlbumArt(imageFile as FolderItem)</SourceLine>
    <SourceLine>MainWindow.AlbumArtWell.Image = imageFile.OpenAsPicture</SourceLine>
    <SourceLine>currentAlbumArt = App().state.NowPlaying.AlbumId</SourceLine>
+   <SourceLine>'realbasic sucks and os x is weird. Carbon/Cocoa/whateverthefuck does some kind of double-buffering</SourceLine>
+   <SourceLine>'or other somesuch nonsense. REALbasic provides Window.UpdateNow and Window.Refresh but neither works</SourceLine>
+   <SourceLine>'so we have to brute-force it &gt;:[</SourceLine>
+   <SourceLine>MainWindow.AlbumArtWell.Visible = False</SourceLine>
+   <SourceLine>MainWindow.AlbumArtWell.Visible = True</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setLoadingIndicator</ItemName>
+  <ItemParams>state as boolean</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>43</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>43</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setLoadingIndicator(state as boolean)</SourceLine>
+   <SourceLine>MainWindow().ChasingArrows1.Visible = state</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setQueue</ItemName>
+  <ItemParams>data As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>12</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setQueue(data As Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim item as Track</SourceLine>
+   <SourceLine>if data.Count &gt; 0 then</SourceLine>
+   <SourceLine>queue = data</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>item = data.Item(i)</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.AddRow(item.Title)</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.Cell(i - 1, 1) = item.Artist</SourceLine>
+   <SourceLine>MainWindow.QueueListBox.Cell(i - 1, 2) = item.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setRecents</ItemName>
+  <ItemParams>data as Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>26</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>26</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setRecents(data as Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim item as RecentlyPlayed</SourceLine>
+   <SourceLine>if data.Count &gt; 0 then</SourceLine>
+   <SourceLine>recents = data</SourceLine>
+   <SourceLine>MainWindow.RecentListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>item = data.Item(i)</SourceLine>
+   <SourceLine>MainWindow.RecentListBox.AddRow(item.Track.Title)</SourceLine>
+   <SourceLine>MainWindow.RecentListBox.Cell(i - 1, 1) = item.Track.Artist</SourceLine>
+   <SourceLine>MainWindow.RecentlistBox.Cell(i - 1, 2) = item.Track.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setResults</ItemName>
+  <ItemParams>tracks As Collection, albums As Collection, playlists As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>32</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setResults(tracks As Collection, albums As Collection, playlists As Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim track as Track</SourceLine>
+   <SourceLine>dim album as Album</SourceLine>
+   <SourceLine>dim playlist as Playlist</SourceLine>
+   <SourceLine>if tracks &lt;&gt; Nil and tracks.Count &gt; 0 then</SourceLine>
+   <SourceLine>trackSearchResults = tracks</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to tracks.Count</SourceLine>
+   <SourceLine>track = Track(tracks.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.AddRow(track.Title)</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.Cell(i - 1, 1) = track.Artist</SourceLine>
+   <SourceLine>MainWindow.TrackResultsListBox.Cell(i - 1, 2) = track.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if albums &lt;&gt;  Nil and albums.Count &gt; 0 then</SourceLine>
+   <SourceLine>albumSearchResults = albums</SourceLine>
+   <SourceLine>MainWindow.AlbumResultsListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to albums.Count</SourceLine>
+   <SourceLine>album = Album(albums.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.AlbumResultsListBox.AddRow(album.Title)</SourceLine>
+   <SourceLine>MainWindow.AlbumResultsListBox.Cell(i - 1, 1) = album.Artist</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if playlists &lt;&gt; nil and playlists.Count &gt; 0 then</SourceLine>
+   <SourceLine>playlistSearchResults = playlists</SourceLine>
+   <SourceLine>mainWindow.PlaylistResultsListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to playlists.Count</SourceLine>
+   <SourceLine>playlist = Playlist(playlists.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.PlaylistResultsListBox.AddRow(playlist.Name)</SourceLine>
+   <SourceLine>MainWindow.PlaylistResultsListBox.Cell(i -1, 1) = playlist.Owner</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setMyPlaylists</ItemName>
+  <ItemParams>playlists As Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>11</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>11</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setMyPlaylists(playlists As Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim playlist as Playlist</SourceLine>
+   <SourceLine>if playlists &lt;&gt; nil and playlists.Count &gt; 0 then</SourceLine>
+   <SourceLine>myPlaylists = playlists</SourceLine>
+   <SourceLine>mainWindow.MyPlaylistsBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to playlists.Count</SourceLine>
+   <SourceLine>playlist = Playlist(playlists.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>MainWindow.MyPlaylistsBox.AddRow(playlist.Name)</SourceLine>
+   <SourceLine>MainWindow.MyPlaylistsBox.Cell(i - 1, 1) = playlist.Owner</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>setSavedTracks</ItemName>
+  <ItemParams>data as Collection</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>23</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>23</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub setSavedTracks(data as Collection)</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim item as Track</SourceLine>
+   <SourceLine>if data.Count &gt; 0 then</SourceLine>
+   <SourceLine>savedTracks = data</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.DeleteAllRows</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>item = data.Item(i)</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.AddRow(item.Title)</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.Cell(i - 1, 1) = item.Artist</SourceLine>
+   <SourceLine>MainWindow.SavedTracksListBox.Cell(i - 1, 2) = item.Album</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
  </Method>
@@ -568,9 +783,9 @@
   <TextEncoding>1536</TextEncoding>
   <ItemName>Open</ItemName>
   <ItemSource>
-   <StartSelRow>14</StartSelRow>
-   <StartSelCol>6</StartSelCol>
-   <EndSelRow>14</EndSelRow>
+   <StartSelRow>12</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>12</EndSelRow>
    <EndSelCol>6</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Open()</SourceLine>
@@ -949,12 +1164,12 @@
 <block type="Module" ID="-482105575">
  <ObjName>ClientResponse</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="731" top="300" width="689" height="363"/></EditBounds>
+ <EditBounds><Rect left="112" top="176" width="689" height="363"/></EditBounds>
  <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="731" top="300" width="689" height="363"/></EditBounds>
+   <EditBounds><Rect left="112" top="176" width="689" height="363"/></EditBounds>
    <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
@@ -2008,12 +2223,12 @@
 <block type="Module" ID="-482369846">
  <ObjName>SpotifyClient</ObjName>
  <ObjContainerID>-482103612</ObjContainerID>
- <EditBounds><Rect left="127" top="83" width="1442" height="399"/></EditBounds>
+ <EditBounds><Rect left="89" top="202" width="1442" height="575"/></EditBounds>
  <EditSplit>333</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="127" top="83" width="1442" height="399"/></EditBounds>
+   <EditBounds><Rect left="89" top="202" width="1442" height="575"/></EditBounds>
    <EditSplit>333</EditSplit>
   </BrowserPositionElement>
   <BrowserPositionElement>
@@ -2056,12 +2271,13 @@
   <ItemResult>ClientResponse</ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>3</StartSelRow>
-   <StartSelCol>16</StartSelCol>
-   <EndSelRow>3</EndSelRow>
-   <EndSelCol>16</EndSelCol>
+   <StartSelRow>34</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>34</EndSelRow>
+   <EndSelCol>6</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function callRelayServer(path as string) As ClientResponse</SourceLine>
+   <SourceLine>App().setLoadingIndicator(True)</SourceLine>
    <SourceLine>dim url as string</SourceLine>
    <SourceLine>url = App().settings.Value(PrefsManager.serverUrlKey)</SourceLine>
    <SourceLine>if url = "" then</SourceLine>
@@ -2079,7 +2295,11 @@
    <SourceLine></SourceLine>
    <SourceLine>dim dict as Dictionary</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>try</SourceLine>
    <SourceLine>dict = JSON.parse(response)</SourceLine>
+   <SourceLine>catch</SourceLine>
+   <SourceLine>App().MainWindow.status.Text = "JSON parse error"</SourceLine>
+   <SourceLine>end</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>dim message as string</SourceLine>
    <SourceLine>dim data as object</SourceLine>
@@ -2087,6 +2307,7 @@
    <SourceLine></SourceLine>
    <SourceLine>if dict.HasKey("message") then</SourceLine>
    <SourceLine>message = dict.Value("message").StringValue</SourceLine>
+   <SourceLine>App().MainWindow.status.text = message</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>message = ""</SourceLine>
    <SourceLine>end if</SourceLine>
@@ -2097,8 +2318,8 @@
    <SourceLine>data = Nil</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>if dict.HasKey("error") then</SourceLine>
-   <SourceLine>error = dict.Value("error").StringValue</SourceLine>
+   <SourceLine>if dict.HasKey("errorInfo") then</SourceLine>
+   <SourceLine>error = dict.Value("errorInfo").StringValue</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>error = ""</SourceLine>
    <SourceLine>end if</SourceLine>
@@ -2107,12 +2328,10 @@
    <SourceLine>dim clientException as new RuntimeException </SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if clientResponse.isError then</SourceLine>
-   <SourceLine>clientException.Message = clientResponse.Error()</SourceLine>
-   <SourceLine>Raise clientException</SourceLine>
+   <SourceLine>MsgBox clientResponse.Error</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine></SourceLine>
+   <SourceLine>App().setLoadingIndicator(False)</SourceLine>
    <SourceLine>return clientResponse</SourceLine>
-   <SourceLine></SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>
@@ -2154,10 +2373,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>60</StartSelRow>
-   <StartSelCol>6</StartSelCol>
-   <EndSelRow>60</EndSelRow>
-   <EndSelCol>6</EndSelCol>
+   <StartSelRow>57</StartSelRow>
+   <StartSelCol>4</StartSelCol>
+   <EndSelRow>57</EndSelRow>
+   <EndSelCol>4</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub getPlaybackState()</SourceLine>
    <SourceLine>dim response As ClientResponse</SourceLine>
@@ -2187,14 +2406,7 @@
    <SourceLine>nowPlayingDict = Dictionary(data.Value("nowPlaying").ObjectValue)</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>newPlaybackState.Value("nowPlaying") = _</SourceLine>
-   <SourceLine>new Track(_</SourceLine>
-   <SourceLine>nowPlayingDict.Value("title").StringValue, _</SourceLine>
-   <SourceLine>nowPlayingDict.Value("artist").StringValue, _</SourceLine>
-   <SourceLine>nowPlayingDict.Value("album").StringValue, _</SourceLine>
-   <SourceLine>nowPlayingDict.Value("albumArt").StringValue, _</SourceLine>
-   <SourceLine>nowPlayingDict.Value("albumId").StringValue, _</SourceLine>
-   <SourceLine>nowPlayingDict.Value("id").StringValue, _</SourceLine>
-   <SourceLine>nowPlayingDict.Value("duration").IntegerValue)</SourceLine>
+   <SourceLine>new Track(nowPlayingDict)</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>newPlaybackState.Value("nowPlaying") = Nil</SourceLine>
    <SourceLine>end if </SourceLine>
@@ -2221,7 +2433,7 @@
    <SourceLine>newPlaybackState.Value("playing") = data.value("playing")</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
-   <SourceLine>if data.hasKey("shuffleState") and data.value("shuffleState").BooleanValue then</SourceLine>
+   <SourceLine>if data.hasKey("shuffleState") and data.value("shuffleState").StringValue = "true" then</SourceLine>
    <SourceLine>newPlaybackState.Value("shuffleState") = True</SourceLine>
    <SourceLine>else</SourceLine>
    <SourceLine>newPlaybackState.Value("shuffleState") = False</SourceLine>
@@ -2236,18 +2448,30 @@
  <Method>
   <TextEncoding>134217984</TextEncoding>
   <ItemName>play</ItemName>
-  <ItemParams></ItemParams>
+  <ItemParams>optional track as string = "", optional context as string = "", optional offsetUri as string = "", optional position as integer = 0</ItemParams>
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>2</StartSelRow>
-   <StartSelCol>111</StartSelCol>
-   <EndSelRow>2</EndSelRow>
-   <EndSelCol>111</EndSelCol>
+   <StartSelRow>13</StartSelRow>
+   <StartSelCol>44</StartSelCol>
+   <EndSelRow>13</EndSelRow>
+   <EndSelCol>44</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub play()</SourceLine>
+   <SourceLine>Sub play(optional track as string = "", optional context as string = "", optional offsetUri as string = "", optional position as integer = 0)</SourceLine>
    <SourceLine>dim response as ClientResponse</SourceLine>
-   <SourceLine>response = callRelayServer("/play?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue)</SourceLine>
+   <SourceLine>dim query as string</SourceLine>
+   <SourceLine>query = ""</SourceLine>
+   <SourceLine>if track &lt;&gt; "" then</SourceLine>
+   <SourceLine>query = query + "&amp;track=" + track</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if context &lt;&gt; "" then</SourceLine>
+   <SourceLine>query = query + "&amp;context=" + context</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine>if offsetUri &lt;&gt; "" then</SourceLine>
+   <SourceLine>query = query + "&amp;offsetUri=" + offsetUri</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>query = query + "&amp;position=" + Str(position)</SourceLine>
+   <SourceLine>response = callRelayServer("/play?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue + query)</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
  </Method>
@@ -2312,26 +2536,31 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>29</StartSelRow>
-   <StartSelCol>6</StartSelCol>
-   <EndSelRow>29</EndSelRow>
-   <EndSelCol>6</EndSelCol>
+   <StartSelRow>25</StartSelRow>
+   <StartSelCol>39</StartSelCol>
+   <EndSelRow>25</EndSelRow>
+   <EndSelCol>39</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub getAlbumArt()</SourceLine>
    <SourceLine>dim socket as new HTTPSocket</SourceLine>
    <SourceLine>dim pf As FolderItem</SourceLine>
    <SourceLine>dim gotfile as boolean</SourceLine>
    <SourceLine>dim url as string</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim j as integer</SourceLine>
+   <SourceLine>dim k as integer</SourceLine>
    <SourceLine>url = App().settings.Value(PrefsManager.serverUrlKey).StringValue</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if url = "" then</SourceLine>
    <SourceLine>return</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine></SourceLine>
+   <SourceLine>dim imageSet as boolean</SourceLine>
+   <SourceLine>imageSet = VarType(App().MainWindow.AlbumArtWell.Image) = 0</SourceLine>
    <SourceLine></SourceLine>
    <SourceLine>if App().state.NowPlaying &lt;&gt; Nil then</SourceLine>
    <SourceLine>if App().state.NowPlaying.AlbumArtHref &lt;&gt; "" then</SourceLine>
-   <SourceLine>if App().state.NowPlaying.AlbumId = App().currentAlbumArt then</SourceLine>
+   <SourceLine>if  not(imageSet) and App().state.NowPlaying.AlbumId = App().currentAlbumArt then</SourceLine>
    <SourceLine>return</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>pf = PreferencesFolder()</SourceLine>
@@ -2340,13 +2569,300 @@
    <SourceLine>if pf.Child("albumart.jpg").exists then</SourceLine>
    <SourceLine>pf.Child("albumart.jpg").Delete()</SourceLine>
    <SourceLine>end if</SourceLine>
-   <SourceLine>gotfile = socket.get(url + "/albumArtFile?url=" + App().state.NowPlaying.AlbumArtHref, pf.Child("albumart.jpg"), 5)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>gotfile = socket.get(url + "/albumArtFile?url=" + App().state.NowPlaying.AlbumArtHref, pf.Child("albumart.jpg"), 20)</SourceLine>
    <SourceLine>if pf.Child("albumart.jpg").exists and gotfile then</SourceLine>
    <SourceLine>socket.close()</SourceLine>
    <SourceLine>App().setAlbumArt(pf.Child("albumart.jpg"))</SourceLine>
+   <SourceLine>App().currentAlbumArt = App().state.NowPlaying.AlbumId</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getQueue</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>17</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getQueue()</SourceLine>
+   <SourceLine>Dim response As ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/queue")</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim queue as new collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim data as collection</SourceLine>
+   <SourceLine>dim newTrack as Track</SourceLine>
+   <SourceLine>if response.data isA Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>newtrack = new Track(data.Item(i))</SourceLine>
+   <SourceLine>queue.Add(newTrack)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if queue.count &lt;&gt; 0 then</SourceLine>
+   <SourceLine>App().setQueue(queue)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getRecents</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>19</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>19</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getRecents()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/recent")</SourceLine>
+   <SourceLine>dim recents as new collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim data as Collection</SourceLine>
+   <SourceLine>dim currentItem As Dictionary</SourceLine>
+   <SourceLine>dim newItem As RecentlyPlayed</SourceLine>
+   <SourceLine>dim newTrack As Track</SourceLine>
+   <SourceLine>dim contextValue as string</SourceLine>
+   <SourceLine>if response.data isa Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>currentItem = Dictionary(data.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>newTrack = new Track(Dictionary(currentItem.Value("track").ObjectValue))</SourceLine>
+   <SourceLine>if currentItem.hasKey("context") then</SourceLine>
+   <SourceLine>contextValue = currentItem.Value("context").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>contextValue = ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>newItem = new RecentlyPlayed(_</SourceLine>
+   <SourceLine>newTrack, _</SourceLine>
+   <SourceLine>contextValue)</SourceLine>
+   <SourceLine>recents.Add(newItem)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if recents.count &lt;&gt; 0 then</SourceLine>
+   <SourceLine>App().setRecents(recents)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>search</ItemName>
+  <ItemParams>query as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>31</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>31</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub search(query as string)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/search?q=" + query)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim responseData As Dictionary</SourceLine>
+   <SourceLine>dim trackList As Collection</SourceLine>
+   <SourceLine>dim albumList As Collection</SourceLine>
+   <SourceLine>dim playlistList As Collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim j as integer</SourceLine>
+   <SourceLine>dim albumResults As new Collection</SourceLine>
+   <SourceLine>dim trackResults As new Collection</SourceLine>
+   <SourceLine>dim playlistResults As new Collection</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if response.Data isA Dictionary then</SourceLine>
+   <SourceLine>responseData = Dictionary(response.Data)</SourceLine>
+   <SourceLine>if responseData.hasKey("tracks") and responseData.Value("tracks").ObjectValue isA Collection then</SourceLine>
+   <SourceLine>trackList = Collection(responseData.Value("tracks").ObjectValue)</SourceLine>
+   <SourceLine>for i = 1 to trackList.Count</SourceLine>
+   <SourceLine>trackResults.Add(new Track(Dictionary(trackList.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if responseData.hasKey("albums") and responseData.value("albums").ObjectValue isA Collection then</SourceLine>
+   <SourceLine>albumList = Collection(responseData.Value("albums").ObjectValue)</SourceLine>
+   <SourceLine>for i = 1 to albumList.Count</SourceLine>
+   <SourceLine>albumResults.Add(new Album(Dictionary(albumList.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>Next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if responseData.HasKey("playlists") and responseData.value("playlists").ObjectValue isA Collection then</SourceLine>
+   <SourceLine>playlistList = Collection(responseData.Value("playlists").ObjectValue)</SourceLine>
+   <SourceLine>for i = 1 to playlistList.Count</SourceLine>
+   <SourceLine>playlistResults.Add(new Playlist(Dictionary(playlistList.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>App().setResults(trackResults, albumResults, playlistResults)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getPlaylists</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>16</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>16</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getPlaylists()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/playlists")</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim data As Collection</SourceLine>
+   <SourceLine>dim i As integer</SourceLine>
+   <SourceLine>dim list As Playlist</SourceLine>
+   <SourceLine>dim myPlaylists As New Collection</SourceLine>
+   <SourceLine>if response.Data &lt;&gt; Nil and response.Data isA Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>myPlaylists.add(new Playlist(Dictionary(data.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if myPlaylists.Count &gt; 0 then</SourceLine>
+   <SourceLine>App().setMyPlaylists(myPlaylists)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getSavedTracks</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>16</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>16</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getSavedTracks()</SourceLine>
+   <SourceLine>dim response As ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/saved")</SourceLine>
+   <SourceLine>dim saved as new collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim data as collection</SourceLine>
+   <SourceLine>dim newTrack as Track</SourceLine>
+   <SourceLine>if response.data isA Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>newtrack = new Track(data.Item(i))</SourceLine>
+   <SourceLine>saved.Add(newTrack)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if saved.count &lt;&gt; 0 then</SourceLine>
+   <SourceLine>App().setSavedTracks(saved)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>playSetOfTracks</ItemName>
+  <ItemParams>trackUri as string, optional set As Collection, optional resume as boolean = False</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>36</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>36</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub playSetOfTracks(trackUri as string, optional set As Collection, optional resume as boolean = False)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>if set is Nil then</SourceLine>
+   <SourceLine>set = App().savedTracks</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim query as string</SourceLine>
+   <SourceLine>query = ""</SourceLine>
+   <SourceLine>query = query + "&amp;track=" + trackUri</SourceLine>
+   <SourceLine>query = query + "&amp;tracks=" + trackUri + ","</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>for i = 1 to set.Count</SourceLine>
+   <SourceLine>query = query + Track(set.Item(i).ObjectValue).URI</SourceLine>
+   <SourceLine>if i &lt;&gt; set.Count then</SourceLine>
+   <SourceLine>query = query + ","</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>if resume then</SourceLine>
+   <SourceLine>query = query + "&amp;position=" + Str(App().state.Progress)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>response = callRelayServer("/play?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue + query)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>seek</ItemName>
+  <ItemParams>position as integer</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>99</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>99</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub seek(position as integer)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/seek?device="+PrefsManager.CurrentDeviceId+"&amp;position="+Str(position))</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>repeat</ItemName>
+  <ItemParams>state as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>95</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>95</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub repeat(state as string)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/repeat?device=" + PrefsManager.CurrentDeviceId + "&amp;mode=" + state)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>shuffle</ItemName>
+  <ItemParams>state as boolean</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub shuffle(state as boolean)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>if state then</SourceLine>
+   <SourceLine>response = callRelayServer("/shuffle?device=" + PrefsManager.CurrentDeviceId + "&amp;state=true")</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>response = callRelayServer("/shuffle?device=" + PrefsManager.CurrentDeviceId + "&amp;state=false")</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -2388,12 +2904,12 @@
 <block type="Module" ID="-482048617">
  <ObjName>PrefsManager</ObjName>
  <ObjContainerID>-482103612</ObjContainerID>
- <EditBounds><Rect left="82" top="83" width="984" height="405"/></EditBounds>
+ <EditBounds><Rect left="400" top="648" width="984" height="405"/></EditBounds>
  <EditSplit>328</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="82" top="83" width="984" height="405"/></EditBounds>
+   <EditBounds><Rect left="400" top="648" width="984" height="405"/></EditBounds>
    <EditSplit>328</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
@@ -2464,10 +2980,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>4</StartSelRow>
-   <StartSelCol>26</StartSelCol>
-   <EndSelRow>4</EndSelRow>
-   <EndSelCol>26</EndSelCol>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>29</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>29</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub createPrefsFile()</SourceLine>
    <SourceLine>dim prefsFolder As FolderItem</SourceLine>
@@ -2475,8 +2991,10 @@
    <SourceLine>dim textOutput As TextOutputStream</SourceLine>
    <SourceLine>if prefsFolder &lt;&gt; Nil then</SourceLine>
    <SourceLine>textOutput = prefsFolder.child(App().AppId).CreateTextFile</SourceLine>
+   <SourceLine>if textOutput &lt;&gt; Nil then</SourceLine>
    <SourceLine>textOutput.Write(JSON.serialise(App().settings))</SourceLine>
    <SourceLine>textOutput.Close</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -2519,22 +3037,43 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>9</StartSelRow>
-   <StartSelCol>6</StartSelCol>
-   <EndSelRow>9</EndSelRow>
-   <EndSelCol>6</EndSelCol>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>12</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>12</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub savePref(key as string, value as string, optional commit as boolean = true)</SourceLine>
    <SourceLine>if App().settings.hasKey(key) then</SourceLine>
    <SourceLine>if App().settings.Value(key).StringValue &lt;&gt; value then</SourceLine>
    <SourceLine>App().settings.Value(key) = value</SourceLine>
-   <SourceLine>msgBox App().settings.value(key).StringValue</SourceLine>
+   <SourceLine>MsgBox value</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>if commit then</SourceLine>
    <SourceLine>savePrefsFile()</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>CurrentDeviceId</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>21</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>21</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function CurrentDeviceId() As string</SourceLine>
+   <SourceLine>if App().settings.haskey(currentDeviceIdKey) then</SourceLine>
+   <SourceLine>return App().settings.Value(currentDeviceIdKey).StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>
  <Constant>
@@ -2563,12 +3102,12 @@
 <block type="Module" ID="-482037664">
  <ObjName>PlaybackState</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="485" top="59" width="642" height="405"/></EditBounds>
+ <EditBounds><Rect left="847" top="544" width="642" height="405"/></EditBounds>
  <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="485" top="59" width="642" height="405"/></EditBounds>
+   <EditBounds><Rect left="847" top="544" width="642" height="405"/></EditBounds>
    <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
@@ -2602,12 +3141,16 @@
   <ItemFlags>0</ItemFlags>
   <ItemSource>
    <StartSelRow>1</StartSelRow>
-   <StartSelCol>42</StartSelCol>
+   <StartSelCol>27</StartSelCol>
    <EndSelRow>1</EndSelRow>
-   <EndSelCol>42</EndSelCol>
+   <EndSelCol>27</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function Repeat() As string</SourceLine>
+   <SourceLine>if me.HasKey("repeatState") then</SourceLine>
    <SourceLine>return Me.Value("repeatState").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>
@@ -2618,13 +3161,19 @@
   <ItemResult>Boolean</ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>1</StartSelRow>
-   <StartSelCol>44</StartSelCol>
-   <EndSelRow>1</EndSelRow>
-   <EndSelCol>44</EndSelCol>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>6</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Function Shuffle() As Boolean</SourceLine>
-   <SourceLine>return Me.Value("shuffleState").BooleanValue</SourceLine>
+   <SourceLine>if me.HasKey("shuffleState") then</SourceLine>
+   <SourceLine>if me.value("shuffleState").StringValue = "true" then</SourceLine>
+   <SourceLine>return True</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>
@@ -2713,12 +3262,12 @@
 <block type="Module" ID="-482035787">
  <ObjName>Track</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="490" top="487" width="1226" height="405"/></EditBounds>
+ <EditBounds><Rect left="193" top="281" width="1226" height="405"/></EditBounds>
  <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="490" top="487" width="1226" height="405"/></EditBounds>
+   <EditBounds><Rect left="193" top="281" width="1226" height="405"/></EditBounds>
    <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
@@ -2853,10 +3402,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>1</StartSelRow>
-   <StartSelCol>0</StartSelCol>
-   <EndSelRow>1</EndSelRow>
-   <EndSelCol>0</EndSelCol>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>31</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>31</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Constructor(title as string, artist as string, album as string, albumart as string, albumId as string, id as string, duration as integer)</SourceLine>
    <SourceLine>me.value("title") = title</SourceLine>
@@ -2869,18 +3418,60 @@
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
  </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>data as Dictionary</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>14</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>14</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(data as Dictionary)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>Me.Constructor(_</SourceLine>
+   <SourceLine>data.Value("title").StringValue, _</SourceLine>
+   <SourceLine>data.Value("artist").StringValue, _</SourceLine>
+   <SourceLine>data.Value("album").StringValue, _</SourceLine>
+   <SourceLine>data.Value("albumArt").StringValue, _</SourceLine>
+   <SourceLine>data.Value("albumId").StringValue, _</SourceLine>
+   <SourceLine>data.Value("id").StringValue, _</SourceLine>
+   <SourceLine>data.Value("duration").IntegerValue)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>31</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>31</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As String</SourceLine>
+   <SourceLine>return "spotify:track:" + Me.ID</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
  <Interfaces></Interfaces>
 </block>
 <block type="Module" ID="-482024703">
  <ObjName>Device</ObjName>
  <ObjContainerID>-482103646</ObjContainerID>
- <EditBounds><Rect left="1035" top="473" width="545" height="405"/></EditBounds>
- <EditSplit>-1000</EditSplit>
+ <EditBounds><Rect left="509" top="543" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="1035" top="473" width="545" height="405"/></EditBounds>
-   <EditSplit>-1000</EditSplit>
+   <EditBounds><Rect left="509" top="543" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
  <IsClass>1</IsClass>
@@ -2893,13 +3484,13 @@
 <block type="Window" ID="-482481226">
  <ObjName>MainWindow</ObjName>
  <ObjContainerID>0</ObjContainerID>
- <EditBounds><Rect left="247" top="351" width="819" height="399"/></EditBounds>
- <EditSplit>181</EditSplit>
+ <EditBounds><Rect left="139" top="211" width="819" height="399"/></EditBounds>
+ <EditSplit>202</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="247" top="351" width="819" height="399"/></EditBounds>
-   <EditSplit>181</EditSplit>
+   <EditBounds><Rect left="139" top="211" width="819" height="399"/></EditBounds>
+   <EditSplit>202</EditSplit>
   </BrowserPositionElement>
   <BrowserPositionElement>
    <ScreenKey>100001207</ScreenKey>
@@ -2907,8 +3498,8 @@
    <EditSplit>181</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
- <LastPositionH>319</LastPositionH>
- <LastPositionV>246</LastPositionV>
+ <LastPositionH>528</LastPositionH>
+ <LastPositionV>140</LastPositionV>
  <PropertyVal Name="Name">MainWindow</PropertyVal>
  <PropertyVal Name="Frame">9</PropertyVal>
  <PropertyVal Name="Composite">True</PropertyVal>
@@ -2982,15 +3573,15 @@
   <TextEncoding>1536</TextEncoding>
   <ItemName>Open</ItemName>
   <ItemSource>
-   <StartSelRow>1</StartSelRow>
-   <StartSelCol>25</StartSelCol>
-   <EndSelRow>1</EndSelRow>
-   <EndSelCol>25</EndSelCol>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>36</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>36</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub Open()</SourceLine>
    <SourceLine>Me.countSinceLastSync = 0</SourceLine>
    <SourceLine>// App() handles all changes, passing back control once MainWindow is instantiated</SourceLine>
-   <SourceLine>App().refreshState()</SourceLine>
+   <SourceLine>App().refreshState(True, True, True)</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
  </HookInstance>
@@ -3023,6 +3614,20 @@
    <SourceLine>End Function</SourceLine>
   </ItemSource>
  </MenuHandler>
+ <MenuHandler>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>ReloadButton</ItemName>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>36</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>36</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Action() As Boolean</SourceLine>
+   <SourceLine>App().refreshState(True, True, True)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </MenuHandler>
  <ControlBehavior>
   <ObjName></ObjName>
   <ObjSize>116</ObjSize>
@@ -3044,14 +3649,13 @@
    <TextEncoding>1536</TextEncoding>
    <ItemName>Action</ItemName>
    <ItemSource>
-    <StartSelRow>2</StartSelRow>
-    <StartSelCol>20</StartSelCol>
-    <EndSelRow>2</EndSelRow>
-    <EndSelCol>20</EndSelCol>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>42</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>42</EndSelCol>
     <TextEncoding>134217984</TextEncoding>
     <SourceLine>Sub Action()</SourceLine>
-    <SourceLine>dim result as string</SourceLine>
-    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>App().client.search(Self.SearchField.Text)</SourceLine>
     <SourceLine>End Sub</SourceLine>
    </ItemSource>
   </HookInstance>
@@ -3091,17 +3695,20 @@
    <TextEncoding>1536</TextEncoding>
    <ItemName>MouseDown</ItemName>
    <ItemSource>
-    <StartSelRow>5</StartSelRow>
-    <StartSelCol>21</StartSelCol>
-    <EndSelRow>5</EndSelRow>
-    <EndSelCol>21</EndSelCol>
+    <StartSelRow>8</StartSelRow>
+    <StartSelCol>27</StartSelCol>
+    <EndSelRow>8</EndSelRow>
+    <EndSelCol>27</EndSelCol>
     <TextEncoding>134217984</TextEncoding>
     <SourceLine>Function MouseDown(X As Integer, Y As Integer) As Boolean</SourceLine>
     <SourceLine>dim max as integer</SourceLine>
-    <SourceLine>dim spot as integer</SourceLine>
+    <SourceLine>dim spot as double</SourceLine>
+    <SourceLine>dim position as integer</SourceLine>
     <SourceLine>max = Me.Maximum</SourceLine>
-    <SourceLine>spot = round(X / max)</SourceLine>
-    <SourceLine>Me.Value = spot * max</SourceLine>
+    <SourceLine>spot = X / Me.Width</SourceLine>
+    <SourceLine>position = spot * max</SourceLine>
+    <SourceLine>Me.Value = position</SourceLine>
+    <SourceLine>App().client.seek(position)</SourceLine>
     <SourceLine>End Function</SourceLine>
    </ItemSource>
   </HookInstance>
@@ -3155,12 +3762,82 @@
   <ObjSize>448</ObjSize>
   <Superclass>Listbox</Superclass>
   <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>9</StartSelRow>
+    <StartSelCol>6</StartSelCol>
+    <EndSelRow>9</EndSelRow>
+    <EndSelCol>6</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim index as integer</SourceLine>
+    <SourceLine>dim nextTrack As Track</SourceLine>
+    <SourceLine>index = Me.ListIndex</SourceLine>
+    <SourceLine>nextTrack = Track(App().Queue.Item(index + 1))</SourceLine>
+    <SourceLine>if app().state.Context &lt;&gt; "" then</SourceLine>
+    <SourceLine>App().client.play(nextTrack.URI, App().state.Context)</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>App().client.playSetOfTracks(nextTrack.URI, App().queue)</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>App().state.Value("playing") = True</SourceLine>
+    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
  </ControlBehavior>
  <ControlBehavior>
   <ObjName></ObjName>
   <ObjSize>448</ObjSize>
   <Superclass>Listbox</Superclass>
   <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>4</StartSelRow>
+    <StartSelCol>26</StartSelCol>
+    <EndSelRow>4</EndSelRow>
+    <EndSelCol>26</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim i as integer</SourceLine>
+    <SourceLine>dim tr as Track</SourceLine>
+    <SourceLine>i = Me.ListIndex</SourceLine>
+    <SourceLine>tr = new Track(Dictionary(App().trackSearchResults.Item(i + 1).ObjectValue))</SourceLine>
+    <SourceLine>App().client.play(tr.URI, "spotify:album:" + tr.AlbumId)</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
  </ControlBehavior>
  <ControlBehavior>
   <ObjName></ObjName>
@@ -3225,10 +3902,10 @@
    <TextEncoding>1536</TextEncoding>
    <ItemName>Action</ItemName>
    <ItemSource>
-    <StartSelRow>13</StartSelRow>
-    <StartSelCol>33</StartSelCol>
-    <EndSelRow>13</EndSelRow>
-    <EndSelCol>33</EndSelCol>
+    <StartSelRow>8</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>8</EndSelRow>
+    <EndSelCol>30</EndSelCol>
     <TextEncoding>134217984</TextEncoding>
     <SourceLine>Sub Action()</SourceLine>
     <SourceLine>dim shouldGetArt as boolean</SourceLine>
@@ -3242,11 +3919,9 @@
     <SourceLine>App().client.play()</SourceLine>
     <SourceLine>end if</SourceLine>
     <SourceLine></SourceLine>
-    <SourceLine></SourceLine>
     <SourceLine>if AlbumArtWell.Image is Nil then</SourceLine>
     <SourceLine>shouldGetArt = True</SourceLine>
     <SourceLine>end if</SourceLine>
-    <SourceLine></SourceLine>
     <SourceLine></SourceLine>
     <SourceLine>App().refreshState(shouldGetArt)</SourceLine>
     <SourceLine>End Sub</SourceLine>
@@ -3266,6 +3941,20 @@
   <IsInterface>0</IsInterface>
   <HookInstance>
    <TextEncoding>1536</TextEncoding>
+   <ItemName>CompareRows</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Function CompareRows(row1 as Integer, row2 as Integer, column as Integer, ByRef result as Integer) As Boolean</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Function</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
    <ItemName>CellAction</ItemName>
    <ItemSource>
     <StartSelRow>1</StartSelRow>
@@ -3282,22 +3971,35 @@
    <TextEncoding>1536</TextEncoding>
    <ItemName>DoubleClick</ItemName>
    <ItemSource>
-    <StartSelRow>11</StartSelRow>
-    <StartSelCol>6</StartSelCol>
-    <EndSelRow>11</EndSelRow>
-    <EndSelCol>6</EndSelCol>
+    <StartSelRow>22</StartSelRow>
+    <StartSelCol>62</StartSelCol>
+    <EndSelRow>22</EndSelRow>
+    <EndSelCol>62</EndSelCol>
     <TextEncoding>134217984</TextEncoding>
     <SourceLine>Sub DoubleClick()</SourceLine>
     <SourceLine>dim device as Dictionary</SourceLine>
     <SourceLine>dim deviceName as string</SourceLine>
     <SourceLine>dim deviceId as string</SourceLine>
     <SourceLine>dim index as integer</SourceLine>
+    <SourceLine>dim nowPlaying as Track</SourceLine>
     <SourceLine>index = Me.ListIndex + 1</SourceLine>
     <SourceLine>if App().deviceList.Item(index) isa Dictionary then</SourceLine>
     <SourceLine>device = Dictionary(App().deviceList.Item(index))</SourceLine>
     <SourceLine>deviceName = device.value("name").StringValue</SourceLine>
     <SourceLine>deviceId = device.value("id").StringValue</SourceLine>
     <SourceLine>App().setCurrentDevice(deviceName, deviceId)</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if App().State.Playing then</SourceLine>
+    <SourceLine>if App().state.Context &lt;&gt; "" then</SourceLine>
+    <SourceLine>if App().State.NowPlaying &lt;&gt; Nil then</SourceLine>
+    <SourceLine>nowPlaying = Track(App().State.NowPlaying)</SourceLine>
+    <SourceLine>app().client.play(nowPlaying.URI, App().state.Context, deviceId, App().state.Progress)</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>'need to transfer current queue</SourceLine>
+    <SourceLine>nowPlaying = Track(App().State.NowPlaying)</SourceLine>
+    <SourceLine>app().client.playSetOfTracks(nowPlaying.URI, App().queue, True)</SourceLine>
+    <SourceLine>end if</SourceLine>
     <SourceLine>end if</SourceLine>
     <SourceLine>End Sub</SourceLine>
    </ItemSource>
@@ -3470,22 +4172,353 @@
    <TextEncoding>1536</TextEncoding>
    <ItemName>Action</ItemName>
    <ItemSource>
-    <StartSelRow>7</StartSelRow>
+    <StartSelRow>18</StartSelRow>
     <StartSelCol>6</StartSelCol>
-    <EndSelRow>7</EndSelRow>
+    <EndSelRow>18</EndSelRow>
     <EndSelCol>6</EndSelCol>
     <TextEncoding>134217984</TextEncoding>
     <SourceLine>Sub Action()</SourceLine>
-    <SourceLine>if App().state.Playing and PlayButton.Icon &lt;&gt; pauseIcon then</SourceLine>
+    <SourceLine>if App().state.Playing then</SourceLine>
+    <SourceLine>if not PlayButton.Value then</SourceLine>
+    <SourceLine>PlayButton.Value = True</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if Self.PlayButton.Icon &lt;&gt; pauseIcon then</SourceLine>
     <SourceLine>PlayButton.Icon = pauseIcon</SourceLine>
-    <SourceLine>else </SourceLine>
-    <SourceLine>if Not(App().state.Playing) and PlayButton.Icon &lt;&gt; playIcon then</SourceLine>
-    <SourceLine>PlayButton.Icon = playIcon</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>ElseIf Not(App().state.Playing) then</SourceLine>
+    <SourceLine>if PlayButton.Value then</SourceLine>
+    <SourceLine>PlayButton.Value = False</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if Self.PlayButton.Icon &lt;&gt; playIcon then</SourceLine>
+    <SourceLine>self.PlayButton.Icon = playIcon</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if Self.ShuffleButton.Value &lt;&gt; App().state.Shuffle then</SourceLine>
+    <SourceLine>Self.ShuffleButton.Value = App().state.Shuffle</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if app().state.Repeat = "off" then</SourceLine>
+    <SourceLine>if self.RepeatButton.Value then</SourceLine>
+    <SourceLine>Self.RepeatButton.Value = False</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if Self.RepeatButton.Icon &lt;&gt; repeat then</SourceLine>
+    <SourceLine>Self.RepeatButton.Icon = repeat</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>if not self.RepeatButton.Value then</SourceLine>
+    <SourceLine>Self.RepeatButton.Value = True</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>if app().state.repeat = "track" then</SourceLine>
+    <SourceLine>if Self.RepeatButton.Icon &lt;&gt; repeatone then</SourceLine>
+    <SourceLine>Self.RepeatButton.Icon = repeatone</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>if Self.RepeatButton.Icon &lt;&gt; repeat then</SourceLine>
+    <SourceLine>Self.RepeatButton.Icon = repeat</SourceLine>
+    <SourceLine>end if</SourceLine>
     <SourceLine>end if</SourceLine>
     <SourceLine>end if</SourceLine>
     <SourceLine>End Sub</SourceLine>
    </ItemSource>
   </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>448</ObjSize>
+  <Superclass>Listbox</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>CompareRows</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Function CompareRows(row1 as Integer, row2 as Integer, column as Integer, ByRef result as Integer) As Boolean</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Function</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>7</StartSelRow>
+    <StartSelCol>20</StartSelCol>
+    <EndSelRow>7</EndSelRow>
+    <EndSelCol>20</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim index as integer</SourceLine>
+    <SourceLine>dim nextTrack As RecentlyPlayed</SourceLine>
+    <SourceLine>index = Me.ListIndex</SourceLine>
+    <SourceLine>nextTrack = RecentlyPlayed(App().recents.Item(index + 1))</SourceLine>
+    <SourceLine>App().client.play(nextTrack.URI, nextTrack.Context)</SourceLine>
+    <SourceLine>App().state.Value("playing") = True</SourceLine>
+    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>448</ObjSize>
+  <Superclass>Listbox</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>8</StartSelRow>
+    <StartSelCol>20</StartSelCol>
+    <EndSelRow>8</EndSelRow>
+    <EndSelCol>20</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim index as integer</SourceLine>
+    <SourceLine>index = Me.ListIndex</SourceLine>
+    <SourceLine>dim uri as string</SourceLine>
+    <SourceLine>dim al as Album</SourceLine>
+    <SourceLine>al = Album(App().albumSearchResults.Item(index + 1))</SourceLine>
+    <SourceLine>uri = al.URI</SourceLine>
+    <SourceLine>App().client.play("", uri)</SourceLine>
+    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>448</ObjSize>
+  <Superclass>Listbox</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>6</StartSelRow>
+    <StartSelCol>20</StartSelCol>
+    <EndSelRow>6</EndSelRow>
+    <EndSelCol>20</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim i as integer</SourceLine>
+    <SourceLine>dim pl as Playlist</SourceLine>
+    <SourceLine>i = Me.ListIndex</SourceLine>
+    <SourceLine>pl = new Playlist(Dictionary(App().playlistSearchResults.Item(i + 1).ObjectValue))</SourceLine>
+    <SourceLine>App().client.play("", pl.URI)</SourceLine>
+    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>448</ObjSize>
+  <Superclass>Listbox</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>CompareRows</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Function CompareRows(row1 as Integer, row2 as Integer, column as Integer, ByRef result as Integer) As Boolean</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Function</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>7</StartSelRow>
+    <StartSelCol>20</StartSelCol>
+    <EndSelRow>7</EndSelRow>
+    <EndSelCol>20</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim index as integer</SourceLine>
+    <SourceLine>dim playlist As Playlist</SourceLine>
+    <SourceLine>index = Me.ListIndex</SourceLine>
+    <SourceLine>playlist = Playlist(App().myPlaylists.Item(index + 1))</SourceLine>
+    <SourceLine>App().client.play("", playlist.URI)</SourceLine>
+    <SourceLine>App().state.Value("playing") = True</SourceLine>
+    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>448</ObjSize>
+  <Superclass>Listbox</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>DoubleClick</ItemName>
+   <ItemSource>
+    <StartSelRow>6</StartSelRow>
+    <StartSelCol>61</StartSelCol>
+    <EndSelRow>6</EndSelRow>
+    <EndSelCol>61</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub DoubleClick()</SourceLine>
+    <SourceLine>dim index as integer</SourceLine>
+    <SourceLine>dim nextTrack As Track</SourceLine>
+    <SourceLine>index = Me.ListIndex</SourceLine>
+    <SourceLine>if index &lt; App().savedTracks.Count then</SourceLine>
+    <SourceLine>nextTrack = Track(App().savedTracks.Item(index + 1))</SourceLine>
+    <SourceLine>App().client.playSetOfTracks(nextTrack.URI, App().savedTracks)</SourceLine>
+    <SourceLine>App().state.Value("playing") = True</SourceLine>
+    <SourceLine>end if </SourceLine>
+    <SourceLine>App().refreshState()</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Change</ItemName>
+   <ItemSource>
+    <StartSelRow>1</StartSelRow>
+    <StartSelCol>0</StartSelCol>
+    <EndSelRow>1</EndSelRow>
+    <EndSelCol>0</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Change()</SourceLine>
+    <SourceLine></SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>252</ObjSize>
+  <Superclass>BevelButton</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Action</ItemName>
+   <ItemSource>
+    <StartSelRow>6</StartSelRow>
+    <StartSelCol>42</StartSelCol>
+    <EndSelRow>6</EndSelRow>
+    <EndSelCol>42</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>if app().state &lt;&gt; nil then</SourceLine>
+    <SourceLine>if app().state.Shuffle then</SourceLine>
+    <SourceLine>App().state.Value("shuffleState") = "false"</SourceLine>
+    <SourceLine>App().client.shuffle(False)</SourceLine>
+    <SourceLine>else</SourceLine>
+    <SourceLine>App().state.Value("shuffleState") = "true"</SourceLine>
+    <SourceLine>App().client.shuffle(True)</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>252</ObjSize>
+  <Superclass>BevelButton</Superclass>
+  <IsInterface>0</IsInterface>
+  <HookInstance>
+   <TextEncoding>1536</TextEncoding>
+   <ItemName>Action</ItemName>
+   <ItemSource>
+    <StartSelRow>9</StartSelRow>
+    <StartSelCol>6</StartSelCol>
+    <EndSelRow>9</EndSelRow>
+    <EndSelCol>6</EndSelCol>
+    <TextEncoding>134217984</TextEncoding>
+    <SourceLine>Sub Action()</SourceLine>
+    <SourceLine>dim state as string</SourceLine>
+    <SourceLine>state = app().state.repeat</SourceLine>
+    <SourceLine>if state = "off" then</SourceLine>
+    <SourceLine>app().client.repeat("context")</SourceLine>
+    <SourceLine>elseif state = "context" then</SourceLine>
+    <SourceLine>app().client.repeat("track")</SourceLine>
+    <SourceLine>elseif state = "track" then</SourceLine>
+    <SourceLine>app().client.repeat("off")</SourceLine>
+    <SourceLine>end if</SourceLine>
+    <SourceLine>app().refreshState(False, False, False)</SourceLine>
+    <SourceLine>End Sub</SourceLine>
+   </ItemSource>
+  </HookInstance>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>136</ObjSize>
+  <Superclass>StaticText</Superclass>
+  <IsInterface>0</IsInterface>
+ </ControlBehavior>
+ <ControlBehavior>
+  <ObjName></ObjName>
+  <ObjSize>136</ObjSize>
+  <Superclass>StaticText</Superclass>
+  <IsInterface>0</IsInterface>
  </ControlBehavior>
  <Control>
   <ControlClass>Placard</ControlClass>
@@ -3673,8 +4706,8 @@
   <PropertyVal Name="Italic">False</PropertyVal>
   <PropertyVal Name="Underline">False</PropertyVal>
   <PropertyVal Name="Value">1</PropertyVal>
-  <PropertyVal Name="PanelCount">2</PropertyVal>
-  <PropertyVal Name="TabDefinition"><Hex bytes="21">51756575650D526563656E746C7920506C61796564</Hex></PropertyVal>
+  <PropertyVal Name="PanelCount">4</PropertyVal>
+  <PropertyVal Name="TabDefinition"><Hex bytes="47">51756575650D526563656E746C7920506C617965640D4D7920506C61796C697374730D536176656420547261636B73</Hex></PropertyVal>
   <PropertyVal Name="Facing">0</PropertyVal>
   <PropertyVal Name="SmallTabs">False</PropertyVal>
   <PropertyVal Name="Enabled">True</PropertyVal>
@@ -3747,7 +4780,7 @@
   <PropertyVal Name="Visible">True</PropertyVal>
   <PropertyVal Name="Left">20</PropertyVal>
   <PropertyVal Name="Top">457</PropertyVal>
-  <PropertyVal Name="Width">39</PropertyVal>
+  <PropertyVal Name="Width">55</PropertyVal>
   <PropertyVal Name="Height">20</PropertyVal>
   <PropertyVal Name="InitialParent"></PropertyVal>
   <PropertyVal Name="HelpTag"></PropertyVal>
@@ -3779,9 +4812,9 @@
   <PropertyVal Name="Index">-2147483648</PropertyVal>
   <PropertyVal Name="TabPanelIndex">0</PropertyVal>
   <PropertyVal Name="Visible">True</PropertyVal>
-  <PropertyVal Name="Left">741</PropertyVal>
+  <PropertyVal Name="Left">725</PropertyVal>
   <PropertyVal Name="Top">457</PropertyVal>
-  <PropertyVal Name="Width">39</PropertyVal>
+  <PropertyVal Name="Width">55</PropertyVal>
   <PropertyVal Name="Height">20</PropertyVal>
   <PropertyVal Name="InitialParent"></PropertyVal>
   <PropertyVal Name="HelpTag"></PropertyVal>
@@ -3847,9 +4880,9 @@
   <PropertyVal Name="Index">-2147483648</PropertyVal>
   <PropertyVal Name="TabPanelIndex">0</PropertyVal>
   <PropertyVal Name="Visible">True</PropertyVal>
-  <PropertyVal Name="Left">668</PropertyVal>
+  <PropertyVal Name="Left">658</PropertyVal>
   <PropertyVal Name="Top">457</PropertyVal>
-  <PropertyVal Name="Width">39</PropertyVal>
+  <PropertyVal Name="Width">49</PropertyVal>
   <PropertyVal Name="Height">20</PropertyVal>
   <PropertyVal Name="InitialParent"></PropertyVal>
   <PropertyVal Name="HelpTag"></PropertyVal>
@@ -3877,15 +4910,15 @@
  <Control>
   <ControlClass>ListBox</ControlClass>
   <ItemName>ListBox</ItemName>
-  <PropertyVal Name="Name">ListBox1</PropertyVal>
+  <PropertyVal Name="Name">QueueListBox</PropertyVal>
   <PropertyVal Name="Index">-2147483648</PropertyVal>
   <PropertyVal Name="TabPanelIndex">1</PropertyVal>
   <PropertyVal Name="Visible">True</PropertyVal>
   <PropertyVal Name="Left">36</PropertyVal>
-  <PropertyVal Name="Top">252</PropertyVal>
+  <PropertyVal Name="Top">250</PropertyVal>
   <PropertyVal Name="Width">507</PropertyVal>
   <PropertyVal Name="Height">144</PropertyVal>
-  <PropertyVal Name="InitialParent">QueueTabPanel</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
   <PropertyVal Name="HelpTag"></PropertyVal>
   <PropertyVal Name="BalloonHelp"></PropertyVal>
   <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
@@ -3904,7 +4937,7 @@
   <PropertyVal Name="ColumnWidths"></PropertyVal>
   <PropertyVal Name="HasHeading">True</PropertyVal>
   <PropertyVal Name="UseFocusRing">True</PropertyVal>
-  <PropertyVal Name="InitialValue"></PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="18">5469746C650941727469737409416C62756D</Hex></PropertyVal>
   <PropertyVal Name="Hierarchical">False</PropertyVal>
   <PropertyVal Name="EnableDrag">False</PropertyVal>
   <PropertyVal Name="EnableDragReorder">False</PropertyVal>
@@ -3919,13 +4952,13 @@
   <PropertyVal Name="GridLinesHorizontal">0</PropertyVal>
   <PropertyVal Name="GridLinesVertical">0</PropertyVal>
   <PropertyVal Name="DefaultRowHeight">-1</PropertyVal>
-  <PropertyVal Name="ColumnsResizable">False</PropertyVal>
+  <PropertyVal Name="ColumnsResizable">True</PropertyVal>
   <ControlIndex>11</ControlIndex>
  </Control>
  <Control>
   <ControlClass>ListBox</ControlClass>
   <ItemName>ListBox</ItemName>
-  <PropertyVal Name="Name">ListBox2</PropertyVal>
+  <PropertyVal Name="Name">TrackResultsListBox</PropertyVal>
   <PropertyVal Name="Index">-2147483648</PropertyVal>
   <PropertyVal Name="TabPanelIndex">1</PropertyVal>
   <PropertyVal Name="Visible">True</PropertyVal>
@@ -3948,11 +4981,11 @@
   <PropertyVal Name="Italic">False</PropertyVal>
   <PropertyVal Name="Underline">False</PropertyVal>
   <PropertyVal Name="Enabled">True</PropertyVal>
-  <PropertyVal Name="ColumnCount">2</PropertyVal>
+  <PropertyVal Name="ColumnCount">3</PropertyVal>
   <PropertyVal Name="ColumnWidths"></PropertyVal>
   <PropertyVal Name="HasHeading">True</PropertyVal>
   <PropertyVal Name="UseFocusRing">True</PropertyVal>
-  <PropertyVal Name="InitialValue"></PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="18">5469746C650941727469737409416C62756D</Hex></PropertyVal>
   <PropertyVal Name="Hierarchical">False</PropertyVal>
   <PropertyVal Name="EnableDrag">False</PropertyVal>
   <PropertyVal Name="EnableDragReorder">False</PropertyVal>
@@ -4262,7 +5295,7 @@
   <PropertyVal Name="ButtonType">1</PropertyVal>
   <PropertyVal Name="TextFont">System</PropertyVal>
   <PropertyVal Name="TextSize">24</PropertyVal>
-  <PropertyVal Name="Bold">True</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
   <PropertyVal Name="Italic">False</PropertyVal>
   <PropertyVal Name="Underline">False</PropertyVal>
   <ControlIndex>22</ControlIndex>
@@ -4416,7 +5449,7 @@
   <PropertyVal Name="CaptionPlacement">1</PropertyVal>
   <PropertyVal Name="CaptionDelta">0</PropertyVal>
   <PropertyVal Name="Icon">-482061358</PropertyVal>
-  <PropertyVal Name="IconAlign">0</PropertyVal>
+  <PropertyVal Name="IconAlign">1</PropertyVal>
   <PropertyVal Name="IconDX">0</PropertyVal>
   <PropertyVal Name="IconDY">0</PropertyVal>
   <PropertyVal Name="Bevel">0</PropertyVal>
@@ -4586,8 +5619,8 @@
   <PropertyVal Name="Index">-2147483648</PropertyVal>
   <PropertyVal Name="TabPanelIndex">0</PropertyVal>
   <PropertyVal Name="Visible">False</PropertyVal>
-  <PropertyVal Name="Left">20</PropertyVal>
-  <PropertyVal Name="Top">510</PropertyVal>
+  <PropertyVal Name="Left">758</PropertyVal>
+  <PropertyVal Name="Top">515</PropertyVal>
   <PropertyVal Name="Width">16</PropertyVal>
   <PropertyVal Name="Height">16</PropertyVal>
   <PropertyVal Name="InitialParent"></PropertyVal>
@@ -4611,7 +5644,7 @@
   <PropertyVal Name="Left">725</PropertyVal>
   <PropertyVal Name="Top">-2</PropertyVal>
   <PropertyVal Name="Mode">2</PropertyVal>
-  <PropertyVal Name="Period">10000</PropertyVal>
+  <PropertyVal Name="Period">5000</PropertyVal>
   <ControlIndex>34</ControlIndex>
  </Control>
  <Control>
@@ -4623,8 +5656,825 @@
   <PropertyVal Name="Left">697</PropertyVal>
   <PropertyVal Name="Top">-2</PropertyVal>
   <PropertyVal Name="Mode">2</PropertyVal>
-  <PropertyVal Name="Period">250</PropertyVal>
+  <PropertyVal Name="Period">500</PropertyVal>
   <ControlIndex>35</ControlIndex>
  </Control>
+ <Control>
+  <ControlClass>ListBox</ControlClass>
+  <ItemName>ListBox</ItemName>
+  <PropertyVal Name="Name">RecentListBox</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">2</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">36</PropertyVal>
+  <PropertyVal Name="Top">250</PropertyVal>
+  <PropertyVal Name="Width">507</PropertyVal>
+  <PropertyVal Name="Height">144</PropertyVal>
+  <PropertyVal Name="InitialParent">QueueTabPanel</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="ColumnCount">3</PropertyVal>
+  <PropertyVal Name="ColumnWidths"></PropertyVal>
+  <PropertyVal Name="HasHeading">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="18">5469746C650941727469737409416C62756D</Hex></PropertyVal>
+  <PropertyVal Name="Hierarchical">False</PropertyVal>
+  <PropertyVal Name="EnableDrag">False</PropertyVal>
+  <PropertyVal Name="EnableDragReorder">False</PropertyVal>
+  <PropertyVal Name="SelectionType">0</PropertyVal>
+  <PropertyVal Name="HeadingIndex">-1</PropertyVal>
+  <PropertyVal Name="ScrollBarHorizontal">False</PropertyVal>
+  <PropertyVal Name="ScrollPositionX">0</PropertyVal>
+  <PropertyVal Name="ScrollBarVertical">True</PropertyVal>
+  <PropertyVal Name="ScrollPosition">0</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <PropertyVal Name="GridLinesHorizontal">0</PropertyVal>
+  <PropertyVal Name="GridLinesVertical">0</PropertyVal>
+  <PropertyVal Name="DefaultRowHeight">-1</PropertyVal>
+  <PropertyVal Name="ColumnsResizable">True</PropertyVal>
+  <ControlIndex>36</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>ListBox</ControlClass>
+  <ItemName>ListBox</ItemName>
+  <PropertyVal Name="Name">AlbumResultsListBox</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">2</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">257</PropertyVal>
+  <PropertyVal Name="Top">98</PropertyVal>
+  <PropertyVal Name="Width">286</PropertyVal>
+  <PropertyVal Name="Height">90</PropertyVal>
+  <PropertyVal Name="InitialParent">SearchResultsTabPanel</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="ColumnCount">2</PropertyVal>
+  <PropertyVal Name="ColumnWidths"></PropertyVal>
+  <PropertyVal Name="HasHeading">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="12">5469746C6509417274697374</Hex></PropertyVal>
+  <PropertyVal Name="Hierarchical">False</PropertyVal>
+  <PropertyVal Name="EnableDrag">False</PropertyVal>
+  <PropertyVal Name="EnableDragReorder">False</PropertyVal>
+  <PropertyVal Name="SelectionType">0</PropertyVal>
+  <PropertyVal Name="HeadingIndex">-1</PropertyVal>
+  <PropertyVal Name="ScrollBarHorizontal">False</PropertyVal>
+  <PropertyVal Name="ScrollPositionX">0</PropertyVal>
+  <PropertyVal Name="ScrollBarVertical">True</PropertyVal>
+  <PropertyVal Name="ScrollPosition">0</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <PropertyVal Name="GridLinesHorizontal">0</PropertyVal>
+  <PropertyVal Name="GridLinesVertical">0</PropertyVal>
+  <PropertyVal Name="DefaultRowHeight">-1</PropertyVal>
+  <PropertyVal Name="ColumnsResizable">False</PropertyVal>
+  <ControlIndex>37</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>ListBox</ControlClass>
+  <ItemName>ListBox</ItemName>
+  <PropertyVal Name="Name">PlaylistResultsListBox</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">3</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">257</PropertyVal>
+  <PropertyVal Name="Top">98</PropertyVal>
+  <PropertyVal Name="Width">286</PropertyVal>
+  <PropertyVal Name="Height">90</PropertyVal>
+  <PropertyVal Name="InitialParent">SearchResultsTabPanel</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">True</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="ColumnCount">2</PropertyVal>
+  <PropertyVal Name="ColumnWidths"></PropertyVal>
+  <PropertyVal Name="HasHeading">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="10">4E616D65094F776E6572</Hex></PropertyVal>
+  <PropertyVal Name="Hierarchical">False</PropertyVal>
+  <PropertyVal Name="EnableDrag">False</PropertyVal>
+  <PropertyVal Name="EnableDragReorder">False</PropertyVal>
+  <PropertyVal Name="SelectionType">0</PropertyVal>
+  <PropertyVal Name="HeadingIndex">-1</PropertyVal>
+  <PropertyVal Name="ScrollBarHorizontal">False</PropertyVal>
+  <PropertyVal Name="ScrollPositionX">0</PropertyVal>
+  <PropertyVal Name="ScrollBarVertical">True</PropertyVal>
+  <PropertyVal Name="ScrollPosition">0</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <PropertyVal Name="GridLinesHorizontal">0</PropertyVal>
+  <PropertyVal Name="GridLinesVertical">0</PropertyVal>
+  <PropertyVal Name="DefaultRowHeight">-1</PropertyVal>
+  <PropertyVal Name="ColumnsResizable">False</PropertyVal>
+  <ControlIndex>38</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>ListBox</ControlClass>
+  <ItemName>ListBox</ItemName>
+  <PropertyVal Name="Name">MyPlaylistsBox</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">3</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">36</PropertyVal>
+  <PropertyVal Name="Top">250</PropertyVal>
+  <PropertyVal Name="Width">507</PropertyVal>
+  <PropertyVal Name="Height">144</PropertyVal>
+  <PropertyVal Name="InitialParent">QueueTabPanel</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="ColumnCount">2</PropertyVal>
+  <PropertyVal Name="ColumnWidths"></PropertyVal>
+  <PropertyVal Name="HasHeading">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="10">4E616D65094F776E6572</Hex></PropertyVal>
+  <PropertyVal Name="Hierarchical">False</PropertyVal>
+  <PropertyVal Name="EnableDrag">False</PropertyVal>
+  <PropertyVal Name="EnableDragReorder">False</PropertyVal>
+  <PropertyVal Name="SelectionType">0</PropertyVal>
+  <PropertyVal Name="HeadingIndex">-1</PropertyVal>
+  <PropertyVal Name="ScrollBarHorizontal">False</PropertyVal>
+  <PropertyVal Name="ScrollPositionX">0</PropertyVal>
+  <PropertyVal Name="ScrollBarVertical">True</PropertyVal>
+  <PropertyVal Name="ScrollPosition">0</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <PropertyVal Name="GridLinesHorizontal">0</PropertyVal>
+  <PropertyVal Name="GridLinesVertical">0</PropertyVal>
+  <PropertyVal Name="DefaultRowHeight">-1</PropertyVal>
+  <PropertyVal Name="ColumnsResizable">True</PropertyVal>
+  <ControlIndex>39</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>ListBox</ControlClass>
+  <ItemName>ListBox</ItemName>
+  <PropertyVal Name="Name">SavedTracksListBox</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">4</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">36</PropertyVal>
+  <PropertyVal Name="Top">250</PropertyVal>
+  <PropertyVal Name="Width">507</PropertyVal>
+  <PropertyVal Name="Height">144</PropertyVal>
+  <PropertyVal Name="InitialParent">QueueTabPanel</PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="ColumnCount">3</PropertyVal>
+  <PropertyVal Name="ColumnWidths"></PropertyVal>
+  <PropertyVal Name="HasHeading">True</PropertyVal>
+  <PropertyVal Name="UseFocusRing">True</PropertyVal>
+  <PropertyVal Name="InitialValue"><Hex bytes="18">5469746C650941727469737409416C62756D</Hex></PropertyVal>
+  <PropertyVal Name="Hierarchical">False</PropertyVal>
+  <PropertyVal Name="EnableDrag">False</PropertyVal>
+  <PropertyVal Name="EnableDragReorder">False</PropertyVal>
+  <PropertyVal Name="SelectionType">0</PropertyVal>
+  <PropertyVal Name="HeadingIndex">-1</PropertyVal>
+  <PropertyVal Name="ScrollBarHorizontal">False</PropertyVal>
+  <PropertyVal Name="ScrollPositionX">0</PropertyVal>
+  <PropertyVal Name="ScrollBarVertical">True</PropertyVal>
+  <PropertyVal Name="ScrollPosition">0</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <PropertyVal Name="GridLinesHorizontal">0</PropertyVal>
+  <PropertyVal Name="GridLinesVertical">0</PropertyVal>
+  <PropertyVal Name="DefaultRowHeight">-1</PropertyVal>
+  <PropertyVal Name="ColumnsResizable">True</PropertyVal>
+  <ControlIndex>40</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">ShuffleButton</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">497</PropertyVal>
+  <PropertyVal Name="Top">478</PropertyVal>
+  <PropertyVal Name="Width">48</PropertyVal>
+  <PropertyVal Name="Height">48</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption"></PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon">-481818083</PropertyVal>
+  <PropertyVal Name="IconAlign">1</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">1</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <ControlIndex>41</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>BevelButton</ControlClass>
+  <ItemName>BevelButton</ItemName>
+  <PropertyVal Name="Name">RepeatButton</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">247</PropertyVal>
+  <PropertyVal Name="Top">478</PropertyVal>
+  <PropertyVal Name="Width">48</PropertyVal>
+  <PropertyVal Name="Height">48</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="Caption"></PropertyVal>
+  <PropertyVal Name="CaptionAlign">3</PropertyVal>
+  <PropertyVal Name="CaptionPlacement">1</PropertyVal>
+  <PropertyVal Name="CaptionDelta">0</PropertyVal>
+  <PropertyVal Name="Icon">-481818107</PropertyVal>
+  <PropertyVal Name="IconAlign">1</PropertyVal>
+  <PropertyVal Name="IconDX">0</PropertyVal>
+  <PropertyVal Name="IconDY">0</PropertyVal>
+  <PropertyVal Name="Bevel">0</PropertyVal>
+  <PropertyVal Name="HasMenu">0</PropertyVal>
+  <PropertyVal Name="Value">False</PropertyVal>
+  <PropertyVal Name="MenuValue">0</PropertyVal>
+  <PropertyVal Name="ButtonType">0</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <ControlIndex>42</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>StaticText</ControlClass>
+  <ItemName>StaticText</ItemName>
+  <PropertyVal Name="Name">statusLabel</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">20</PropertyVal>
+  <PropertyVal Name="Top">515</PropertyVal>
+  <PropertyVal Name="Width">50</PropertyVal>
+  <PropertyVal Name="Height">20</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Text">Status:</PropertyVal>
+  <PropertyVal Name="TextAlign">0</PropertyVal>
+  <PropertyVal Name="TextColor">0</PropertyVal>
+  <PropertyVal Name="MultiLine">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <ControlIndex>43</ControlIndex>
+ </Control>
+ <Control>
+  <ControlClass>StaticText</ControlClass>
+  <ItemName>StaticText</ItemName>
+  <PropertyVal Name="Name">status</PropertyVal>
+  <PropertyVal Name="Index">-2147483648</PropertyVal>
+  <PropertyVal Name="TabPanelIndex">0</PropertyVal>
+  <PropertyVal Name="Visible">True</PropertyVal>
+  <PropertyVal Name="Left">64</PropertyVal>
+  <PropertyVal Name="Top">515</PropertyVal>
+  <PropertyVal Name="Width">100</PropertyVal>
+  <PropertyVal Name="Height">20</PropertyVal>
+  <PropertyVal Name="InitialParent"></PropertyVal>
+  <PropertyVal Name="HelpTag"></PropertyVal>
+  <PropertyVal Name="BalloonHelp"></PropertyVal>
+  <PropertyVal Name="DisabledBalloonHelp"></PropertyVal>
+  <PropertyVal Name="AutoDeactivate">True</PropertyVal>
+  <PropertyVal Name="LockLeft">False</PropertyVal>
+  <PropertyVal Name="LockTop">False</PropertyVal>
+  <PropertyVal Name="LockRight">False</PropertyVal>
+  <PropertyVal Name="LockBottom">False</PropertyVal>
+  <PropertyVal Name="TextFont">System</PropertyVal>
+  <PropertyVal Name="TextSize">12</PropertyVal>
+  <PropertyVal Name="Bold">False</PropertyVal>
+  <PropertyVal Name="Italic">False</PropertyVal>
+  <PropertyVal Name="Underline">False</PropertyVal>
+  <PropertyVal Name="Text"></PropertyVal>
+  <PropertyVal Name="TextAlign">0</PropertyVal>
+  <PropertyVal Name="TextColor">0</PropertyVal>
+  <PropertyVal Name="MultiLine">False</PropertyVal>
+  <PropertyVal Name="Enabled">True</PropertyVal>
+  <PropertyVal Name="DataSource"></PropertyVal>
+  <PropertyVal Name="DataField"></PropertyVal>
+  <ControlIndex>44</ControlIndex>
+ </Control>
+</block>
+<block type="Module" ID="-481848798">
+ <ObjName>RecentlyPlayed</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="696" top="67" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="696" top="67" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>RecentlyPlayed</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Context</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Context() As String</SourceLine>
+   <SourceLine>if me.hasKey("context") then</SourceLine>
+   <SourceLine>return me.Value("context").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Track</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Track</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Track() As Track</SourceLine>
+   <SourceLine>if me.hasKey("track") then</SourceLine>
+   <SourceLine>return Track(me.Value("track").ObjectValue)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return Nil</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>trackItem As Track, context as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>29</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>29</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(trackItem As Track, context as string)</SourceLine>
+   <SourceLine>me.Value("track") = trackItem</SourceLine>
+   <SourceLine>me.Value("context") = context</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As string</SourceLine>
+   <SourceLine>return Track.URI</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+<block type="Module" ID="-481845897">
+ <ObjName>Album</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="1193" top="323" width="545" height="405"/></EditBounds>
+ <EditSplit>-1000</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="1193" top="323" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Album</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Title</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Title() As string</SourceLine>
+   <SourceLine>if me.hasKey("title") then</SourceLine>
+   <SourceLine>return me.Value("title").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Artist</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Artist() As string</SourceLine>
+   <SourceLine>if me.HasKey("artist") then</SourceLine>
+   <SourceLine>return me.Value("artist").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>AlbumArtHref</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AlbumArtHref() As string</SourceLine>
+   <SourceLine>if me.HasKey("albumArt") then</SourceLine>
+   <SourceLine>return me.Value("albumArt").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>ID</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ID() As string</SourceLine>
+   <SourceLine>if me.HasKey("id") then</SourceLine>
+   <SourceLine>Return me.Value("id").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>31</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>31</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As string</SourceLine>
+   <SourceLine>return "spotify:album:" + me.id</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>data as Dictionary</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>11</StartSelRow>
+   <StartSelCol>45</StartSelCol>
+   <EndSelRow>11</EndSelRow>
+   <EndSelCol>45</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(data as Dictionary)</SourceLine>
+   <SourceLine>if data.HasKey("title") then</SourceLine>
+   <SourceLine>me.Value("title") = data.Value("title").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("artist") then</SourceLine>
+   <SourceLine>me.Value("artist") = data.Value("artist").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("albumArt") then</SourceLine>
+   <SourceLine>me.Value("albumArt") = data.value("albumArt").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.hasKey("id") then</SourceLine>
+   <SourceLine>me.Value("id") = data.Value("id").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+<block type="Module" ID="-481841299">
+ <ObjName>Playlist</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="917" top="72" width="545" height="405"/></EditBounds>
+ <EditSplit>-1000</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="917" top="72" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Playlist</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Name</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Name() As String</SourceLine>
+   <SourceLine>if me.HasKey("name") then</SourceLine>
+   <SourceLine>return me.Value("name").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Owner</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Owner() As String</SourceLine>
+   <SourceLine>if me.HasKey("owner") then</SourceLine>
+   <SourceLine>return me.Value("owner").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As string</SourceLine>
+   <SourceLine>if me.HasKey("uri") then</SourceLine>
+   <SourceLine>return Me.Value("uri").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>name as string, owner as string, uri as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>21</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>21</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(name as string, owner as string, uri as string)</SourceLine>
+   <SourceLine>Me.value("name") = name</SourceLine>
+   <SourceLine>me.value("owner") = owner</SourceLine>
+   <SourceLine>me.value("uri") = uri</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>data As Dictionary</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>9</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>9</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(data As Dictionary)</SourceLine>
+   <SourceLine>if data.HasKey("name") then</SourceLine>
+   <SourceLine>me.Value("name") = data.Value("name").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("owner") then</SourceLine>
+   <SourceLine>me.Value("owner") = data.Value("owner").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("uri") then</SourceLine>
+   <SourceLine>me.value("uri") = data.Value("uri").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+<block type="Module" ID="-481827392">
+ <ObjName>Wait</ObjName>
+ <ObjContainerID>-482103612</ObjContainerID>
+ <EditBounds><Rect left="247" top="351" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="247" top="351" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Wait</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Timer</Superclass>
+ <IsInterface>0</IsInterface>
+ <HookInstance>
+  <TextEncoding>1536</TextEncoding>
+  <ItemName>Action</ItemName>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Action()</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </HookInstance>
+ <Interfaces></Interfaces>
+</block>
+<block type="Picture" ID="-481818107">
+ <ObjName>repeat</ObjName>
+ <ObjContainerID>-482061233</ObjContainerID>
+ <FullPath>Z:\spotifyclient97\client\Spotify97MacEdition\Images\repeat.png</FullPath>
+ <PartialPath>Images\repeat.png\</PartialPath>
+ <ItemTransparent>1</ItemTransparent>
+ <ItemText></ItemText>
+</block>
+<block type="Picture" ID="-481818089">
+ <ObjName>repeatone</ObjName>
+ <ObjContainerID>-482061233</ObjContainerID>
+ <FullPath>Z:\spotifyclient97\client\Spotify97MacEdition\Images\repeatone.png</FullPath>
+ <PartialPath>Images\repeatone.png\</PartialPath>
+ <ItemTransparent>1</ItemTransparent>
+ <ItemText></ItemText>
+</block>
+<block type="Picture" ID="-481818083">
+ <ObjName>shuffle</ObjName>
+ <ObjContainerID>-482061233</ObjContainerID>
+ <FullPath>Z:\spotifyclient97\client\Spotify97MacEdition\Images\shuffle.png</FullPath>
+ <PartialPath>Images\shuffle.png\</PartialPath>
+ <ItemTransparent>1</ItemTransparent>
+ <ItemText></ItemText>
 </block>
 </RBProject>

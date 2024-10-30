@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-481841299">
+ <ObjName>Playlist</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="917" top="72" width="545" height="405"/></EditBounds>
+ <EditSplit>-1000</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="917" top="72" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Playlist</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Name</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Name() As String</SourceLine>
+   <SourceLine>if me.HasKey("name") then</SourceLine>
+   <SourceLine>return me.Value("name").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Owner</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Owner() As String</SourceLine>
+   <SourceLine>if me.HasKey("owner") then</SourceLine>
+   <SourceLine>return me.Value("owner").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As string</SourceLine>
+   <SourceLine>if me.HasKey("uri") then</SourceLine>
+   <SourceLine>return Me.Value("uri").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>name as string, owner as string, uri as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>21</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>21</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(name as string, owner as string, uri as string)</SourceLine>
+   <SourceLine>Me.value("name") = name</SourceLine>
+   <SourceLine>me.value("owner") = owner</SourceLine>
+   <SourceLine>me.value("uri") = uri</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>data As Dictionary</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>9</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>9</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(data As Dictionary)</SourceLine>
+   <SourceLine>if data.HasKey("name") then</SourceLine>
+   <SourceLine>me.Value("name") = data.Value("name").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("owner") then</SourceLine>
+   <SourceLine>me.Value("owner") = data.Value("owner").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("uri") then</SourceLine>
+   <SourceLine>me.value("uri") = data.Value("uri").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

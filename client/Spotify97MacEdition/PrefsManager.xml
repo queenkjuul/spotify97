@@ -3,12 +3,12 @@
 <block type="Module" ID="-482048617">
  <ObjName>PrefsManager</ObjName>
  <ObjContainerID>-482103612</ObjContainerID>
- <EditBounds><Rect left="82" top="83" width="984" height="405"/></EditBounds>
+ <EditBounds><Rect left="400" top="648" width="984" height="405"/></EditBounds>
  <EditSplit>328</EditSplit>
  <BrowserPositionGroup>
   <BrowserPositionElement>
    <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="82" top="83" width="984" height="405"/></EditBounds>
+   <EditBounds><Rect left="400" top="648" width="984" height="405"/></EditBounds>
    <EditSplit>328</EditSplit>
   </BrowserPositionElement>
  </BrowserPositionGroup>
@@ -79,10 +79,10 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>4</StartSelRow>
-   <StartSelCol>26</StartSelCol>
-   <EndSelRow>4</EndSelRow>
-   <EndSelCol>26</EndSelCol>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>29</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>29</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub createPrefsFile()</SourceLine>
    <SourceLine>dim prefsFolder As FolderItem</SourceLine>
@@ -90,8 +90,10 @@
    <SourceLine>dim textOutput As TextOutputStream</SourceLine>
    <SourceLine>if prefsFolder &lt;&gt; Nil then</SourceLine>
    <SourceLine>textOutput = prefsFolder.child(App().AppId).CreateTextFile</SourceLine>
+   <SourceLine>if textOutput &lt;&gt; Nil then</SourceLine>
    <SourceLine>textOutput.Write(JSON.serialise(App().settings))</SourceLine>
    <SourceLine>textOutput.Close</SourceLine>
+   <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
@@ -134,22 +136,43 @@
   <ItemResult></ItemResult>
   <ItemFlags>0</ItemFlags>
   <ItemSource>
-   <StartSelRow>9</StartSelRow>
-   <StartSelCol>6</StartSelCol>
-   <EndSelRow>9</EndSelRow>
-   <EndSelCol>6</EndSelCol>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>12</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>12</EndSelCol>
    <TextEncoding>134217984</TextEncoding>
    <SourceLine>Sub savePref(key as string, value as string, optional commit as boolean = true)</SourceLine>
    <SourceLine>if App().settings.hasKey(key) then</SourceLine>
    <SourceLine>if App().settings.Value(key).StringValue &lt;&gt; value then</SourceLine>
    <SourceLine>App().settings.Value(key) = value</SourceLine>
-   <SourceLine>msgBox App().settings.value(key).StringValue</SourceLine>
+   <SourceLine>MsgBox value</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>if commit then</SourceLine>
    <SourceLine>savePrefsFile()</SourceLine>
    <SourceLine>end if</SourceLine>
    <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>CurrentDeviceId</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>21</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>21</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function CurrentDeviceId() As string</SourceLine>
+   <SourceLine>if App().settings.haskey(currentDeviceIdKey) then</SourceLine>
+   <SourceLine>return App().settings.Value(currentDeviceIdKey).StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
   </ItemSource>
  </Method>
  <Constant>

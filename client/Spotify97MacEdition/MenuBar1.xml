@@ -73,6 +73,23 @@
   </MenuItem>
   <MenuItem>
    <ItemSpecialMenu>0</ItemSpecialMenu>
+   <ItemName>ReloadButton</ItemName>
+   <ItemText>Reload</ItemText>
+   <ItemIndex>-2147483648</ItemIndex>
+   <ItemShortcut>r</ItemShortcut>
+   <ItemHelp></ItemHelp>
+   <ItemDisabledHelp></ItemDisabledHelp>
+   <ItemStyle>0</ItemStyle>
+   <TextEncoding>134217984</TextEncoding>
+   <ItemFlags>0</ItemFlags>
+   <MenuAutoEnable>1</MenuAutoEnable>
+   <ObjName></ObjName>
+   <ObjSize>76</ObjSize>
+   <Superclass>MenuItem</Superclass>
+   <IsInterface>0</IsInterface>
+  </MenuItem>
+  <MenuItem>
+   <ItemSpecialMenu>0</ItemSpecialMenu>
    <ItemName>FileQuit</ItemName>
    <ItemText>E&amp;xit</ItemText>
    <ItemIndex>-2147483648</ItemIndex>
@@ -99,7 +116,7 @@
    <ItemStyle>0</ItemStyle>
    <TextEncoding>1280</TextEncoding>
    <ItemFlags>0</ItemFlags>
-   <MenuAutoEnable>0</MenuAutoEnable>
+   <MenuAutoEnable>1</MenuAutoEnable>
    <ObjName></ObjName>
    <ObjSize>76</ObjSize>
    <Superclass>MenuItem</Superclass>
