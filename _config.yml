@@ -1,12 +1,36 @@
+title: Spotify 97
+description: Spotify 97 is a client-server setup for controlling Spotify Connect endpoints from vintage operating systems
 remote_theme: queenkjuul/jekyll-98
 include:
-  - index.md
-  - server/index.md
-  - client/index.md
-  - client/SpotifyClient97/index.md
-  - client/Spotify97MacEdition/index.md
+  - docs/index.md
+  - docs/server/index.md
+  - docs/client/index.md
+  - docs/client/SpotifyClient97/index.md
+  - docs/client/Spotify97MacEdition/index.md
 defaults:
   - scope:
       path: "" # an empty string here means all files in the project
     values:
       layout: "post"
+jekyll-98:
+  site_links:
+    - title: Server
+      url: /spotify97/server
+      target: _self
+      icon: archive
+      alt: Spotify 97 Relay Server documentation
+    - title: Clients
+      url: /spotify97/client
+      target: _self
+      icon: document-audio
+      alt: Available clients for Spotify 97
+    - title: Spotify Client 97
+      url: /spotify97/client/SpotifyClient97
+      target: _self
+      icon: code
+      alt: Spotify 97 for Windows 95 and up
+    - title: Spotify 97 Mac Edition
+      url: /spotify97/client/Spotify97MacEdition
+      target: _self
+      icon: sound
+      alt: Spotify 97 for Mac OS 8.6 - 10.5
