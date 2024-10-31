@@ -4,8 +4,8 @@ Front end applications for use with the Spotify 97 Relay Server
 
 Currently:
 
-1. [SpotifyClient97](./SpotifyClient97/README.md): Windows client written in .NET 2.0 using Visual Basic 2005 Express Edition. Runs on 9x/Me/2k/XP, but needs [MattKC's .NET 2.0 port for Windows 95](https://github.com/mattkc/dotnet9x) (or Microsoft .NET 2.0 for the newer platforms). Uses [Newtonsoft JSON.NET](https://newtonsoft.com/json) for deserialization. Works quite well, with enough features to be useful.
-2. [WIP] [Spotify97MacEdition](./Spotify97MacEdition/README.md): Mac client written in REALbasic 5.5. Tested on Mac OS 9.2 and OS X 10.4, but should work on 8.6-10.5. Uses [Charcoal Design's JSON Dictionary](http://www.charcoaldesign.co.uk/source/realbasic) package, but backported to RB 5.5. Developed primarily on Windows XP using REALbasic 5.5.3, but most UI work done in REALbasic 5.5.5 on OS 10.4. Requires QuickTime to display album art.
+1. [Spotify Client 97](./SpotifyClient97/README.md): Windows client written in .NET 2.0 using Visual Basic 2005 Express Edition. Runs on 9x/Me/2k/XP, but needs [MattKC's .NET 2.0 port for Windows 95](https://github.com/mattkc/dotnet9x) (or Microsoft .NET 2.0 for the newer platforms). Uses [Newtonsoft JSON.NET](https://newtonsoft.com/json) for deserialization. Works quite well, with enough features to be useful.
+2. [Spotify 97 Mac Edition](./Spotify97MacEdition/README.md): Mac client written in REALbasic 5.5. Tested on Mac OS 9.2 and OS X 10.4, but should work on 8.6-10.5. Uses [Charcoal Design's JSON Dictionary](http://www.charcoaldesign.co.uk/source/realbasic) package, but backported to RB 5.5. Developed primarily on Windows XP using REALbasic 5.5.3, but most UI work done in REALbasic 5.5.5 on OS 10.4. Requires QuickTime to display album art.
 
 Planned:
 
@@ -13,11 +13,11 @@ Planned:
 
 Considered:
 
-2. Spotify for Macintosh: Would love to get a build working on my LC II with its PDS Ethernet card. I think REALbasic 3.5 can build 68k binaries, but I don't know if it has an HTTP client, or if a 68020 can deserialize 2KB of JSON in under 5 seconds, which is probably the minimum threshold for the current architecture. REALbasic 3.5.2 does not have HTTPSocket, but it does have TCPSocket, and I've fonud an example of an HTTP client. The JSON parser also seems to import into 3.5.2 ok, so I should be able to export my model+controller classes as well (well, except for the HTTPsocket part...). The hardest part is going to be finding a comfy OS 9 dev setup. Though given the app crashes unless I allocate it at least 4MB of RAM, we're gonna be pushing it on a 10MB LC II.
+2. Spotify for Macintosh: [there is already MacPlayer](https://github.com/antscode/MacPlayer) [also, gonna be real, RB is too painful for me to be excited about this, and I don't know how easy it will be to do HTTP/JSON in vintage kits like Turbo Pascal or whatnot] Would love to get a build working on my LC II with its PDS Ethernet card. I think REALbasic 3.5 can build 68k binaries, but I don't know if it has an HTTP client, or if a 68020 can deserialize 2KB of JSON in under 5 seconds, which is probably the minimum threshold for the current architecture. REALbasic 3.5.2 does not have HTTPSocket, but it does have TCPSocket, and I've fonud an example of an HTTP client. The JSON parser also seems to import into 3.5.2 ok, so I should be able to export my model+controller classes as well (well, except for the HTTPsocket part...). The hardest part is going to be finding a comfy OS 9 dev setup. Though given the app crashes unless I allocate it at least 4MB of RAM, we're gonna be pushing it on a 10MB LC II.
 
 Dreamt:
 
-3. Spotify for MS-DOS: MTCP probably makes it very easy to interact with the Relay Server. Everything else probably sucks, though.
+3. Spotify for MS-DOS: MTCP probably makes it very easy to interact with the Relay Server. Everything else probably sucks, though. Actually, this might be pretty practical using [DOjs](https://github.com/SuperIlu/DOjS). I'm interested.
 
 Fever Dreamedt:
 

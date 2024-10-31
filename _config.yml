@@ -1,5 +1,4 @@
 remote_theme: queenkjuul/jekyll-98
-include:
 defaults:
   - scope:
       path: "" # an empty string here means all files in the project

@@ -105,9 +105,9 @@
  <BuildMacName>Spotify 97 Mac Edition Classic</BuildMacName>
  <BuildCarbonName>Spotify 97 Mac Edition</BuildCarbonName>
  <BuildSize>8388608</BuildSize>
- <BuildMinSize>8388608</BuildMinSize>
+ <BuildMinSize>4194304</BuildMinSize>
  <BuildSizeAsString>8192</BuildSizeAsString>
- <BuildMinSizeAsString>8192</BuildMinSizeAsString>
+ <BuildMinSizeAsString>4096</BuildMinSizeAsString>
  <WinMDICaption>My Application</WinMDICaption>
  <BuildWinName>My Application.exe</BuildWinName>
  <BuildWinMDI>0</BuildWinMDI>
@@ -6418,39 +6418,6 @@
    <SourceLine>End Sub</SourceLine>
   </ItemSource>
  </Method>
- <Interfaces></Interfaces>
-</block>
-<block type="Module" ID="-481827392">
- <ObjName>Wait</ObjName>
- <ObjContainerID>-482103612</ObjContainerID>
- <EditBounds><Rect left="247" top="351" width="545" height="405"/></EditBounds>
- <EditSplit>181</EditSplit>
- <BrowserPositionGroup>
-  <BrowserPositionElement>
-   <ScreenKey>100001810</ScreenKey>
-   <EditBounds><Rect left="247" top="351" width="545" height="405"/></EditBounds>
-   <EditSplit>181</EditSplit>
-  </BrowserPositionElement>
- </BrowserPositionGroup>
- <IsClass>1</IsClass>
- <ObjName>Wait</ObjName>
- <ObjSize>56</ObjSize>
- <Superclass>Timer</Superclass>
- <IsInterface>0</IsInterface>
- <HookInstance>
-  <TextEncoding>1536</TextEncoding>
-  <ItemName>Action</ItemName>
-  <ItemSource>
-   <StartSelRow>1</StartSelRow>
-   <StartSelCol>0</StartSelCol>
-   <EndSelRow>1</EndSelRow>
-   <EndSelCol>0</EndSelCol>
-   <TextEncoding>134217984</TextEncoding>
-   <SourceLine>Sub Action()</SourceLine>
-   <SourceLine></SourceLine>
-   <SourceLine>End Sub</SourceLine>
-  </ItemSource>
- </HookInstance>
  <Interfaces></Interfaces>
 </block>
 <block type="Picture" ID="-481818107">
