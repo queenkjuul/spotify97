@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-481848798">
+ <ObjName>RecentlyPlayed</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="696" top="67" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="696" top="67" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>RecentlyPlayed</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Context</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Context() As String</SourceLine>
+   <SourceLine>if me.hasKey("context") then</SourceLine>
+   <SourceLine>return me.Value("context").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Track</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Track</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Track() As Track</SourceLine>
+   <SourceLine>if me.hasKey("track") then</SourceLine>
+   <SourceLine>return Track(me.Value("track").ObjectValue)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return Nil</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>trackItem As Track, context as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>29</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>29</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(trackItem As Track, context as string)</SourceLine>
+   <SourceLine>me.Value("track") = trackItem</SourceLine>
+   <SourceLine>me.Value("context") = context</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As string</SourceLine>
+   <SourceLine>return Track.URI</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

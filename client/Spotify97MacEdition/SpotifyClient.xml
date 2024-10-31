@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482369846">
+ <ObjName>SpotifyClient</ObjName>
+ <ObjContainerID>-482103612</ObjContainerID>
+ <EditBounds><Rect left="89" top="202" width="1442" height="575"/></EditBounds>
+ <EditSplit>333</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="89" top="202" width="1442" height="575"/></EditBounds>
+   <EditSplit>333</EditSplit>
+  </BrowserPositionElement>
+  <BrowserPositionElement>
+   <ScreenKey>100001207</ScreenKey>
+   <EditBounds><Rect left="871" top="121" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>SpotifyClient</ObjName>
+ <ObjSize>24</ObjSize>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>connect</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub connect()</SourceLine>
+   <SourceLine>dim clientResponse As ClientResponse</SourceLine>
+   <SourceLine>clientResponse = me.callRelayServer("/connect")</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if clientResponse.isError then</SourceLine>
+   <SourceLine>msgBox clientResponse.Message + ": " + clientResponse.Error</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>callRelayServer</ItemName>
+  <ItemParams>path as string</ItemParams>
+  <ItemResult>ClientResponse</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>34</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>34</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function callRelayServer(path as string) As ClientResponse</SourceLine>
+   <SourceLine>App().setLoadingIndicator(True)</SourceLine>
+   <SourceLine>dim url as string</SourceLine>
+   <SourceLine>url = App().settings.Value(PrefsManager.serverUrlKey)</SourceLine>
+   <SourceLine>if url = "" then</SourceLine>
+   <SourceLine>// no URL defined"</SourceLine>
+   <SourceLine>// we pass back errors because some buttons we want to ignore all errors</SourceLine>
+   <SourceLine>return new ClientResponse("ERROR", Nil, "No Server URL, you must set one in Preferences")</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim http as new HTTPSocket</SourceLine>
+   <SourceLine>http.yield = True</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim response as String</SourceLine>
+   <SourceLine>response = http.Get(url + path, 2)</SourceLine>
+   <SourceLine>http.Close</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim dict as Dictionary</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>try</SourceLine>
+   <SourceLine>dict = JSON.parse(response)</SourceLine>
+   <SourceLine>catch</SourceLine>
+   <SourceLine>App().MainWindow.status.Text = "JSON parse error"</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim message as string</SourceLine>
+   <SourceLine>dim data as object</SourceLine>
+   <SourceLine>dim error as string</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if dict.HasKey("message") then</SourceLine>
+   <SourceLine>message = dict.Value("message").StringValue</SourceLine>
+   <SourceLine>App().MainWindow.status.text = message</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>message = ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if dict.HasKey("data") then</SourceLine>
+   <SourceLine>data = dict.Value("data").ObjectValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>data = Nil</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if dict.HasKey("errorInfo") then</SourceLine>
+   <SourceLine>error = dict.Value("errorInfo").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>error = ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim clientResponse as new ClientResponse(message, data, error)</SourceLine>
+   <SourceLine>dim clientException as new RuntimeException </SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if clientResponse.isError then</SourceLine>
+   <SourceLine>MsgBox clientResponse.Error</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>App().setLoadingIndicator(False)</SourceLine>
+   <SourceLine>return clientResponse</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getDeviceList</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getDeviceList()</SourceLine>
+   <SourceLine>dim clientResponse as ClientResponse</SourceLine>
+   <SourceLine>clientResponse = me.callRelayServer("/deviceList")</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if clientResponse.isError then</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim deviceList as Collection</SourceLine>
+   <SourceLine>if clientResponse.Data = Nil then</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>if clientResponse.Data isA Collection then</SourceLine>
+   <SourceLine>deviceList = Collection(clientResponse.Data)</SourceLine>
+   <SourceLine>App().setDeviceList(deviceList)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getPlaybackState</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>57</StartSelRow>
+   <StartSelCol>4</StartSelCol>
+   <EndSelRow>57</EndSelRow>
+   <EndSelCol>4</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getPlaybackState()</SourceLine>
+   <SourceLine>dim response As ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/playbackState")</SourceLine>
+   <SourceLine>dim data as Dictionary</SourceLine>
+   <SourceLine>dim newPlaybackState As new PlaybackState</SourceLine>
+   <SourceLine>dim nowPlayingDict As Dictionary</SourceLine>
+   <SourceLine>dim currentDeviceDict As Dictionary</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if response.Data &lt;&gt; Nil then</SourceLine>
+   <SourceLine>if response.Data isA Dictionary then</SourceLine>
+   <SourceLine>data = Dictionary(response.Data)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.hasKey("currentDevice") and data.Value("currentDevice").ObjectValue isa Dictionary then</SourceLine>
+   <SourceLine>currentDeviceDict = Dictionary(data.Value("currentDevice").ObjectValue)</SourceLine>
+   <SourceLine>App().setCurrentDevice(currentDeviceDict.Value("name").StringValue, currentDeviceDict.Value("id").StringValue)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.HasKey("active") and data.Value("active").BooleanValue then</SourceLine>
+   <SourceLine>newPlaybackState.Value("active") = data.Value("active").BooleanValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newPlaybackState.Value("active") = False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.HasKey("nowPlaying") and _</SourceLine>
+   <SourceLine>data.Value("nowPlaying").ObjectValue isa Dictionary then</SourceLine>
+   <SourceLine>nowPlayingDict = Dictionary(data.Value("nowPlaying").ObjectValue)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>newPlaybackState.Value("nowPlaying") = _</SourceLine>
+   <SourceLine>new Track(nowPlayingDict)</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newPlaybackState.Value("nowPlaying") = Nil</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.hasKey("progress") then</SourceLine>
+   <SourceLine>newPlaybackState.Value("progress") = data.Value("progress").IntegerValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newPlaybackState.Value("progress") = 0</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.hasKey("repeatState") then</SourceLine>
+   <SourceLine>newPlaybackState.Value("repeatState") = data.Value("repeatState").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newPlaybackState.Value("repeatState") = "off"</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.hasKey("context") then</SourceLine>
+   <SourceLine>newPlaybackState.Value("context") = data.Value("context").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>newPlaybackState.Value("context") = ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.hasKey("playing") then</SourceLine>
+   <SourceLine>newPlaybackState.Value("playing") = data.value("playing")</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if data.hasKey("shuffleState") and data.value("shuffleState").StringValue = "true" then</SourceLine>
+   <SourceLine>newPlaybackState.Value("shuffleState") = True</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>newPlaybackState.Value("shuffleState") = False</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>App().setPlaybackState(newPlaybackState)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>play</ItemName>
+  <ItemParams>optional track as string = "", optional context as string = "", optional offsetUri as string = "", optional position as integer = 0</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>13</StartSelRow>
+   <StartSelCol>44</StartSelCol>
+   <EndSelRow>13</EndSelRow>
+   <EndSelCol>44</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub play(optional track as string = "", optional context as string = "", optional offsetUri as string = "", optional position as integer = 0)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>dim query as string</SourceLine>
+   <SourceLine>query = ""</SourceLine>
+   <SourceLine>if track &lt;&gt; "" then</SourceLine>
+   <SourceLine>query = query + "&amp;track=" + track</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if context &lt;&gt; "" then</SourceLine>
+   <SourceLine>query = query + "&amp;context=" + context</SourceLine>
+   <SourceLine>end if </SourceLine>
+   <SourceLine>if offsetUri &lt;&gt; "" then</SourceLine>
+   <SourceLine>query = query + "&amp;offsetUri=" + offsetUri</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>query = query + "&amp;position=" + Str(position)</SourceLine>
+   <SourceLine>response = callRelayServer("/play?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue + query)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>pause</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>100</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>100</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub pause()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/pause?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey))</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>nextTrack</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>111</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>111</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub nextTrack()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/next?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>prevTrack</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>111</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>111</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub prevTrack()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/prev?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getAlbumArt</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>25</StartSelRow>
+   <StartSelCol>39</StartSelCol>
+   <EndSelRow>25</EndSelRow>
+   <EndSelCol>39</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getAlbumArt()</SourceLine>
+   <SourceLine>dim socket as new HTTPSocket</SourceLine>
+   <SourceLine>dim pf As FolderItem</SourceLine>
+   <SourceLine>dim gotfile as boolean</SourceLine>
+   <SourceLine>dim url as string</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim j as integer</SourceLine>
+   <SourceLine>dim k as integer</SourceLine>
+   <SourceLine>url = App().settings.Value(PrefsManager.serverUrlKey).StringValue</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if url = "" then</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim imageSet as boolean</SourceLine>
+   <SourceLine>imageSet = VarType(App().MainWindow.AlbumArtWell.Image) = 0</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if App().state.NowPlaying &lt;&gt; Nil then</SourceLine>
+   <SourceLine>if App().state.NowPlaying.AlbumArtHref &lt;&gt; "" then</SourceLine>
+   <SourceLine>if  not(imageSet) and App().state.NowPlaying.AlbumId = App().currentAlbumArt then</SourceLine>
+   <SourceLine>return</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>pf = PreferencesFolder()</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if pf &lt;&gt; Nil then</SourceLine>
+   <SourceLine>if pf.Child("albumart.jpg").exists then</SourceLine>
+   <SourceLine>pf.Child("albumart.jpg").Delete()</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>gotfile = socket.get(url + "/albumArtFile?url=" + App().state.NowPlaying.AlbumArtHref, pf.Child("albumart.jpg"), 20)</SourceLine>
+   <SourceLine>if pf.Child("albumart.jpg").exists and gotfile then</SourceLine>
+   <SourceLine>socket.close()</SourceLine>
+   <SourceLine>App().setAlbumArt(pf.Child("albumart.jpg"))</SourceLine>
+   <SourceLine>App().currentAlbumArt = App().state.NowPlaying.AlbumId</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getQueue</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>17</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getQueue()</SourceLine>
+   <SourceLine>Dim response As ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/queue")</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim queue as new collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim data as collection</SourceLine>
+   <SourceLine>dim newTrack as Track</SourceLine>
+   <SourceLine>if response.data isA Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>newtrack = new Track(data.Item(i))</SourceLine>
+   <SourceLine>queue.Add(newTrack)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if queue.count &lt;&gt; 0 then</SourceLine>
+   <SourceLine>App().setQueue(queue)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getRecents</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>19</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>19</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getRecents()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/recent")</SourceLine>
+   <SourceLine>dim recents as new collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim data as Collection</SourceLine>
+   <SourceLine>dim currentItem As Dictionary</SourceLine>
+   <SourceLine>dim newItem As RecentlyPlayed</SourceLine>
+   <SourceLine>dim newTrack As Track</SourceLine>
+   <SourceLine>dim contextValue as string</SourceLine>
+   <SourceLine>if response.data isa Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>currentItem = Dictionary(data.Item(i).ObjectValue)</SourceLine>
+   <SourceLine>newTrack = new Track(Dictionary(currentItem.Value("track").ObjectValue))</SourceLine>
+   <SourceLine>if currentItem.hasKey("context") then</SourceLine>
+   <SourceLine>contextValue = currentItem.Value("context").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>contextValue = ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>newItem = new RecentlyPlayed(_</SourceLine>
+   <SourceLine>newTrack, _</SourceLine>
+   <SourceLine>contextValue)</SourceLine>
+   <SourceLine>recents.Add(newItem)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if recents.count &lt;&gt; 0 then</SourceLine>
+   <SourceLine>App().setRecents(recents)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>search</ItemName>
+  <ItemParams>query as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>31</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>31</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub search(query as string)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/search?q=" + query)</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim responseData As Dictionary</SourceLine>
+   <SourceLine>dim trackList As Collection</SourceLine>
+   <SourceLine>dim albumList As Collection</SourceLine>
+   <SourceLine>dim playlistList As Collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim j as integer</SourceLine>
+   <SourceLine>dim albumResults As new Collection</SourceLine>
+   <SourceLine>dim trackResults As new Collection</SourceLine>
+   <SourceLine>dim playlistResults As new Collection</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>if response.Data isA Dictionary then</SourceLine>
+   <SourceLine>responseData = Dictionary(response.Data)</SourceLine>
+   <SourceLine>if responseData.hasKey("tracks") and responseData.Value("tracks").ObjectValue isA Collection then</SourceLine>
+   <SourceLine>trackList = Collection(responseData.Value("tracks").ObjectValue)</SourceLine>
+   <SourceLine>for i = 1 to trackList.Count</SourceLine>
+   <SourceLine>trackResults.Add(new Track(Dictionary(trackList.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if responseData.hasKey("albums") and responseData.value("albums").ObjectValue isA Collection then</SourceLine>
+   <SourceLine>albumList = Collection(responseData.Value("albums").ObjectValue)</SourceLine>
+   <SourceLine>for i = 1 to albumList.Count</SourceLine>
+   <SourceLine>albumResults.Add(new Album(Dictionary(albumList.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>Next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if responseData.HasKey("playlists") and responseData.value("playlists").ObjectValue isA Collection then</SourceLine>
+   <SourceLine>playlistList = Collection(responseData.Value("playlists").ObjectValue)</SourceLine>
+   <SourceLine>for i = 1 to playlistList.Count</SourceLine>
+   <SourceLine>playlistResults.Add(new Playlist(Dictionary(playlistList.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>App().setResults(trackResults, albumResults, playlistResults)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getPlaylists</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>16</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>16</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getPlaylists()</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/playlists")</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>dim data As Collection</SourceLine>
+   <SourceLine>dim i As integer</SourceLine>
+   <SourceLine>dim list As Playlist</SourceLine>
+   <SourceLine>dim myPlaylists As New Collection</SourceLine>
+   <SourceLine>if response.Data &lt;&gt; Nil and response.Data isA Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>myPlaylists.add(new Playlist(Dictionary(data.Item(i).ObjectValue)))</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if myPlaylists.Count &gt; 0 then</SourceLine>
+   <SourceLine>App().setMyPlaylists(myPlaylists)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>getSavedTracks</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>16</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>16</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub getSavedTracks()</SourceLine>
+   <SourceLine>dim response As ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/saved")</SourceLine>
+   <SourceLine>dim saved as new collection</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>dim data as collection</SourceLine>
+   <SourceLine>dim newTrack as Track</SourceLine>
+   <SourceLine>if response.data isA Collection then</SourceLine>
+   <SourceLine>data = Collection(response.data)</SourceLine>
+   <SourceLine>for i = 1 to data.Count</SourceLine>
+   <SourceLine>newtrack = new Track(data.Item(i))</SourceLine>
+   <SourceLine>saved.Add(newTrack)</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if saved.count &lt;&gt; 0 then</SourceLine>
+   <SourceLine>App().setSavedTracks(saved)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>playSetOfTracks</ItemName>
+  <ItemParams>trackUri as string, optional set As Collection, optional resume as boolean = False</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>7</StartSelRow>
+   <StartSelCol>36</StartSelCol>
+   <EndSelRow>7</EndSelRow>
+   <EndSelCol>36</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub playSetOfTracks(trackUri as string, optional set As Collection, optional resume as boolean = False)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>if set is Nil then</SourceLine>
+   <SourceLine>set = App().savedTracks</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>dim query as string</SourceLine>
+   <SourceLine>query = ""</SourceLine>
+   <SourceLine>query = query + "&amp;track=" + trackUri</SourceLine>
+   <SourceLine>query = query + "&amp;tracks=" + trackUri + ","</SourceLine>
+   <SourceLine>dim i as integer</SourceLine>
+   <SourceLine>for i = 1 to set.Count</SourceLine>
+   <SourceLine>query = query + Track(set.Item(i).ObjectValue).URI</SourceLine>
+   <SourceLine>if i &lt;&gt; set.Count then</SourceLine>
+   <SourceLine>query = query + ","</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>next</SourceLine>
+   <SourceLine>if resume then</SourceLine>
+   <SourceLine>query = query + "&amp;position=" + Str(App().state.Progress)</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>response = callRelayServer("/play?device=" + App().settings.Value(PrefsManager.currentDeviceIdKey).StringValue + query)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>seek</ItemName>
+  <ItemParams>position as integer</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>99</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>99</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub seek(position as integer)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/seek?device="+PrefsManager.CurrentDeviceId+"&amp;position="+Str(position))</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>repeat</ItemName>
+  <ItemParams>state as string</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>2</StartSelRow>
+   <StartSelCol>95</StartSelCol>
+   <EndSelRow>2</EndSelRow>
+   <EndSelCol>95</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub repeat(state as string)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>response = callRelayServer("/repeat?device=" + PrefsManager.CurrentDeviceId + "&amp;mode=" + state)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>shuffle</ItemName>
+  <ItemParams>state as boolean</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>6</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>6</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub shuffle(state as boolean)</SourceLine>
+   <SourceLine>dim response as ClientResponse</SourceLine>
+   <SourceLine>if state then</SourceLine>
+   <SourceLine>response = callRelayServer("/shuffle?device=" + PrefsManager.CurrentDeviceId + "&amp;state=true")</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>response = callRelayServer("/shuffle?device=" + PrefsManager.CurrentDeviceId + "&amp;state=false")</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

@@ -1,10 +1,13 @@
+import { Express } from "express"
+import SpotifyClient from "../client/SpotifyClient"
 import { Album } from "../models/Album"
+import Playlist from "../models/Playlist"
 import SearchResults from "../models/SearchResults"
 import { Track } from "../models/Track"
 import errorResponse from "../util/errorResponse"
 import response from "../util/response"
 
-export default function searchRoutes(app, client) {
+export default function searchRoutes(app: Express, client: SpotifyClient) {
   app.get("/search", async (req, res) => {
     const q = req.query.q
     const type = req.query.type
@@ -25,6 +28,7 @@ export default function searchRoutes(app, client) {
 
       let tracks: Array<Track>
       let albums: Array<Album>
+      let playlists: Array<Playlist>
 
       tracks = body?.tracks?.items
         ? body.tracks.items.map((track) => {
@@ -50,8 +54,20 @@ export default function searchRoutes(app, client) {
             )
           })
         : []
+
+      playlists = body?.playlists?.items
+        ? body.playlists.items.map((pl) => {
+            return {
+              name: pl?.name,
+              owner: pl?.owner?.display_name,
+              uri: pl?.uri,
+            }
+          })
+        : []
       console.log("200 - /search        - Query: " + q)
-      res.send(response(undefined, new SearchResults(tracks, albums)))
+      res.send(
+        response(undefined, new SearchResults(tracks, albums, playlists))
+      )
     } catch (e) {
       console.error(e)
       res.status(500).send(errorResponse(e))

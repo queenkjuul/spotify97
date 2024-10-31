@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-482024703">
+ <ObjName>Device</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="509" top="543" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="509" top="543" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Device</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

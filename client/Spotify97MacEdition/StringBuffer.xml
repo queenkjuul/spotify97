@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="183309566">
+ <ObjName>StringBuffer</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="166" top="246" width="545" height="405"/></EditBounds>
+ <EditSplit>181</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="166" top="246" width="545" height="405"/></EditBounds>
+   <EditSplit>181</EditSplit>
+  </BrowserPositionElement>
+  <BrowserPositionElement>
+   <ScreenKey>100001207</ScreenKey>
+   <EditBounds><Rect left="243" top="589" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>StringBuffer</ObjName>
+ <ObjSize>36</ObjSize>
+ <IsInterface>0</IsInterface>
+ <Property Flags="33">length As Integer</Property>
+ <Property Flags="33">binaryLength As Integer</Property>
+ <Property Flags="33">data As MemoryBlock</Property>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Append</ItemName>
+  <ItemParams>text as String</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>3</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>3</EndSelRow>
+   <EndSelCol>23</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Append(text as String)</SourceLine>
+   <SourceLine>dim lb as Integer = text.lenB</SourceLine>
+   <SourceLine>dim targetSize as Integer = data.Size</SourceLine>
+   <SourceLine>while binaryLength + lb &gt; targetSize</SourceLine>
+   <SourceLine>targetSize = targetSize * 2</SourceLine>
+   <SourceLine>wend</SourceLine>
+   <SourceLine>data.Size = targetSize</SourceLine>
+   <SourceLine>data.StringValue(binaryLength,lb) = text</SourceLine>
+   <SourceLine>binaryLength = binaryLength + lb</SourceLine>
+   <SourceLine>length = length + text.Len</SourceLine>
+   <SourceLine></SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>StringValue</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function StringValue() As String</SourceLine>
+   <SourceLine>return data.StringValue(0,binaryLength)</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Len</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Integer</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>13</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>13</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Len() As Integer</SourceLine>
+   <SourceLine>return length</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>LenB</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>Integer</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function LenB() As Integer</SourceLine>
+   <SourceLine>return LenB</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Operator_Convert</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>String</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Operator_Convert() As String</SourceLine>
+   <SourceLine>return StringValue</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>optional defaultSize as Integer = 1024</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>34</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>34</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(optional defaultSize as Integer = 1024)</SourceLine>
+   <SourceLine>data = NewMemoryBlock(defaultSize)</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Operator_Convert</ItemName>
+  <ItemParams>text as String</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>4</StartSelRow>
+   <StartSelCol>10</StartSelCol>
+   <EndSelRow>4</EndSelRow>
+   <EndSelCol>10</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Operator_Convert(text as String)</SourceLine>
+   <SourceLine>if data = nil then</SourceLine>
+   <SourceLine>Constructor</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>length = 0</SourceLine>
+   <SourceLine>binaryLength = 0</SourceLine>
+   <SourceLine>end</SourceLine>
+   <SourceLine>Append text</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>text as String</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>0</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>0</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(text as String)</SourceLine>
+   <SourceLine>Constructor(text.LenB)</SourceLine>
+   <SourceLine>Append text</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Constant>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>version</ItemName>
+  <ItemType>2</ItemType>
+  <ItemDef>1.0</ItemDef>
+  <ItemFlags>0</ItemFlags>
+ </Constant>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>

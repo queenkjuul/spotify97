@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<RBProject version="5.5.3">
+<block type="Module" ID="-481845897">
+ <ObjName>Album</ObjName>
+ <ObjContainerID>-482103646</ObjContainerID>
+ <EditBounds><Rect left="1193" top="323" width="545" height="405"/></EditBounds>
+ <EditSplit>-1000</EditSplit>
+ <BrowserPositionGroup>
+  <BrowserPositionElement>
+   <ScreenKey>100001810</ScreenKey>
+   <EditBounds><Rect left="1193" top="323" width="545" height="405"/></EditBounds>
+   <EditSplit>-1000</EditSplit>
+  </BrowserPositionElement>
+ </BrowserPositionGroup>
+ <IsClass>1</IsClass>
+ <ObjName>Album</ObjName>
+ <ObjSize>56</ObjSize>
+ <Superclass>Dictionary</Superclass>
+ <IsInterface>0</IsInterface>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Title</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Title() As string</SourceLine>
+   <SourceLine>if me.hasKey("title") then</SourceLine>
+   <SourceLine>return me.Value("title").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Artist</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function Artist() As string</SourceLine>
+   <SourceLine>if me.HasKey("artist") then</SourceLine>
+   <SourceLine>return me.Value("artist").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>AlbumArtHref</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function AlbumArtHref() As string</SourceLine>
+   <SourceLine>if me.HasKey("albumArt") then</SourceLine>
+   <SourceLine>return me.Value("albumArt").StringValue</SourceLine>
+   <SourceLine>else</SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>ID</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>5</StartSelRow>
+   <StartSelCol>6</StartSelCol>
+   <EndSelRow>5</EndSelRow>
+   <EndSelCol>6</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function ID() As string</SourceLine>
+   <SourceLine>if me.HasKey("id") then</SourceLine>
+   <SourceLine>Return me.Value("id").StringValue</SourceLine>
+   <SourceLine>else </SourceLine>
+   <SourceLine>return ""</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>URI</ItemName>
+  <ItemParams></ItemParams>
+  <ItemResult>string</ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>1</StartSelRow>
+   <StartSelCol>31</StartSelCol>
+   <EndSelRow>1</EndSelRow>
+   <EndSelCol>31</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Function URI() As string</SourceLine>
+   <SourceLine>return "spotify:album:" + me.id</SourceLine>
+   <SourceLine>End Function</SourceLine>
+  </ItemSource>
+ </Method>
+ <Method>
+  <TextEncoding>134217984</TextEncoding>
+  <ItemName>Constructor</ItemName>
+  <ItemParams>data as Dictionary</ItemParams>
+  <ItemResult></ItemResult>
+  <ItemFlags>0</ItemFlags>
+  <ItemSource>
+   <StartSelRow>11</StartSelRow>
+   <StartSelCol>45</StartSelCol>
+   <EndSelRow>11</EndSelRow>
+   <EndSelCol>45</EndSelCol>
+   <TextEncoding>134217984</TextEncoding>
+   <SourceLine>Sub Constructor(data as Dictionary)</SourceLine>
+   <SourceLine>if data.HasKey("title") then</SourceLine>
+   <SourceLine>me.Value("title") = data.Value("title").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("artist") then</SourceLine>
+   <SourceLine>me.Value("artist") = data.Value("artist").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.HasKey("albumArt") then</SourceLine>
+   <SourceLine>me.Value("albumArt") = data.value("albumArt").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>if data.hasKey("id") then</SourceLine>
+   <SourceLine>me.Value("id") = data.Value("id").StringValue</SourceLine>
+   <SourceLine>end if</SourceLine>
+   <SourceLine>End Sub</SourceLine>
+  </ItemSource>
+ </Method>
+ <Interfaces></Interfaces>
+</block>
+</RBProject>
