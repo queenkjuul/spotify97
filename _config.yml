@@ -1,6 +1,0 @@
-remote_theme: queenkjuul/jekyll-98
-defaults:
-  - scope:
-      path: "" # an empty string here means all files in the project
-    values:
-      layout: "post"
