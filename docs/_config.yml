@@ -1,0 +1,12 @@
+remote_theme: queenkjuul/jekyll-98
+include:
+  - index.md
+  - server/index.md
+  - client/index.md
+  - client/SpotifyClient97/index.md
+  - client/Spotify97MacEdition/index.md
+defaults:
+  - scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "post"

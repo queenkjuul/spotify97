@@ -4,8 +4,8 @@ Front end applications for use with the Spotify 97 Relay Server
 
 Currently:
 
-1. [Spotify Client 97](./SpotifyClient97/README.md): Windows client written in .NET 2.0 using Visual Basic 2005 Express Edition. Runs on 9x/Me/2k/XP, but needs [MattKC's .NET 2.0 port for Windows 95](https://github.com/mattkc/dotnet9x) (or Microsoft .NET 2.0 for the newer platforms). Uses [Newtonsoft JSON.NET](https://newtonsoft.com/json) for deserialization. Works quite well, with enough features to be useful.
-2. [Spotify 97 Mac Edition](./Spotify97MacEdition/README.md): Mac client written in REALbasic 5.5. Tested on Mac OS 9.2 and OS X 10.4, but should work on 8.6-10.5. Uses [Charcoal Design's JSON Dictionary](http://www.charcoaldesign.co.uk/source/realbasic) package, but backported to RB 5.5. Developed primarily on Windows XP using REALbasic 5.5.3, but most UI work done in REALbasic 5.5.5 on OS 10.4. Requires QuickTime to display album art.
+1. [Spotify Client 97](./SpotifyClient97): Windows client written in .NET 2.0 using Visual Basic 2005 Express Edition. Runs on 9x/Me/2k/XP, but needs [MattKC's .NET 2.0 port for Windows 95](https://github.com/mattkc/dotnet9x) (or Microsoft .NET 2.0 for the newer platforms). Uses [Newtonsoft JSON.NET](https://newtonsoft.com/json) for deserialization. Works quite well, with enough features to be useful.
+2. [Spotify 97 Mac Edition](./Spotify97MacEdition): Mac client written in REALbasic 5.5. Tested on Mac OS 9.2 and OS X 10.4, but should work on 8.6-10.5. Uses [Charcoal Design's JSON Dictionary](http://www.charcoaldesign.co.uk/source/realbasic) package, but backported to RB 5.5. Developed primarily on Windows XP using REALbasic 5.5.3, but most UI work done in REALbasic 5.5.5 on OS 10.4. Requires QuickTime to display album art.
 
 Planned:
 

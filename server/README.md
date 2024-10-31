@@ -42,7 +42,7 @@ If you do not complete Step 3, the app will launch and instantly close
 6. Follow the login link and log in to Spotify.
 7. [Set up the client](#set-up-the-client)
 
-*Mac builds are as-yet-untested. My understanding is that macOS will not run unsigned code under any circumstances. I have attempted to self-sign my binaries, but I have no way to test if this works. Please open an [Issue](https://github.com/queenkjuul/spotifyclient97/issues), use [Docker](#docker), or run Node natively using the [Development](#development) instructions, running `npm run serve` instead of `npm run dev`. You can install NVM using [`homembrew`](https://brew.sh/).*
+*Mac builds are as-yet-untested. My understanding is that macOS will not run unsigned code under any circumstances. I have attempted to self-sign my binaries, but I have no way to test if this works. Please open an [Issue](https://github.com/queenkjuul/spotify97/issues), use [Docker](#docker), or run Node natively using the [Development](#development) instructions, running `npm run serve` instead of `npm run dev`. You can install NVM using [`homembrew`](https://brew.sh/).*
 
 ### Docker
 

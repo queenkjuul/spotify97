@@ -32,7 +32,7 @@ Someone had to do it, obviously.
 
 This app DOES NOT stream any audio! This is only a UI you can use to remote control your other Spotify instances and Spotify Connect devices.
 
-However, you could run this alongside [spotifyd](https://github.com/Spotifyd/spotifyd) on a Pi or similar and hook up its line out to your Sound Blaster's Line In and have an all in one retro Spotify solution.
+However, you could run this alongside [spotifyd](https://github.com/Spotifyd/spotifyd) on a Pi or similar and hook up its line out to your Sound Blaster's Line In and have an all in one retro Spotify solution. In theory the frontends could implement Windows Media Player or QuickTime player component to render an audio stream without much effort.
 
 ## How
 
@@ -61,12 +61,12 @@ If you change the port in the `.env` file, map ports using Docker, or are runnin
 
 ### Step 2 - Set up the Relay Server
 
-Server setup is covered in the [Server documentation](./server/README.md). Have your Spotify App Client ID and Secret handy.
+Server setup is covered in the [Server documentation](./server). Have your Spotify App Client ID and Secret handy.
 
 ### Step 3 - Set up the client
 
 There are currently two clients. All clients, naturally, need an active network connection to the Relay Server.
 
-[Spotify Client 97](./client/SpotifyClient97/README.md): for Windows 95 and up
+[Spotify Client 97](./client/SpotifyClient97): for Windows 95 and up
 
-[Spotify 97 Mac Edition](./client/Spotify97MacEdition/README.md): for Mac OS 8.6 - OS X 10.5
+[Spotify 97 Mac Edition](./client/Spotify97MacEdition): for Mac OS 8.6 - OS X 10.5
