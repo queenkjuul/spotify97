@@ -13,6 +13,7 @@ defaults:
     values:
       layout: "post"
 jekyll-98:
+  icon: computer
   site_links:
     - title: Server
       url: /spotify97/server
