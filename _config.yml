@@ -34,3 +34,7 @@ jekyll-98:
       target: _self
       icon: sound
       alt: Spotify 97 for Mac OS 8.6 - 10.5
+
+  social_links:
+    github: queenkjuul/spotify97
+    youtube: queenkjuul69
