@@ -1,6 +1,6 @@
 # Spotify(R) 97
 
-A client-server system to control Spotify Connect devices from retro machines (Windows 95 and up, Mac OS 8.6+ coming soon.) Requires Spotify Premium. Does not stream audio, only remote-controls other Spotify devices.
+A client-server system to control Spotify Connect devices from retro machines (Windows 95 and up or Mac OS 8.6-10.5) Requires Spotify Premium. Does not stream audio, only remote-controls other Spotify devices.
 
 ![Spotify Connect logo](client/SpotifyClient97/Images/SpotifySplash.png)
 
@@ -47,7 +47,7 @@ Spotify(R) 97 consists of two components:
 
 ### Step 1 - Get Spotify app credentials
 
-[Follow the Spotify developer instructions to create an app](https://developer.spotify.com/documentation/web-api/tutorials/getting-started#create-an-app). You will need to copy the "Client ID" and "Client Secret" values into your `.env` file, see server setup instructions.
+[Follow the Spotify developer instructions to create an app](https://developer.spotify.com/documentation/web-api/tutorials/getting-started#create-an-app). You will need to copy the "Client ID" and "Client Secret" values into your Relay Server `.env` file, see [the server setup instructions](./server/).
 
 **IMPORTANT:** The `redirect_uri` setting is very important. It must match *exactly* the URL you will use to access the server.
 
