@@ -5,7 +5,7 @@ Front end applications for use with the Spotify 97 Relay Server
 Currently:
 
 1. [Spotify Client 97](./SpotifyClient97): Windows client written in .NET 2.0 using Visual Basic 2005 Express Edition. Runs on 9x/Me/2k/XP, but needs [MattKC's .NET 2.0 port for Windows 95](https://github.com/mattkc/dotnet9x) (or Microsoft .NET 2.0 for the newer platforms). Uses [Newtonsoft JSON.NET](https://newtonsoft.com/json) for deserialization. Works quite well, with enough features to be useful.
-2. [Spotify 97 Mac Edition](./Spotify97MacEdition): Mac client written in REALbasic 5.5. Tested on Mac OS 9.2 and OS X 10.4, but should work on 8.6-10.5. Uses [Charcoal Design's JSON Dictionary](http://www.charcoaldesign.co.uk/source/realbasic) package, but backported to RB 5.5. Developed primarily on Windows XP using REALbasic 5.5.3, but most UI work done in REALbasic 5.5.5 on OS 10.4. Requires QuickTime to display album art.
+2. [Spotify 97 Mac Edition](./Spotify97MacEdition): Mac client written in REALbasic 5.5. Tested on Mac OS 9.2 and OS X 10.4, but should work on 8.6-10.5. Requires QuickTime to display album art and may require OpenTransport on OS 8. Overall it is slower and buggier than the Windows client but for the moment it actually has more features. Uses [Charcoal Design's JSON Dictionary](http://www.charcoaldesign.co.uk/source/realbasic) package, backported to RB 5.5.
 
 Planned:
 
@@ -13,25 +13,12 @@ Planned:
 
 Considered:
 
-2. Spotify for Macintosh: [there is already MacPlayer](https://github.com/antscode/MacPlayer) [also, gonna be real, RB is too painful for me to be excited about this, and I don't know how easy it will be to do HTTP/JSON in vintage kits like Turbo Pascal or whatnot] Would love to get a build working on my LC II with its PDS Ethernet card. I think REALbasic 3.5 can build 68k binaries, but I don't know if it has an HTTP client, or if a 68020 can deserialize 2KB of JSON in under 5 seconds, which is probably the minimum threshold for the current architecture. REALbasic 3.5.2 does not have HTTPSocket, but it does have TCPSocket, and I've fonud an example of an HTTP client. The JSON parser also seems to import into 3.5.2 ok, so I should be able to export my model+controller classes as well (well, except for the HTTPsocket part...). The hardest part is going to be finding a comfy OS 9 dev setup. Though given the app crashes unless I allocate it at least 4MB of RAM, we're gonna be pushing it on a 10MB LC II.
+./src/models/PlaybackState.ts2. Spotify for Macintosh: [there is already MacPlayer](https://github.com/antscode/MacPlayer) [also, gonna be real, RB is too painful for me to be excited about this, and I don't know how easy it will be to do HTTP/JSON in vintage kits like Turbo Pascal or whatnot, and idk how much I want to learn C++ UI programming.] Would love to get a build working on my LC II with its PDS Ethernet card, and MacPlay doesn't do color so there is a functionality gap here. REALbasic 3.5 can build 68k binaries, but it doesn't have a built-in HTTP client, and idk if a 68020 can deserialize 2KB of JSON in under 5 seconds, which is probably the minimum threshold for the current architecture. I've found an example of an HTTP client for RB 3.5 though. The JSON parser also seems to import into 3.5.2 ok, so I should be able to export my model+controller classes as well (well, except for the HTTPsocket part...). The hardest part is going to be finding a comfy OS 9 dev setup. Though given the app crashes unless I allocate it at least 4MB of RAM, we're gonna be pushing it on a 10MB LC II. Maybe a stripped-down version that only shows now playing info and provides play/pause/next/prev/seek is in order.
 
 Dreamt:
 
-3. Spotify for MS-DOS: MTCP probably makes it very easy to interact with the Relay Server. Everything else probably sucks, though. Actually, this might be pretty practical using [DOjs](https://github.com/SuperIlu/DOjS). I'm interested.
+1. Spotify for MS-DOS: MTCP probably makes it very easy to interact with the Relay Server. Everything else probably sucks, though. Actually, this might be pretty practical using [DOjs](https://github.com/SuperIlu/DOjS). I'm interested. A play/pause/next/prev TSR would be awesome but probably requires serious programming that I can't do (like B or D+ or one of those such languages).
 
 Fever Dreamedt:
 
 4. Tandy CoCo over serial, Commodore 64 over WIC64
-
-## But queenkjuul, if REALbasic can build for Mac OS, OS X, GTK, and  Windows 9x, why not just use that for everything?
-
-1. It honestly kinda sucks. VB.NET has its problems, but REALbasic is a bit painful to use. Using the GUI is even less optional than it is in VB.NET. There's some archaic and strange syntax rules, like you can't declare a variable within a for loop expression, and even worse, you can't even define a local variable within a conditional or recursive block. Basically, all your variables have to be defined at the top level of your class or function. This is a big pain. Also you can't declare and initialize a variable on the same line. You do a lot of this:
-
-   ```vb
-   dim i as integer
-   i = 0
-   ```
-
-2. .NET honestly kinda rocks. I can define reactive data bindings, and the UI just updates whenever I reassign values in the backing state object. The app has a single source of truth, and the UI updates itself to match it automatically. This means writing a lot less code, with much less chance of states getting out of sync, that's really really easy to extend with more functionality. Plus the .NET Application framework gives me persistent settings and automatic updates with basically zero effort.
-3. Jack of all, master of none - REALbasic results in a pretty great looking Classic Mac UI, a pretty ok looking OS X UI, and a pretty bad Windows UI. Change it to look better on Windows, and it will look worse on Mac. So, separate codebases.
-4. Open Source-iness - REALbasic stores projects and their files in a proprietary binary format. I'm exporting my modules as XML for the sake of being able to diff things and kinda sorta review PRs, but it's really not great for making the code easy to read.

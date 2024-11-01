@@ -26,7 +26,7 @@
 4. Run `SpotifyClient97Server.exe`
 5. Allow connections in the Windows Firewall prompt.
 6. Follow the login link and log in to Spotify.
-7. [Set up the client](#set-up-the-client)
+7. [Set up the client](../client)
 
 If you do not complete Step 3, the app will launch and instantly close
 
@@ -40,7 +40,7 @@ If you do not complete Step 3, the app will launch and instantly close
 4. Open a terminal in the unzipped directory
 5. run `./spotifyclient97server`
 6. Follow the login link and log in to Spotify.
-7. [Set up the client](#set-up-the-client)
+7. [Set up the client](../client/)
 
 *Mac builds are as-yet-untested. My understanding is that macOS will not run unsigned code under any circumstances. I have attempted to self-sign my binaries, but I have no way to test if this works. Please open an [Issue](https://github.com/queenkjuul/spotify97/issues), use [Docker](#docker), or run Node natively using the [Development](#development) instructions, running `npm run serve` instead of `npm run dev`. You can install NVM using [`homembrew`](https://brew.sh/).*
 
@@ -162,7 +162,7 @@ It should be very easy to use this to build a similar frontend for any other pla
 
 All client side data is sent via URL query parameters.
 
-All data is returned in JSON format, wrapped in a [`ClientResponse`](./src/models/ClientResponse.ts) object. Typically, upstream HTTP errors are returned to the client in a "good" `200 - OK` response, but containing an `error` message within the response. There are common errors we typically want to ignore (like hitting Next when at the end of a playlist, or sending a `play` request to a device which is already playing). Responding with an actual HTTP error code may trigger automatic error handling in client libraries which we want to avoid.
+All data is returned in JSON format, wrapped in a [`ClientResponse`](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/ClientResponse.ts) object. Typically, upstream HTTP errors are returned to the client in a "good" `200 - OK` response, but containing an `errorInfo` message within the response. There are common errors we typically want to ignore (like hitting Next when at the end of a playlist, or sending a `play` request to a device which is already playing). Responding with an actual HTTP error code may trigger automatic error handling in client libraries which we want to avoid.
 
 A `ClientResponse` has three properties:
 
@@ -170,7 +170,7 @@ A `ClientResponse` has three properties:
 {
   "message": "string",  // Arbitrary. Typically OK or Error but may include more info
   "data": "json",       // can be just JSON of an empty object {}
-  "error": "string | undefined"     // Error message reported from the server. If string is present, an error has occurred
+  "errorInfo": "string | undefined"     // Error message reported from the server. If string is present, an error has occurred
 }
 ```
 
@@ -193,7 +193,7 @@ A `ClientResponse` has three properties:
     }
     ```
 
-    *see: [Track](./src/models/Track.ts), [Album](./src/models/Album.ts), [Playlist](./src/models/Playlist.ts)*
+    *see: [Track](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Track.ts), [Album](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Album.ts), [Playlist](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Playlist.ts)*
 
 - `/connect`
   - Verifies server is ready to operate, triggers token refresh if necessary.
@@ -209,12 +209,12 @@ A `ClientResponse` has three properties:
     ]
     ```
 
-    *see [Device](./src/models/Device.ts)*
+    *see [Device](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Device.ts)*
 
 - `/playbackState`
   - Provides the full now-playing playback state. This includes currently playing track, currently playing "context" (ID of the active queue/playlist/album), shuffle and repeat status, etc.
-  - Returns a [PlaybackState](./src/models/PlaybackState.ts) object
-  *see [Device](./src/models/Device.ts), [Track](./src/models/Track.ts)*
+  - Returns a [PlaybackState](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/PlaybackState.ts) object
+  *see [Device](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Device.ts), [Track](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Track.ts)*
 - `/albumArt`
   - Returns album art within a standard ClientResponse as a base64-encoded string
   - Params:
@@ -229,14 +229,14 @@ A `ClientResponse` has three properties:
     - `height`: optional. JPEG can be resized before download. Defaults to 175px
 - `/queue`
   - Get the currently playing queue
-  - Returns an array of [Track](./src/models/Track.ts) objects
+  - Returns an array of [Track](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Track.ts) objects
 - `/recent`
   - Get recently played tracks
   - Returns an array of `RecentlyPlayed` objects, which contain a `Track` and a `context` URI
-    *see [RecentlyPlayed](./src/models/RecentlyPlayed.ts), [Track](./src/models/Track.ts)*
+    *see [RecentlyPlayed](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/RecentlyPlayed.ts), [Track](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Track.ts)*
 - `/playlists`
   - Get current user's playlists
-  - Returns an array of [`Playlist`](./src/models/Playlist.ts) objects
+  - Returns an array of [`Playlist`](https://github.com/queenkjuul/spotify97/blob/main/server/src/models/Playlist.ts) objects
 - `/play`
   - Start playback on the specified device.
   - If device is active, continues playing current queue from previous position.
