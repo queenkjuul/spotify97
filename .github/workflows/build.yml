@@ -31,6 +31,7 @@ jobs:
       uses: jozsefsallai/node-package-version@v1.0.4
       with:
         path: server/package.json
+    - uses: benjlevesque/short-sha@v3.0
     - name: install
       run: npm ci
       working-directory: ./server
@@ -49,7 +50,7 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         source: "server/dist/*.tar.gz"
-        target: /var/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.GITHUB_SHA }}/
+        target: /var/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
 
 
           
