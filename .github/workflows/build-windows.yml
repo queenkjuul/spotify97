@@ -39,7 +39,7 @@ jobs:
       run: npm run build:windows
       working-directory: ./server
     - name: archive
-      run: Compress-Archive -LiteralPath win/* -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
+      run: dir; Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
       working-directory: ./server/dist
     - name: upload
       uses: appleboy/scp-action@v0.1.7
