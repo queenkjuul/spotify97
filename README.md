@@ -2,7 +2,7 @@
 
 A client-server system to control Spotify Connect devices from retro machines (Windows 95 and up or Mac OS 8.6-10.5) Requires Spotify Premium. Does not stream audio, only remote-controls other Spotify devices.
 
-[*dev builds hosted here*](http://retro.queenkjuul.xyz/spotify97/server)
+[*server dev builds hosted here*](http://retro.queenkjuul.xyz/spotify97/server)
 
 ![windows-server](https://github.com/queenkjuul/spotify97/actions/workflows/build-windows.yml/badge.svg)
 
