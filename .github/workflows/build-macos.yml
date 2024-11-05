@@ -36,7 +36,7 @@ jobs:
       run: npm ci
       working-directory: ./server
     - name: build
-      run: npm run build:all
+      run: npm run build:macos
       working-directory: ./server
     - name: archive
       run: for platform in "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done;ls -la
