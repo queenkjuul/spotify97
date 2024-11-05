@@ -107,7 +107,10 @@ jobs:
       - name: download
         uses: actions/download-artifact@v4
         with:
-          name: "spotify97-server-*"
+          name: |
+            "spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release"
+            "spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release"
+            "spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release"
           path: .
       - run: ls -la
       - name: upload
@@ -125,5 +128,5 @@ jobs:
           artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip"
           allowUpdates: true
           generateReleaseNotes: true
-          tag: ${{ inputs.tag }}
+          tag: ${{ github.ref_name || inputs.tag }}
           commit: ${{ inputs.commit }}
