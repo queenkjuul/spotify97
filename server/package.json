@@ -28,7 +28,7 @@
     "build:linux:arm64": "npm run build:js && mkdirp dist/linux/arm64 && pkg -t latest-linux-arm64 -o dist/linux/arm64/spotify97-server dist/js/app.js && cpy .env.example --rename=.env dist/linux/arm64/",
     "build:macos": "rimraf dist/macos && npm run build:js && mkdirp dist/macos/x64 && pkg -t latest-macos-x64 -o dist/macos/x64/spotify97-server dist/js/app.js && cpy .env.example --rename=.env dist/macos/x64/",
     "build:all": "npm run build:js && npm run build:linux:x64; npm run build:linux:arm64; npm run build:macos",
-    "build:windows": "npm run clean:windows; mkdirp dist/win; exe; cpy .env.example --rename=.env dist/win/",
+    "build:windows": "rimraf dist/win; mkdirp dist/win; exe; cpy .env.example --rename=.env dist/win/",
     "build:docker": "npm run build:js && docker build . -t spotify97-server",
     "start": "node dist/js/app.js",
     "serve": "npm run build:js && npm run start",
