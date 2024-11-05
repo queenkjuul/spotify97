@@ -50,6 +50,7 @@ jobs:
         port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
+        insecure_ignore_fingerprint: true
         source: "server/dist/*.tar.gz"
         target: /var/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
 
