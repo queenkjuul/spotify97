@@ -71,4 +71,3 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}.zip"
         target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
-        strip_components: 2
