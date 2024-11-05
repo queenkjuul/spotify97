@@ -36,7 +36,7 @@ jobs:
       run: npm ci
       working-directory: ./server
     - name: build
-      run: npm run build:all
+      run: npm run build:linux:x64;npm run build:linux:arm64
       working-directory: ./server
     - name: archive
       run: for platform in "linux/arm64" "linux/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done;ls -la
