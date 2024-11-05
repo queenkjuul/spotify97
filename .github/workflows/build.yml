@@ -26,6 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         node-version-file: './server/.nvmrc'
+        cache-dependency-path: 'server/package-lock.json'
     - name: install node deps
       run: npm ci
       working-directory: ./server
