@@ -13,10 +13,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     defaults:
       run:
@@ -29,33 +25,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd server
-    - run: npm ci
-    - run: npm run build:all --if-present
-    - name: Get version
-      id: package_version
-      uses: KageKirin/get-node-package-version@v0
-    - run: cd dist;for platform in "linux/arm64" "linux/x64" "macos/x64"; do tar -cvzf spotify97-server-$(echo $platform | tr  "/" "-")-${{ steps.test.package_version.version }}.tar.gz $platform;done
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.4.3
-      with:
-        # Artifact name
-        name: spotify97-server-linux-arm64
-        # A file, directory or wildcard pattern that describes what to upload
-        path: spotify97-server-linux-arm64*.tar.gz
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.4.3
-      with:
-        # Artifact name
-        name: spotify97-server-linux-x64
-        # A file, directory or wildcard pattern that describes what to upload
-        path: spotify97-server-linux-x64*.tar.gz
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v4.4.3
-      with:
-        # Artifact name
-        name: spotify97-server-macos-x64
-        # A file, directory or wildcard pattern that describes what to upload
-        path: spotify97-server-macos-x64*.tar.gz  
+        node-version-file: './server/.nvmrc'
+    - name: install node deps
+      run: npm ci
+      working-directory: ./server
+    - name: build
+      run: npm run build:all
+      working-directory: ./server
 
           
