@@ -39,7 +39,7 @@ jobs:
       run: npm run build:windows
       working-directory: ./server
     - name: archive
-      run: for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-${{ env.PACKAGE_VERSION }}.tar.gz $platform;done
+      run: zip -v spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip win/*;done;ls -la
       working-directory: ./server/dist
     - name: upload
       uses: appleboy/scp-action@v0.1.7
@@ -49,7 +49,7 @@ jobs:
         port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}.tar.gz,server/dist/spotify97-server-macos-x64-${{env.PACKAGE_VERSION}}.tar.gz"
+        source: "server/dist/spotify97-server-win64-${{env.PACKAGE_VERSION}}.tar.gz"
         target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
         strip_components: 2
 
