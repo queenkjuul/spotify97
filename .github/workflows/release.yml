@@ -92,7 +92,7 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release.tar.gz"
-          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
+          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/release/
           strip_components: 2
   publish:
     runs-on: ubuntu-latest
@@ -104,13 +104,20 @@ jobs:
       - uses: jozsefsallai/node-package-version@v1.0.4
         with:
           path: server/package.json
-      - name: download
+      - name: download linux-arm64
         uses: actions/download-artifact@v4
         with:
-          name: |
-            "spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release"
-            "spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release"
-            "spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release"
+          name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
+          path: .
+      - name: download linux-x64
+        uses: actions/download-artifact@v4
+        with:
+          name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
+          path: .
+      - name: download macos-x64
+        uses: actions/download-artifact@v4
+        with:
+          name: spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release
           path: .
       - run: ls -la
       - name: upload
