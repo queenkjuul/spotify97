@@ -42,19 +42,14 @@ jobs:
       run: mkdir bin;for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf bin/spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done;ls -la bin
       working-directory: ./server/dist
     - name: upload
-      uses: nicklasfrahm/scp-action@main
+      uses: appleboy/scp-action@v0.1.7
       with:
-        direction: upload
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        insecure_ignore_fingerprint: true
-        source: |
-          server/dist/bin/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}.tar.gz
-          server/dist/bin/spotify97-server-linux-x64-${{env.PACKAGE_VESRION}}.tar.gz
-          server/dist/bin/spotify97-server-macos-x64-${{env.PACKAGE_VERSION}}.tar.gz
+        source: "server/dist/bin/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}.tar.gz,server/dist/bin/spotify97-server-linux-x64-${{env.PACKAGE_VESRION}}.tar.gz,server/dist/bin/spotify97-server-macos-x64-${{env.PACKAGE_VERSION}}.tar.gz"
         target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
 
 
