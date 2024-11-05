@@ -27,11 +27,17 @@ jobs:
         cache: 'npm'
         node-version-file: './server/.nvmrc'
         cache-dependency-path: 'server/package-lock.json'
-    - name: install node deps
+    - name: install
       run: npm ci
       working-directory: ./server
     - name: build
       run: npm run build:all
       working-directory: ./server
+    - name: archive
+      run: for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz;done
+      working-directory: ./server/dist
+    - name: upload
+      run: for artifact in *.tar.gz;do scp $artifact github@queenkjuul.xyz:/var/www/public/spotifyclient97/server/$(npm pkg get version | tr -d '"')/$artifact;done
+      working-directory: ./server/dist
 
           
