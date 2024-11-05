@@ -1,113 +1,129 @@
 name: Release Build
 
-on: 
+on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "tag to release"
+        required: true
+        type: string
+      commit:
+        description: "commit or branch to release"
+        required: true
+        default: "main"
+        type: string
   push:
     tags:
-    - '*'
+      - "*"
 
 jobs:
-
   windows:
-    runs-on: windows-latest
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    runs-on:
+      windows-latest
+      # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     defaults:
       run:
-        working-directory: ./server        
+        working-directory: ./server
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        cache: 'npm'
-        node-version-file: './server/.nvmrc'
-        cache-dependency-path: 'server/package-lock.json'
-    - uses: jozsefsallai/node-package-version@v1.0.4
-      with:
-        path: server/package.json
-    - uses: benjlevesque/short-sha@v3.0
-    - run: npm ci
-      working-directory: ./server
-    - run: npm run build:windows
-      working-directory: ./server
-    - name: archive
-      run: Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release.zip
-      working-directory: ./server/dist
-    - uses: actions/upload-artifact@v4
-      with:
-        name: spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release
-        path: server/dist/spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release.zip
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          node-version-file: "./server/.nvmrc"
+          cache-dependency-path: "server/package-lock.json"
+      - uses: jozsefsallai/node-package-version@v1.0.4
+        with:
+          path: server/package.json
+      - uses: benjlevesque/short-sha@v3.0
+      - run: npm ci
+        working-directory: ./server
+      - run: npm run build:windows
+        working-directory: ./server
+      - name: archive
+        run: Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release.zip
+        working-directory: ./server/dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release
+          path: server/dist/spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release.zip
   nix:
-    runs-on: ubuntu-latest
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    runs-on:
+      ubuntu-latest
+      # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     defaults:
       run:
-        working-directory: ./server        
+        working-directory: ./server
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        cache: 'npm'
-        node-version-file: './server/.nvmrc'
-        cache-dependency-path: 'server/package-lock.json'
-    - uses: jozsefsallai/node-package-version@v1.0.4
-      with:
-        path: server/package.json
-    - uses: benjlevesque/short-sha@v3.0
-    - run: npm ci
-      working-directory: ./server
-    - run: npm run build:all
-      working-directory: ./server
-    - name: archive
-      run: for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"')-release.tar.gz $platform;done;ls -la
-      working-directory: ./server/dist
-    - uses: actions/upload-artifact@v4
-      with:
-        name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
-        path: server/dist/spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release.tar.gz
-    - uses: actions/upload-artifact@v4
-      with:
-        name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
-        path: server/dist/spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release.tar.gz
-    - uses: actions/upload-artifact@v4
-      with:
-        name: spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release
-        path: server/dist/spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release.tar.gz
-    - name: upload
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
-        key: ${{ secrets.KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release.tar.gz"
-        target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
-        strip_components: 2
-  build:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          node-version-file: "./server/.nvmrc"
+          cache-dependency-path: "server/package-lock.json"
+      - uses: jozsefsallai/node-package-version@v1.0.4
+        with:
+          path: server/package.json
+      - uses: benjlevesque/short-sha@v3.0
+      - run: npm ci
+        working-directory: ./server
+      - run: npm run build:all
+        working-directory: ./server
+      - name: archive
+        run: for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"')-release.tar.gz $platform;done;ls -la
+        working-directory: ./server/dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
+          path: server/dist/spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
+          path: server/dist/spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release.tar.gz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release
+          path: server/dist/spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release.tar.gz
+      - name: upload
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release.tar.gz"
+          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
+          strip_components: 2
+  publish:
     runs-on: ubuntu-latest
+    needs: ["windows", "nix"]
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v3
-    - name: download
-      uses: actions/download-artifact@v4
-      with:
-        name: "spotify97-server-*"
-        path: .
-    - run: ls -la
-    - name: upload
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
-        key: ${{ secrets.KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}-release.zip"
-        target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/release
-    - uses: ncipollo/release-action@v1
-      with:
-        artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip"
-        allowUpdates: true
-        generateReleaseNotes: true
-        
+      - uses: actions/checkout@v3
+      - uses: jozsefsallai/node-package-version@v1.0.4
+        with:
+          path: server/package.json
+      - name: download
+        uses: actions/download-artifact@v4
+        with:
+          name: "spotify97-server-*"
+          path: .
+      - run: ls -la
+      - name: upload
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}-release.zip"
+          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/release
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip"
+          allowUpdates: true
+          generateReleaseNotes: true
+          tag: ${{ inputs.tag }}
+          commit: ${{ inputs.commit }}
