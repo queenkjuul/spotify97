@@ -39,8 +39,21 @@ jobs:
       run: npm run build:windows
       working-directory: ./server
     - name: archive
-      run: dir; Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
+      run: Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip;dir win;dir
       working-directory: ./server/dist
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-binary-${{ env.SHA }}
+        path: server/dist/spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - name: download
+      uses: actions/download-artifact@v4
+      with:
+        name: windows-binary-${{ env.SHA }}
+        path: spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
+    - run: ls -la
     - name: upload
       uses: appleboy/scp-action@v0.1.7
       with:
@@ -49,7 +62,7 @@ jobs:
         port: ${{ secrets.PORT }}
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
-        source: "server/dist/spotify97-server-win64-${{env.PACKAGE_VERSION}}.tar.gz"
+        source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}.zip"
         target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
         strip_components: 2
 
