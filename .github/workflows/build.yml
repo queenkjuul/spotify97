@@ -41,8 +41,8 @@ jobs:
       # https://stackoverflow.com/a/70447517
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        echo "${{ secrets.XYZ_SSH_PRIVATE }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H queenkjuul.xyz > ~/.ssh/known_hosts
     - name: upload
       run: for artifact in *.tar.gz;do scp $artifact github@queenkjuul.xyz:/var/www/public/spotifyclient97/server/$(npm pkg get version | tr -d '"')/$(git rev-parse --short "$GITHUB_SHA")/$artifact;done
       working-directory: ./server/dist
