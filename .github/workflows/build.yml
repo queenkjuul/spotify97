@@ -39,7 +39,7 @@ jobs:
       run: npm run build:all
       working-directory: ./server
     - name: archive
-      run: mkdir bin;for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf bin/spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done
+      run: mkdir bin;for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf bin/spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done;ls -la bin
       working-directory: ./server/dist
     - name: upload
       uses: nicklasfrahm/scp-action@main
