@@ -59,7 +59,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: windows-binary-${{ env.SHA }}
-        path: spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
+        path: .
     - run: ls -la
     - name: upload
       uses: appleboy/scp-action@v0.1.7
