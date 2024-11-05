@@ -42,8 +42,9 @@ jobs:
       run: for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done
       working-directory: ./server/dist
     - name: upload
-      uses: appleboy/scp-action@v0.1.7
+      uses: nicklasfrahm/scp-action@main
       with:
+        direction: upload
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
