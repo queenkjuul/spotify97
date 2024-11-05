@@ -47,6 +47,7 @@ jobs:
         path: server/dist/spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
   upload:
     runs-on: ubuntu-latest
+    needs: "build"
     steps:
     - name: download
       uses: actions/download-artifact@v4
