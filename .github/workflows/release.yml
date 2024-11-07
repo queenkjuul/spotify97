@@ -160,4 +160,4 @@ jobs:
           generateReleaseNotes: true
           tag: v${{ env.PACKAGE_VERSION }}
           commit: ${{ inputs.commit }}
-          name: "Spotify 97 Release v${{ env.PACKAGE_VERSION }}"
+          name: "v${{ env.PACKAGE_VERSION }}"
