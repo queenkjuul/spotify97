@@ -5,69 +5,60 @@ name: Build Windows Binaries
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: windows-latest
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     defaults:
       run:
-        working-directory: ./server        
+        working-directory: ./server
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        node-version-file: './server/.nvmrc'
-        cache-dependency-path: 'server/package-lock.json'
-    - name: version
-      uses: jozsefsallai/node-package-version@v1.0.4
-      with:
-        path: server/package.json
-    - uses: benjlevesque/short-sha@v3.0
-    - name: install
-      run: npm ci
-      working-directory: ./server
-    - name: build
-      run: npm run build:windows
-      working-directory: ./server
-    - name: archive
-      run: Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip;dir win;dir
-      working-directory: ./server/dist
-    - uses: actions/upload-artifact@v4
-      with:
-        name: windows-binary-${{ env.SHA }}
-        path: server/dist/spotify97-server-win64-${{ env.PACKAGE_VERSION }}.zip
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          node-version-file: "./server/.nvmrc"
+          cache-dependency-path: "server/package-lock.json"
+      - uses: jozsefsallai/node-package-version@v1.0.4
+        with:
+          path: server/package.json
+      - uses: benjlevesque/short-sha@v3.0
+      - run: npm ci
+        working-directory: ./server
+      - run: npm run build:windows
+        working-directory: ./server
+      - name: archive
+        run: Compress-Archive -LiteralPath win -DestinationPath spotify97-server-win64-${{ env.PACKAGE_VERSION }}-${{ env.SHA }}.zip;dir win;dir
+        working-directory: ./server/dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-binary-${{ env.SHA }}
+          path: server/dist/spotify97-server-win64-${{ env.PACKAGE_VERSION }}-${{ env.SHA }}.zip
   upload:
     runs-on: ubuntu-latest
     needs: "build"
     steps:
-    - uses: actions/checkout@v4
-    - name: version
-      uses: jozsefsallai/node-package-version@v1.0.4
-      with:
-        path: server/package.json
-    - uses: benjlevesque/short-sha@v3.0
-    - name: download
-      uses: actions/download-artifact@v4
-      with:
-        name: windows-binary-${{ env.SHA }}
-        path: .
-    - run: ls -la
-    - name: upload
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
-        key: ${{ secrets.KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}.zip"
-        target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
+      - uses: actions/checkout@v4
+      - uses: jozsefsallai/node-package-version@v1.0.4
+        with:
+          path: server/package.json
+      - uses: benjlevesque/short-sha@v3.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-binary-${{ env.SHA }}
+          path: .
+      - run: ls -la
+      - name: upload
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}-${{ env.SHA }}.zip"
+          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/

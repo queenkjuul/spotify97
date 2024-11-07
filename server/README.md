@@ -38,7 +38,7 @@ If you do not complete Step 3, the app will launch and instantly close
 2. Extract the ZIP
 3. Edit `.env` with your application information
 4. Open a terminal in the unzipped directory
-5. run `./spotifyclient97server`
+5. run `./spotify97-server`
 6. Follow the login link and log in to Spotify.
 7. [Set up the client](../client/)
 
@@ -57,7 +57,7 @@ docker run -it --rm \
   -e REDIRECT=yourspotifyredirecturi \
   # port is optional
   -e PORT=3000 \
-  spotifyclient97
+  spotify97-server
 ```
 
 ## Development
