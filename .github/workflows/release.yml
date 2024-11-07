@@ -69,7 +69,7 @@ jobs:
       - run: npm run build:all
         working-directory: ./server
       - name: archive
-        run: for platform in "linux/arm64" "linux/x64" "macos/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"')-release.tar.gz $platform;done;ls -la
+        run: for platform in "linux/arm64" "linux/x64" "macos/x64";do cd $platform;tar -cvzf ../../spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"')-release.tar.gz $platform;cd ../../;done;ls -la
         working-directory: ./server/dist
       - uses: actions/upload-artifact@v4
         with:
@@ -104,20 +104,25 @@ jobs:
       - uses: jozsefsallai/node-package-version@v1.0.4
         with:
           path: server/package.json
-      - name: download linux-arm64
-        uses: actions/download-artifact@v4
-        with:
-          name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
-          path: .
-      - name: download linux-x64
-        uses: actions/download-artifact@v4
-        with:
-          name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
-          path: .
+      # - name: download linux-arm64
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
+      #     path: .
+      # - name: download linux-x64
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
+      #     path: .
       - name: download macos-x64
         uses: actions/download-artifact@v4
         with:
           name: spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release
+          path: .
+      - name: download win64
+        uses: actions/download-artifact@v4
+        with:
+          name: spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release
           path: .
       - run: ls -la
       - name: upload
