@@ -2,16 +2,16 @@ name: Release Build
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "tag to release"
-        required: true
-        type: string
-      commit:
-        description: "commit or branch to release"
-        required: true
-        default: "main"
-        type: string
+    # inputs:
+    #   tag:
+    #     description: "tag to release"
+    #     required: true
+    #     type: string
+    #   commit:
+    #     description: "commit or branch to release"
+    #     required: true
+    #     default: "main"
+    #     type: string
   push:
     tags:
       - "*"
@@ -82,7 +82,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release
-          path: server/dist/spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release.tar.gz
+          path: server/dist/spotify97-server-macos-x64-${{ env.PACKAGE_VERSION }}-release.tar.gz
       - name: upload
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -104,16 +104,16 @@ jobs:
       - uses: jozsefsallai/node-package-version@v1.0.4
         with:
           path: server/package.json
-      # - name: download linux-arm64
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
-      #     path: .
-      # - name: download linux-x64
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
-      #     path: .
+      - name: download linux-arm64
+        uses: actions/download-artifact@v4
+        with:
+          name: spotify97-server-linux-arm64-${{ env.PACKAGE_VERSION }}-release
+          path: .
+      - name: download linux-x64
+        uses: actions/download-artifact@v4
+        with:
+          name: spotify97-server-linux-x64-${{ env.PACKAGE_VERSION }}-release
+          path: .
       - name: download macos-x64
         uses: actions/download-artifact@v4
         with:
@@ -140,5 +140,6 @@ jobs:
           artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip"
           allowUpdates: true
           generateReleaseNotes: true
-          tag: ${{ github.ref_name || inputs.tag }}
-          commit: ${{ inputs.commit }}
+          tag: v${{ env.PACKAGE_VERSION }}
+          # commit: ${{ inputs.commit }}
+          name: "Spotify 97 Release v${{ env.PACKAGE_VERSION }}"
