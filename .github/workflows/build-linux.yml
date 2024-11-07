@@ -5,49 +5,46 @@ name: Build Linux Binaries
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    runs-on:
+      ubuntu-latest
+      # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     defaults:
       run:
-        working-directory: ./server        
+        working-directory: ./server
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        cache: 'npm'
-        node-version-file: './server/.nvmrc'
-        cache-dependency-path: 'server/package-lock.json'
-    - uses: jozsefsallai/node-package-version@v1.0.4
-      with:
-        path: server/package.json
-    - uses: benjlevesque/short-sha@v3.0
-    - run: npm ci
-      working-directory: ./server
-    - name: build
-      run: npm run build:linux:x64;npm run build:linux:arm64
-      working-directory: ./server
-    - name: archive
-      run: for platform in "linux/arm64" "linux/x64";do cd $platform; tar -cvzf ../../spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz .;cd ../../;done;ls -la
-      working-directory: ./server/dist
-    - name: upload
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
-        key: ${{ secrets.KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}.tar.gz"
-        target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
-        strip_components: 2
-
-
-          
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          node-version-file: "./server/.nvmrc"
+          cache-dependency-path: "server/package-lock.json"
+      - uses: jozsefsallai/node-package-version@v1.0.4
+        with:
+          path: server/package.json
+      - uses: benjlevesque/short-sha@v3.0
+      - run: npm ci
+        working-directory: ./server
+      - name: build
+        run: npm run build:linux:x64;npm run build:linux:arm64
+        working-directory: ./server
+      - name: archive
+        run: for platform in "linux/arm64" "linux/x64";do cd $platform; tar -cvzf ../../spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"')-${{ env.SHA }}.tar.gz .;cd ../../;done;ls -la
+        working-directory: ./server/dist
+      - name: upload
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}-${{ env.SHA }}.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}-${{ env.SHA }}.tar.gz"
+          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
+          strip_components: 2
