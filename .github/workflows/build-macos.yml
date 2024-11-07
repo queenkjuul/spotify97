@@ -62,4 +62,3 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "spotify97-server-macos-x64-${{env.PACKAGE_VERSION}}-${{ env.SHA }}.tar.gz"
           target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
-          strip_components: 2
