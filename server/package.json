@@ -1,6 +1,6 @@
 {
   "name": "spotify97-server",
-  "version": "1.2.0.0",
+  "version": "1.2.0.1",
   "description": "Facilitates communication between Spotify API and local (retro) client machines",
   "main": "src/app.js",
   "bin": "dist/js/app.js",
