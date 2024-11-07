@@ -2,7 +2,7 @@ name: Release Build
 
 on:
   workflow_dispatch:
-    # inputs:
+    inputs:
     #   tag:
     #     description: "tag to release"
     #     required: true
