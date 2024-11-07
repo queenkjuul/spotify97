@@ -20,26 +20,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
         cache: 'npm'
         node-version-file: './server/.nvmrc'
         cache-dependency-path: 'server/package-lock.json'
-    - name: version
-      uses: jozsefsallai/node-package-version@v1.0.4
+    - uses: jozsefsallai/node-package-version@v1.0.4
       with:
         path: server/package.json
     - uses: benjlevesque/short-sha@v3.0
-    - name: install
-      run: npm ci
+    - run: npm ci
       working-directory: ./server
     - name: build
       run: npm run build:linux:x64;npm run build:linux:arm64
       working-directory: ./server
     - name: archive
-      run: for platform in "linux/arm64" "linux/x64";do tar -cvzf spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz $platform;done;ls -la
+      run: for platform in "linux/arm64" "linux/x64";do cd $platform; tar -cvzf ../../spotify97-server-$(echo $platform | tr "/" "-")-$(npm pkg get version | tr -d '"').tar.gz .;cd ../../;done;ls -la
       working-directory: ./server/dist
     - name: upload
       uses: appleboy/scp-action@v0.1.7
