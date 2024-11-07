@@ -122,5 +122,9 @@
       "state.json",
       "routes.json"
     ]
+  },
+  "clients": {
+    "windows": "1.1.0.5",
+    "mac": "1.0.0"
   }
 }

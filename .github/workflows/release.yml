@@ -155,7 +155,7 @@ jobs:
           target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/release
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip"
+          artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip,client/Spotify97MacEdition/dist/*,client/SpotifyClient97/dist/*"
           allowUpdates: true
           generateReleaseNotes: true
           tag: v${{ env.PACKAGE_VERSION }}
