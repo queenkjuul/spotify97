@@ -1,5 +1,5 @@
 import fs from "fs"
-import { Jimp } from "jimp"
+const resizeImg = require("resize-image-buffer")
 
 export default class SpotifyClient {
   // environment - asserting non-null, will crash without proper env
@@ -215,20 +215,22 @@ export default class SpotifyClient {
   // 175x175 is size of Mac client album art control
   async getAlbumArtFile(
     url,
-    w: string | number = 175,
-    h: string | number = 175
+    width: string | number = 175,
+    height: string | number = 175
   ) {
     try {
       if (!url) return
-      if (typeof w === "string") {
-        w = parseInt(w)
+      if (typeof width === "string") {
+        width = parseInt(width)
       }
-      if (typeof h === "string") {
-        h = parseInt(h)
+      if (typeof height === "string") {
+        height = parseInt(height)
       }
-      const image = await Jimp.read(url)
-      image.resize({ w, h })
-      return image.getBuffer("image/jpeg")
+      const response = await fetch(url)
+      const imageData = await response.arrayBuffer()
+      const imageBuffer = Buffer.from(imageData)
+      const image = await resizeImg(imageBuffer, { width, height })
+      return image
     } catch (e) {
       this.err(e)
     }
