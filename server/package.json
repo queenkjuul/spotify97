@@ -1,6 +1,6 @@
 {
   "name": "spotify97-server",
-  "version": "1.2.0.1",
+  "version": "1.2.0.2",
   "description": "Facilitates communication between Spotify API and local (retro) client machines",
   "main": "src/app.js",
   "bin": "dist/js/app.js",
@@ -20,6 +20,7 @@
     "retrocomputing",
     "windows98",
     "windows95",
+    "dotnet",
     ".net"
   ],
   "scripts": {
@@ -73,7 +74,6 @@
     "iconv-lite": "^0.4.24",
     "inherits": "^2.0.4",
     "ipaddr.js": "^1.9.1",
-    "jimp": "^1.6.0",
     "media-typer": "^0.3.0",
     "merge-descriptors": "^1.0.3",
     "methods": "^1.1.2",
@@ -90,6 +90,7 @@
     "qs": "^6.13.0",
     "range-parser": "^1.2.1",
     "raw-body": "^2.5.2",
+    "resize-image-buffer": "^1.0.0",
     "safe-buffer": "^5.2.1",
     "safer-buffer": "^2.1.2",
     "send": "^0.19.0",
@@ -109,10 +110,10 @@
     "@angablue/exe": "^3.2.3",
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
+    "@yao-pkg/pkg": "^6.1.0",
     "cpy-cli": "^5.0.0",
     "mkdirp": "^3.0.1",
     "nodemon": "^3.1.7",
-    "pkg": "^5.8.1",
     "rimraf": "^5.0.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
@@ -122,6 +123,9 @@
       "state.json",
       "routes.json"
     ]
+  },
+  "pkg": {
+    "assets": "node_modules/sharp/**"
   },
   "clients": {
     "windows": "1.1.0.5",
