@@ -46,7 +46,8 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: ./_site
-          target: /srv/www/public/spotifyclient97/docs/
+          target: /srv/www/public/spotifyclient97/
+          strip_components: 2
 
   # Deployment job
   deploy:
