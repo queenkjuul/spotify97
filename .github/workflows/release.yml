@@ -110,7 +110,7 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}-release.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}-release.tar.gz"
-          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/release/
+          target: /srv/www/public/spotifyclient97/downloads/server/${{ env.PACKAGE_VERSION }}/release/
           strip_components: 2
   publish:
     runs-on: ubuntu-latest
@@ -143,7 +143,17 @@ jobs:
           name: spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release
           path: .
       - run: ls -la
-      - name: upload
+      - name: upload server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: "./client/Spotify97MacEdition/dist/*,./client/SpotifyClient97/dist/*"
+          target: /srv/www/public/spotifyclient97/downloads/client/
+      - name: upload client
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
@@ -152,7 +162,7 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "spotify97-server-win64-${{env.PACKAGE_VERSION}}-release.zip,spotify97-server-macos-x64-${{env.PACKAGE_VERSION}}.tar.gz"
-          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/release
+          target: /srv/www/public/spotifyclient97/downloads/server/${{ env.PACKAGE_VERSION }}/release
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "spotify97-server-*.tar.gz,spotify97-server-*.zip,client/Spotify97MacEdition/dist/*,client/SpotifyClient97/dist/*"

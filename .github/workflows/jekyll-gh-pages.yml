@@ -33,8 +33,9 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./
+          source: ./docs
           destination: ./_site
+      - run: ls -la _site/server
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
       - name: Upload to retro.queenkjuul.xyz
@@ -45,7 +46,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: ./_site/
+          source: ./_site/*
           target: /srv/www/public/spotifyclient97/docs/
 
   # Deployment job
