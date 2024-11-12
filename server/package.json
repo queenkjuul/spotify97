@@ -20,10 +20,11 @@
     "retrocomputing",
     "windows98",
     "windows95",
+    "dotnet",
     ".net"
   ],
   "scripts": {
-    "build:js": "npm run clean:js && genversion --esm util/version.js && npx tsc && cpy .env.example --rename=.env dist/js/",
+    "build:js": "npm run clean:js && genversion --esm src/util/version.js && npx tsc && cpy .env.example --rename=.env dist/js/",
     "build:linux:x64": "npm run build:js && mkdirp dist/linux/x64 && pkg -t latest-linux-x64 -o dist/linux/x64/spotify97-server dist/js/app.js && cpy .env.example --rename=.env dist/linux/x64/",
     "build:linux:arm64": "npm run build:js && mkdirp dist/linux/arm64 && pkg -t latest-linux-arm64 -o dist/linux/arm64/spotify97-server dist/js/app.js && cpy .env.example --rename=.env dist/linux/arm64/",
     "build:macos": "rimraf dist/macos && npm run build:js && mkdirp dist/macos/x64 && pkg -t latest-macos-x64 -o dist/macos/x64/spotify97-server dist/js/app.js && cpy .env.example --rename=.env dist/macos/x64/",
@@ -32,7 +33,7 @@
     "build:docker": "npm run build:js && docker build . -t spotify97-server",
     "start": "node dist/js/app.js",
     "serve": "npm run build:js && npm run start",
-    "dev": "genversion --esm util/version.js && nodemon src/app.ts",
+    "dev": "genversion --esm src/util/version.js && nodemon src/app.ts",
     "clean:all": "rimraf dist && rimraf state.json",
     "clean:js": "rimraf dist/js",
     "clean:windows": "rimraf dist/win"
@@ -73,7 +74,6 @@
     "iconv-lite": "^0.4.24",
     "inherits": "^2.0.4",
     "ipaddr.js": "^1.9.1",
-    "jimp": "^1.6.0",
     "media-typer": "^0.3.0",
     "merge-descriptors": "^1.0.3",
     "methods": "^1.1.2",
@@ -110,11 +110,11 @@
     "@angablue/exe": "^3.2.3",
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
+    "@yao-pkg/pkg": "^6.1.1",
     "cpy-cli": "^5.0.0",
     "genversion": "^3.2.0",
     "mkdirp": "^3.0.1",
     "nodemon": "^3.1.7",
-    "pkg": "^5.8.1",
     "rimraf": "^5.0.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
@@ -126,7 +126,12 @@
     ]
   },
   "clients": {
-    "windows": "1.1.0.5",
-    "mac": "1.0.0"
+    "windows": [
+      "1.1.0.5",
+      "1.1.0.6"
+    ],
+    "mac": [
+      "1.0.0"
+    ]
   }
 }

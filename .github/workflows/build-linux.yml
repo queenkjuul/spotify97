@@ -46,5 +46,5 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "server/dist/spotify97-server-linux-arm64-${{env.PACKAGE_VERSION}}-${{ env.SHA }}.tar.gz,server/dist/spotify97-server-linux-x64-${{env.PACKAGE_VERSION}}-${{ env.SHA }}.tar.gz"
-          target: /srv/www/public/spotifyclient97/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
+          target: /srv/www/public/spotifyclient97/downloads/server/${{ env.PACKAGE_VERSION }}/${{ env.SHA }}/
           strip_components: 2

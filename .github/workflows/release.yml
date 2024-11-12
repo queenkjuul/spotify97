@@ -143,7 +143,7 @@ jobs:
           name: spotify97-server-win64-${{ env.PACKAGE_VERSION }}-release
           path: .
       - run: ls -la
-      - name: upload server
+      - name: upload client
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
@@ -152,8 +152,8 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "./client/Spotify97MacEdition/dist/*,./client/SpotifyClient97/dist/*"
-          target: /srv/www/public/spotifyclient97/downloads/client/
-      - name: upload client
+          target: /srv/www/public/spotifyclient97/downloads/
+      - name: upload server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}

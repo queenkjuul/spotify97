@@ -2,11 +2,11 @@ title: Spotify 97
 description: Spotify 97 is a client-server setup for controlling Spotify Connect endpoints from vintage operating systems
 remote_theme: queenkjuul/jekyll-98
 include:
-  - docs/index.md
-  - docs/server/index.md
-  - docs/client/index.md
-  - docs/client/SpotifyClient97/index.md
-  - docs/client/Spotify97MacEdition/index.md
+  - index.md
+  - server/index.md
+  - client/index.md
+  - client/SpotifyClient97/index.md
+  - client/Spotify97MacEdition/index.md
 defaults:
   - scope:
       path: "" # an empty string here means all files in the project

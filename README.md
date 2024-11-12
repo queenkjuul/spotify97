@@ -16,7 +16,7 @@ A client-server system to control Spotify Connect devices from retro machines (W
 
 ![Screenshot of Spotify Client 97 running on Windows 98](./screenshot98.png)
 
-![Screenshot of Spotify Client 97 running on Windows XP](/screenshotXP.png)
+![Screenshot of Spotify Client 97 running on Windows XP](./screenshotXP.png)
 
 ![Screenshot of Spotify 97 Mac Edition running on OS X](./screenshotMac.png)
 
