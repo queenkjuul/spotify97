@@ -1,4 +1,4 @@
-import ipAddresses from "../util/ipAddress"
+import ipAddresses, { getIpText } from "../util/ipAddress"
 
 export default function loginRoutes(app, client) {
   // LOGIN ENDPOINTS - Accessed via browser, not via client
@@ -45,16 +45,7 @@ export default function loginRoutes(app, client) {
       try {
         await client.acquireToken(code.toString())
 
-        const text = `${
-          addresses
-            ? `Enter the server URL and port in your client. If you are unsure, it is probably:\n ${addresses.map(
-                (addr, i) =>
-                  `${i !== 0 ? " or " : ""}http://${addr}:${
-                    process.env.PORT
-                  } \n`
-              )}`
-            : ""
-        }`
+        const text = getIpText(addresses)
 
         if (addresses) {
           console.log()

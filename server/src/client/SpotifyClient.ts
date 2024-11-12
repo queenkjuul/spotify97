@@ -137,7 +137,7 @@ export default class SpotifyClient {
       fs.chmod("state.json", 0o600, (e) => {
         if (e) throw e
       })
-      console.log("The file has been saved!")
+      console.log("Login information has been saved.")
     })
   }
 
