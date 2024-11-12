@@ -35,6 +35,10 @@ jekyll-98:
       target: _self
       icon: sound
       alt: Spotify 97 for Mac OS 8.6 - 10.5
+    - title: Retro Compatible Downloads
+      url: http://retro.queenkjuul.xyz/spotify97/downloads
+      icon: links
+      alt: Spotify 97 Downloads hosted via plain HTTP
 
   social_links:
     github: queenkjuul/spotify97
