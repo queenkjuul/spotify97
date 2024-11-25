@@ -7,6 +7,8 @@ import { playbackRoutes } from "./routes/playback"
 import searchRoutes from "./routes/search"
 import statusRoutes from "./routes/status"
 import errorResponse from "./util/errorResponse"
+import ipAddresses, { getIpText } from "./util/ipAddress"
+import { version } from "./util/version"
 
 dotenv.config()
 
@@ -16,12 +18,15 @@ let savedState = {
   refreshToken: undefined,
 }
 
+console.log("Spotify(R) 97 Relay Server")
+console.log("Version " + version + " Initializing...")
+
 try {
   const stateFile = readFileSync("state.json")
   savedState = JSON.parse(stateFile.toString())
-  console.log("Loaded saved state from file")
+  console.log("Saved login found.")
 } catch (e) {
-  console.error("Error restoring state, will need to log in")
+  console.error("Not logged in. Please follow instructions to log in.")
 }
 
 const app: Express = express()
@@ -47,15 +52,21 @@ app.use((req, res, next) => {
 
 // hit it
 app.listen(port, () => {
-  console.log(`Spotify(R) Client 97 Relay Server listening on port ${port}`)
+  console.log(`Relay Server listening on port ${port}`)
   if (!client.readyForLogin) {
     console.log(
-      "Configuration error! Client ID or Redirect URI missing. Check .env or environment variables"
+      "Configuration error! Client ID or Redirect URI missing. Check .env file or set your environment variables"
     )
     process.exit()
   } else if (!client.readyForCalls) {
     console.log(
-      `Please log in: ${client.redirect.replace("redirect", "login")}`
+      `Please log in with this link: ${client.redirect.replace(
+        "redirect",
+        "login"
+      )}`
     )
+  } else {
+    console.log()
+    console.log(getIpText(ipAddresses()))
   }
 })
