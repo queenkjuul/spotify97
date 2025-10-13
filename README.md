@@ -63,7 +63,7 @@ Spotify(R) 97 consists of two components:
 
 The default for this app is:
 
-`http://localhost:3000/redirect`
+`http://127.0.0.1:3000/redirect`
 
 If you change the port in the `.env` file, map ports using Docker, or are running the server remotely (e.g. over SSH) then you will need to replace the address and port as necessary to match your settings.
 
